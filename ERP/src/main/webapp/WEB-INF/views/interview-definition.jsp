@@ -31,7 +31,7 @@
     <label for="course">Academic Year:</label>
     <form:select class="form-control" path="academicYear" >
                      <form:option value = "NONE" label = "Select"/>
-                     <form:options  items = "${courses}" />
+                     <form:options  items = "${academicYear}" />
       </form:select>
     </div>
   </div>

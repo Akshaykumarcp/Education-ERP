@@ -39,6 +39,18 @@ public class InterviewController {
 	}
 	
 	
+	@ModelAttribute("academicYear")
+	public List<String> initializeAcademicYear() {
+
+		List<String> academicyear = new ArrayList<String>();
+		academicyear.add("2015-2016");
+		academicyear.add("2016-2017");
+		academicyear.add("2017-2018");
+		academicyear.add("2018-2019");
+		academicyear.add("2019-2020");
+		return academicyear;
+	}
+	
 	@ModelAttribute("courses")
 	public List<String> initializeCountries() {
 
