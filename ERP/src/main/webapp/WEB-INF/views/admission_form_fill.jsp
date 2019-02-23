@@ -1,15 +1,13 @@
 <%@include file="header.jsp"%>
 
 <body>
-<div class="container">
+<div class="container-fluid">
 
 <form:form  method="POST" modelAttribute="candidateAdmission" action="/candidate-admission-form">
  <%-- <c:forEach var="getlist" items="${listme}"> --%>
  
- <h5>Reference ID :- ${listme.referenceid}</h5>
- 
 <div class="container">
-     
+     <h5>Reference ID :- ${listme.referenceid}</h5><br/>
        <div class="card">
           <div class="card-header">Personal Details</div>
           
@@ -30,51 +28,57 @@
           <div class="form-row">
     <div class="form-group col-md-4">
       <label for="inputname">Full Name</label>
-      <input type="text" class="form-control"  name="fullname" value="${listme.fullname}" id="fulname"  disabled/>
+      <input type="text" class="form-control"  name="fullname" style="width: 220px; align:center" value="${listme.fullname}" id="fulname"  disabled/>
     </div>
     <div class="form-group col-md-4">
       <label for="inputdob">DOB</label>
-      <form:input type="date" class="form-control" id="date" path="dob" placeholder="Enter DOB"/>
+      <form:input type="date" class="form-control" id="date" style="width: 220px" path="dob" placeholder=""/>
     </div>
     <div class="form-group col-md-4">
-    <div class="btn-group btn-group-toggle" data-toggle="buttons">
-  <label class="btn btn-secondary active">
-    <input type="radio" name="options" id="option1" autocomplete="off" checked/> Gender
+    <label for="inputdob">Gender</label><br>
+    <div class="form-check-inline">
+  <label class="form-check-label">
+    <input type="radio" class="form-check-input"  value="M" name="optradio">Male
   </label>
-  <label class="btn btn-secondary">
-    <form:radiobutton name="options" id="option2" path="gender" autocomplete="on"/> Male
+</div>
+<div class="form-check-inline">
+  <label class="form-check-label">
+    <input type="radio" class="form-check-input" value="F" name="optradio">Female
   </label>
-  <label class="btn btn-secondary">
-    <form:radiobutton path="gender" name="options2" id="option3" autocomplete="off"/> Female
+</div>
+<div class="form-check-inline">
+  <label class="form-check-label">
+    <input type="radio" class="form-check-input" value="T" name="optradio">Transgender
   </label>
 </div>
     </div>
   </div>
   
   <!-- Row Ended -->
+  
       <div class="form-row">
-    <div class="form-group col-md-4">
+    <div class="form-group col-md-4 col-md-offset-3">
       <label for="inputname">Email</label>
-      <input type="text" class="form-control"  value=" ${listme.mailid}"  id="mail" placeholder="Enter Mail ID" disabled/>
+      <input type="text" class="form-control"  value=" ${listme.mailid}" style="width: 220px" id="mail" placeholder="" disabled/>
     </div>
     <div class="form-group col-md-4">
       <label for="inputdob">Phone Number</label>
-      <input type="text" class="form-control" id="date"  value=" ${listme.phonenumber}"  placeholder="Enter Phone Number" disabled/>
+      <input type="text" class="form-control" id="date"  style="width: 220px" value=" ${listme.phonenumber}"  placeholder="" disabled/>
     </div>
     <div class="form-group col-md-4">
       <label for="inputdob">Nationality</label>
-      <form:input type="text" class="form-control" id="date" path="nationality" placeholder="Enter Nationality"/>
+      <form:input type="text" class="form-control" id="date" style="width: 220px" path="nationality" placeholder=""/>
     </div>
-  </div>
+    </div>
   
    <div class="form-row">
     <div class="form-group col-md-4">
       <label for="inputname">Caste</label>
-      <form:input type="text" class="form-control" id="fulname" path="caste" placeholder="Enter Caste"/>
+      <form:input type="text" class="form-control" id="fulname" style="width: 220px" path="caste" placeholder=""/>
     </div>
     <div class="form-group col-md-8">
       <label for="inputdob">Address</label>
-      <form:input type="text" class="form-control" id="date" path="address" placeholder="date"/>
+      <form:input type="text" class="form-control" id="date" path="address" placeholder=""/>
     </div>
   </div>
   
@@ -92,22 +96,22 @@
           <div class="form-row">
     <div class="form-group col-md-6">
       <label for="inputname">Parent / Gaurdian Name</label>
-      <form:input type="text" class="form-control" id="fulname" path="p_name" placeholder="fulname"/>
+      <form:input type="text" class="form-control" id="fulname" style="width: 220px" path="p_name" placeholder=""/>
     </div>
     <div class="form-group col-md-6">
       <label for="inputdob">Phone Number</label>
-      <form:input type="text" class="form-control" id="date" path="p_phonenumber" placeholder="date"/>
+      <form:input type="text" class="form-control" id="date" style="width: 220px" path="p_phonenumber" placeholder=""/>
     </div><br/>
   </div>
   
   <div class="form-row">
     <div class="form-group col-md-4">
       <label for="inputname">Mail ID</label>
-      <form:input type="text" class="form-control" id="fulname" path="p_mailid" placeholder="fulname"/>
+      <form:input type="text" class="form-control" id="fulname" style="width: 220px" path="p_mailid" placeholder=""/>
     </div>
     <div class="form-group col-md-8">
       <label for="inputdob">Address</label>
-      <form:input type="text" class="form-control" id="date" path="p_address" placeholder="date"/>
+      <form:input type="text" class="form-control" id="date" path="p_address" placeholder=""/>
     </div>
   </div>
           
@@ -125,45 +129,45 @@
          <div class="form-row">
     <div class="form-group col-md-4">
       <label for="inputname">SSLC Board</label>
-      <form:input type="text" class="form-control" id="fulname" path="sslc_board" placeholder="fulname"/>
+      <form:input type="text" class="form-control" id="fulname" style="width: 220px" path="sslc_board" placeholder=""/>
     </div>
     <div class="form-group col-md-4">
       <label for="inputdob">PUC Board</label>
-      <form:input type="text" class="form-control" id="date" path="puc_board" placeholder="date"/>
+      <form:input type="text" class="form-control" id="date" style="width: 220px" path="puc_board" placeholder=""/>
     </div>
     <div class="form-group col-md-4">
       <label for="inputdob">Graduation Board</label>
-      <form:input type="text" class="form-control" id="date" path="graduate_board" placeholder="date"/>
+      <form:input type="text" class="form-control" id="date" style="width: 220px" path="graduate_board" placeholder=""/>
     </div>
   </div>
   
   <div class="form-row">
     <div class="form-group col-md-4">
       <label for="inputname">YOP</label>
-      <form:input type="text" class="form-control" path="s_yop" id="fulname" placeholder="fulname"/>
+      <form:input type="text" class="form-control" path="s_yop" style="width: 220px" id="fulname" placeholder=""/>
     </div>
     <div class="form-group col-md-4">
       <label for="inputdob">YOP</label>
-      <form:input type="text" class="form-control" path="p_yop" id="date" placeholder="date"/>
+      <form:input type="text" class="form-control" path="p_yop" style="width: 220px" id="date" placeholder=""/>
     </div>
     <div class="form-group col-md-4">
       <label for="inputdob">YOP</label>
-      <form:input type="text" class="form-control" id="date" path="g_yop" placeholder="date"/>
+      <form:input type="text" class="form-control" id="date" style="width: 220px" path="g_yop" placeholder=""/>
     </div>
   </div>
   
   <div class="form-row">
     <div class="form-group col-md-4">
       <label for="inputname">%</label>
-      <form:input type="text" class="form-control" id="fulname" path="s_percentage" placeholder="fulname"/>
+      <form:input type="text" class="form-control" id="fulname"  style="width: 220px" path="s_percentage" placeholder=""/>
     </div>
     <div class="form-group col-md-4">
       <label for="inputdob">%</label>
-      <form:input type="text" class="form-control" id="date" path="p_percentage" placeholder="date"/>
+      <form:input type="text" class="form-control" id="date" style="width: 220px" path="p_percentage" placeholder=""/>
     </div>
     <div class="form-group col-md-4">
       <label for="inputdob">%</label>
-      <form:input type="text" class="form-control" path="g_percentage" id="date" placeholder="date"/>
+      <form:input type="text" class="form-control" style="width: 220px" path="g_percentage" id="date" placeholder=""/>
     </div>
   </div>
   
@@ -181,43 +185,30 @@
            <div class="form-row">
     <div class="form-group col-md-4">
       <label for="inputname">Course</label>
-      <form:select class="form-control" path = "course" value=" ${listme.course}">
-                     <form:option value = "NONE" label = "Select"/>
-                     <form:options items = "${courses}" />
+      <form:select class="form-control" style="width: 220px" path = "course">
+                     <form:option value=" ${listme.course}"/>
+                     
       </form:select>
     </div>
-    <div class="form-group col-md-8">
+    <div class="form-group col-md-4">
       <label for="inputdob">Course Type</label>
-      <div class="dropdown">
-  <form:button class="btn btn-secondary dropdown-toggle" path="course_type" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Dropdown button
-  </form:button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <a class="dropdown-item" href="#">Action</a>
-    <a class="dropdown-item" href="#">Another action</a>
-    <a class="dropdown-item" href="#">Something else here</a>
-  </div>
-</div>
+     <form:select style="width: 220px" path="course_type" name="caste" class="form-control" id="caste">
+  <form:option value = "NONE" label = "Select"/>
+  <form:options items = "${coursesType}" />
+  </form:select>
     </div>
-  </div>
-    
-<div class="form-row">
-    <div class="form-group col-md-12">
+
+    <div class="form-group col-md-4">
       <label for="inputname">First Language</label>
-      <div class="dropdown">
-  <form:button class="btn btn-secondary dropdown-toggle" path="first_language" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Select
-  </form:button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <a class="dropdown-item" href="#">Action</a>
-    <a class="dropdown-item" href="#">Another action</a>
-    <a class="dropdown-item" href="#">Something else here</a>
-  </div>
-</div>
+      <form:select style="width: 220px" path="first_language" name="caste" class="form-control" id="caste">
+  <form:option value = "NONE" label = "Select"/>
+  <form:options items = "${firstLanguage}" />
+  </form:select>
     </div>
     
-  </div>
+  
     
+  </div>
   </div>
   </div>
   
@@ -229,29 +220,30 @@
           <div class="card-header">Quota</div>
           
           <div class="form-row">
-    <div class="form-group col-md-4">
-      <label for="inputname">Caste</label>
-      <div class="dropdown">
-  <form:button path="quota_caste" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Select
-  </form:button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <a class="dropdown-item" href="#">Action</a>
-    <a class="dropdown-item" href="#">Another action</a>
-    <a class="dropdown-item" href="#">Something else here</a>
-  </div>
+    <div class="form-group col-md-4 ">
+      <!-- <label for="inputname">Caste</label> --><br>
+      
+      
+  <form:select style="width: 180px" path="quota_caste" name="caste" class="form-control" id="caste">
+  <form:option value = "NONE" label = "Select Caste"/>
+  <form:options items = "${caste}" />
+  </form:select>
 </div>
-    </div>
     <div class="form-group col-md-8">
-    <div class="btn-group btn-group-toggle" data-toggle="buttons">
-  <label class="btn btn-secondary active">
-    <input type="radio" name="options" id="option1" autocomplete="off" checked/> Select
+    <br>
+   <div class="form-check-inline">
+  <label class="form-check-label">
+    <input type="checkbox" class="form-check-input" value="">Sports
   </label>
-  <label class="btn btn-secondary">
-    <form:radiobutton name="options" path="quota_sports"  id="option2" autocomplete="off"/> Sports
+</div>
+<!-- <div class="form-check-inline">
+  <label class="form-check-label">
+    <input type="checkbox" class="form-check-input" value="">Option 2
   </label>
-  <label class="btn btn-secondary">
-    <form:radiobutton name="options" path="quota_speciallyenabled" id="option3" autocomplete="off"/> Specially Enabled
+</div> -->
+<div class="form-check-inline disabled">
+  <label class="form-check-label">
+    <input type="checkbox" class="form-check-input" value="">Specially Enabled
   </label>
 </div>
     </div>
@@ -268,7 +260,7 @@
        <div class="card">
           <div class="card-header">Entrance Exam Details</div>
           
-          <div class="form-group col-md-12">
+          <div class="form-group">
      			<table class="table">
   <thead>
     <tr>
@@ -281,15 +273,15 @@
   <tbody>
     <tr>
       <th scope="row">1</th>
-      <td><form:input type="text" path="entrance_exam" class="form-control" id="fulname" placeholder="fulname"/></td>
-      <td><form:input type="text" path="r_no" class="form-control" id="fulname" placeholder="fulname"/></td>
-      <td><form:input type="text" path="r_marks" class="form-control" id="fulname" placeholder="fulname"/></td>
+      <td><form:input type="text" path="entrance_exam" class="form-control" id="fulname" placeholder=""/></td>
+      <td><form:input type="text" path="r_no" class="form-control" id="fulname" placeholder=""/></td>
+      <td><form:input type="text" path="r_marks" class="form-control" id="fulname" placeholder=""/></td>
     </tr>
     <tr>
       <th scope="row">2</th>
-      <td><form:input type="text" path="entrance_exam2" class="form-control" id="fulname" placeholder="fulname"/></td>
-      <td><form:input type="text" path="r_no2" class="form-control" id="fulname" placeholder="fulname"/></td>
-      <td><form:input type="text" path="r_marks2" class="form-control" id="fulname" placeholder="fulname"/></td>
+      <td><form:input type="text" path="entrance_exam2" class="form-control" id="fulname" placeholder=""/></td>
+      <td><form:input type="text" path="r_no2" class="form-control" id="fulname" placeholder=""/></td>
+      <td><form:input type="text" path="r_marks2" class="form-control" id="fulname" placeholder=""/></td>
     </tr>
   </tbody>
 </table>
@@ -299,9 +291,9 @@
   
   
   <br/>
-  
+ <form:button type="submit" align="right" class="btn btn-outline-primary float-right" >Submit</form:button> 
  </div>
- <form:button type="submit" align="right" class="btn btn-outline-primary float-right" >Submit</form:button>
+ 
 <%-- </c:forEach> --%>
  </form:form>
  

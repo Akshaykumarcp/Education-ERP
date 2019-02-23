@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -38,32 +40,33 @@ public class MainController {
 	
 	@RequestMapping(value ="/",method = RequestMethod.GET)
 	public String newRegistration(ModelMap model) {
+		
 		//Registeration candi = new Registeration();
-		model.addAttribute("register", new Registeration());
-		//model.addAttribute("message", message);
+		model.addAttribute(new Registeration());
+		model.addAttribute("loginCandi", new Registeration());
 		return "/index";
 	}
 	
 	@Autowired
 	RestTemplate restTemplate;
 	
-	
-	  @RequestMapping(value ="/registeration",method = RequestMethod.GET)
-	 //@GetMapping("/registration") 
-	  public String setModelAttributeRegister(ModelMap model,@RequestParam("phonenumber") String id) 
-	  { model.addAttribute("register",	  new Registeration());
-	  return "mobilenumbers/{id}/otp";
-	  }
+	/*
+	 * @RequestMapping( value ="/registeration",method = RequestMethod.GET)
+	 * //@GetMapping("/registration") public String
+	 * setModelAttributeRegister(ModelMap model,@RequestParam("phonenumber") String
+	 * id) { model.addAttribute("register",new Registeration());
+	 * model.addAttribute(new Registeration()); return "mobilenumbers/{id}/otp"; }
+	 */
 	 
 	
 	@RequestMapping(value ="/registeration",method = RequestMethod.POST)
-	public String saveRegistration(@Validated @ModelAttribute("register")  Registeration re,
-			BindingResult result, ModelMap model,@RequestParam(name="g-recaptcha-response") String captchaResponse,HttpServletResponse response) throws IOException {
+	public String saveRegistration(@Valid @ModelAttribute("registeration")  Registeration registeration,
+			BindingResult result, ModelMap model,@RequestParam(name="g-recaptcha-response") String captchaResponse) throws IOException {
 
 
 		if(result.hasErrors())
 		{
-			return "dammy";
+			return "redirect:/";
 		}
 		
 		//Registeration list=regserv.getStudentByRef(reff);
@@ -75,34 +78,13 @@ public class MainController {
 		ReCaptchaResponse reCaptchaResponse = restTemplate.exchange(url+params,HttpMethod.POST,null,ReCaptchaResponse.class).getBody();
 		if(reCaptchaResponse.isSuccess())
 		{
-			response.getWriter().println("<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>");
-			response.getWriter().println("<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>");
-			response.getWriter().println("<script>");
-			response.getWriter().println("$(document).ready(function(){");
-			response.getWriter().println("swal('Good job!', 'You clicked the button!', 'success');");
-			response.getWriter().println("});");
-			response.getWriter().println("</script>");
-			
-			
-			/*
-			 * <!-- Page Content -->
-			 */
-			/*
-			 * out.
-			 * println("<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>"
-			 * ); out.
-			 * println("<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>"
-			 * ); out.println("<script>"); out.println("$(document).ready(function(){");
-			 * out.println("swal('Good job!', 'You clicked the button!', 'success');");
-			 * out.println("});"); out.println("</script>");
-			 */
-			regserv.save(re);	
+					regserv.save(registeration);	
 			//regserv.sendRef(id);
-			regserv.sendReferrenceId(re.getPhonenumber(),re.getReferenceid());
+			regserv.sendReferrenceId(registeration.getPhonenumber(),registeration.getReferenceid());
 			return "display_candidate";
 			
 		}
-		return "dammy";
+		return "redirect:/";
 		}
 		
 	@GetMapping("/Login_candidate")  
@@ -171,6 +153,35 @@ public class MainController {
 			return course;
 		}
 		
+		@ModelAttribute("coursesType")
+		public List<String> initializecoursesType() {
+			List<String> coursesType = new ArrayList<String>();
+			coursesType.add("Fulltime");
+			coursesType.add("Correspondance");
+			coursesType.add("Evening");
+			return coursesType;
+		}
+		
+		@ModelAttribute("firstLanguage")
+		public List<String> initializefirstLanguage() {
+			List<String> firstLanguage = new ArrayList<String>();
+			firstLanguage.add("English");
+			firstLanguage.add("Sanskrit");
+			firstLanguage.add("Hindi");
+			firstLanguage.add("French");
+			return firstLanguage;
+		}
+		
+		@ModelAttribute("caste")
+		public List<String> initializeCaste() {
+			List<String> caste = new ArrayList<String>();
+			caste.add("SC/ST");
+			caste.add("OBC");
+			caste.add("GM");
+			return caste;
+		}
+		
+		
 	/*
 	 * @RequestMapping(value="/sendOTP",method = RequestMethod.POST) public
 	 * ModelAndView otp(@ModelAttribute("editregister") Registeration re){
@@ -231,7 +242,7 @@ public class MainController {
 			Registeration list3= regserv.getCandidatesByreferenceID(id);
 	// model.addAttribute("referenceid",new Registeration());
 	// model.addAttribute("candidate_refid", new Registeration());
-	 model.addAttribute("register", new Registeration());
+	// model.addAttribute("register", new Registeration());
 	//model.addAttribute("phonenumber",list3.getPhonenumber());
 	model.addAttribute("candidateAdmission", new Registeration());
 	//System.out.println(list3.getPhonenumber());

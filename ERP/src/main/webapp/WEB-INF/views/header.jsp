@@ -1,44 +1,36 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page isELIgnored="false" %>
 
 
-<html>
-<head>
-<!-- <link href="static/css/bootstrap.min.css" rel="Stylesheet"></link>
-<script src="static/js/bootstrap.min.js"></script>
- -->
- 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
   <script src='https://www.google.com/recaptcha/api.js'></script>
-  
-  
    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
 			<script>
 			$(document).ready(function(){
-				//alert("header page");
+				("header page");
 				 $("#allstudents").click(function(){
 					alert("Hi");
 			swal("Good job!", "You clicked the button!", "success");
 			}); 
 			});
 		</script>
-</head>
+
 <body>
 <!-- Navigation Bar -->
 
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
   <!-- Brand/logo -->
-  <a class="navbar-brand" href="index.jsp">Credessol College Management</a>
+  <a class="navbar-brand" href="/">Credessol College Management</a>
   
   <!-- Links -->
   <ul class="navbar-nav">
     <li class="nav-item">
-      <a class="nav-link" data-toggle="modal" data-target="#myModal">Online Admission</a>
+    <!-- data-target="#myModal" -->
+      <a class="nav-link" data-toggle="modal" >Online Admission</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="#">Attendance</a>
@@ -48,6 +40,9 @@
     </li>
     <li class="nav-item">
       <a class="nav-link" href="#">Fee Structure</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/home">Admin Login</a>
     </li>
   </ul>
 </nav>
@@ -66,7 +61,7 @@
 <!-- Modal -->
 
  <!-- The Modal -->
-  <div class="modal fade" id="myModal">
+  <%-- <div class="modal fade" id="myModal">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
       
@@ -153,4 +148,4 @@
         
       </div>
     </div>
-  </div>
+  </div> --%>

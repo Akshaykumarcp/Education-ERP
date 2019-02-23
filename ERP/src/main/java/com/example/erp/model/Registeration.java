@@ -1,11 +1,13 @@
 package com.example.erp.model;
 
-import java.io.Serializable; 
+import java.io.Serializable;   
 import javax.persistence.Id;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+ 
 
 public class Registeration implements Serializable{
 
@@ -17,26 +19,31 @@ public class Registeration implements Serializable{
 	@Id
 	private int id;
 	
+	
 	private int referenceid;
 	
 	public int getReferenceid() {
 		return referenceid;
 	}
+	
 	public void setReferenceid(int referenceid) {
 		this.referenceid = referenceid;
 	}
-	@NotNull
-	@Size(min=3, max=30)
+	
+	@NotEmpty(message="Not valid")
+	@Size(min=1, message="Enter value")
 	private String fullname;
 	
-	@NotNull
+	@javax.validation.constraints.NotEmpty(message="Not valid")
 	private String phonenumber;
 	
+	
 	@Email
-	@NotNull
+	@NotEmpty(message="Not valid")
+	@Size(min=4, max=30)
 	private String mailid;
 	
-	@NotNull
+	@NotEmpty
 	private String course;
 	
 	private String dob;
