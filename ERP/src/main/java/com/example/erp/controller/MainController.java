@@ -39,10 +39,10 @@ public class MainController {
 	private RegisterationService regserv;
 	
 	@RequestMapping(value ="/",method = RequestMethod.GET)
-	public String newRegistration(ModelMap model) {
+	public String newRegistration(Model model) {
 		
 		//Registeration candi = new Registeration();
-		model.addAttribute(new Registeration());
+		model.addAttribute("registeration",new Registeration());
 		model.addAttribute("loginCandi", new Registeration());
 		return "/index";
 	}
@@ -60,7 +60,7 @@ public class MainController {
 	 
 	
 	@RequestMapping(value ="/registeration",method = RequestMethod.POST)
-	public String saveRegistration(@Valid @ModelAttribute("registeration")  Registeration registeration,
+	public String saveRegistration(@Validated Registeration registeration,
 			BindingResult result, ModelMap model,@RequestParam(name="g-recaptcha-response") String captchaResponse) throws IOException {
 
 

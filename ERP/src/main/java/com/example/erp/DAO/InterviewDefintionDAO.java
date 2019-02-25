@@ -60,17 +60,19 @@ public class InterviewDefintionDAO implements IinterviewDefinitionDAO{
 		    });  		
 	}
 
-	public Courses getProgramByID(int id) {
+	public List<Courses> getProgramByID(int id) {
 		// TODO Auto-generated method stub
-		return template.query("select course from courses where p_id="+id,new ResultSetExtractor<Courses>(){
+		return template.query("select course from courses where p_id="+id,new ResultSetExtractor<List<Courses>>(){
 		    
-		     public Courses extractData(ResultSet rs) throws SQLException,  
+		     public List<Courses> extractData(ResultSet rs) throws SQLException,  
 		            DataAccessException {  
 		      
 		    	 //List<Registeration> list=new ArrayList<Registeration>();   
-		    	 Courses e=new Courses();
+		    	
+		    	 List<Courses> list=new ArrayList<Courses>(); 
+		    	 
 		        while(rs.next()){  
-		        	
+		        	Courses e=new Courses();
 		        	//e.setId(rs.getInt(1));  
 		        	//e.setReferenceid(rs.getInt(2));  
 			       // e.setFullname(rs.getString(3));  
@@ -78,12 +80,84 @@ public class InterviewDefintionDAO implements IinterviewDefinitionDAO{
 			        
 			        //e.setMailid(rs.getString(5));
 			        //e.setCourse(rs.getString(6));  
-			       // list.add(e);
+			        list.add(e);
 		        }  
 		        //System.out.println("phonenumber"+e.toString());
+		        System.out.println(list.toString().length());
+		        return list;  
+		        }  
+		    });  
+		
+	}
+
+	public List<InterviewDefinition> getAllInterviewDefintions() {
+		// TODO Auto-generated method stub
+
+		return template.query("select * from InterviewDefinition",new ResultSetExtractor<List<InterviewDefinition>>(){  
+		    
+		     public List<InterviewDefinition> extractData(ResultSet rs) throws SQLException,  
+		            DataAccessException {  
+		      
+		        List<InterviewDefinition> list=new ArrayList<InterviewDefinition>();  
+		        while(rs.next()){  
+		        	InterviewDefinition e=new InterviewDefinition();  
+				 e.setId(rs.getInt(1));  
+		        e.setProgramType(rs.getString(2));
+		        e.setCourse(rs.getString(3));  
+		        e.setAcademicYear(rs.getString(4));
+		        e.setInterviewType(rs.getString(5));
+		        e.setInCharge(rs.getString(6));
+					/*
+					 * e.setInCharge(rs.getString(6)); e.setInCharge(rs.getString(7));
+					 * e.setInCharge(rs.getString(8));
+					 */
+		        
+		       		    
+		        list.add(e);  
+		        }  
+		        return list;  
+		        }
+		    });  	
+	}
+
+	public void delete(int id) {
+		// TODO Auto-generated method stub
+		String sql="delete from interviewdefinition where id="+id+"";  
+	    template.update(sql); 
+		
+	}
+
+	public InterviewDefinition getInterviewDefinitionById(int id) {
+		return template.query("select * from InterviewDefinition where id="+id,new ResultSetExtractor<InterviewDefinition>(){  
+		    
+		     public InterviewDefinition extractData(ResultSet rs) throws SQLException,  
+		            DataAccessException {  
+		      
+		    	 InterviewDefinition e=new InterviewDefinition();  
+		        while(rs.next()){  
+		       
+		        	e.setId(rs.getInt(1));  
+			        e.setProgramType(rs.getString(2));
+			        e.setCourse(rs.getString(3));  
+			        e.setAcademicYear(rs.getString(4));
+			        e.setInterviewType(rs.getString(5));
+			        e.setInCharge(rs.getString(6));    
+		        }  
 		        return e;  
 		        }  
 		    });  
+		
+	}
+
+
+	public void updateInterviewDefinition(InterviewDefinition inte) {
+		// TODO Auto-generated method stub
+		
+		String sql="update InterviewDefinition set programType='"+inte.getProgramType()+"',course='"+inte.getCourse()+"',academicyear='"+inte.getAcademicYear()+"',interviewtype='"+inte.getInterviewType()+"',incharge='"+inte.getInCharge()+"' where id="+inte.getId()+"";
+		System.out.println(inte.getId());
+		System.out.println(inte.getCourse());
+		System.out.println(sql);
+	   template.update(sql); 
 		
 	}
 

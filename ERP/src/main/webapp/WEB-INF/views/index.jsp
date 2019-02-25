@@ -98,7 +98,7 @@ $("#sel1").val("course");
            int refid = (int)(Math.random()*9000)+1000;
           	%>
           	
-          	<%-- <form:errors cssClass="error"/> --%>
+          	 <form:errors cssClass="error"/> 
           	<div class="form-group">
       <!-- <label for="name">Enter Full Name:</label> -->
       <form:input type="hidden" class="form-control"  path="referenceid" id="ref" value="<%= refid %>" name="referenceid"/>
@@ -110,7 +110,7 @@ $("#sel1").val("course");
     <!-- <label for="email">Name:</label> -->
    <form:input type="text" class="form-control" path="fullname" name="fullname" onkeypress="return isCharKey(event)" placeholder="Enter Name" id="name"/>
    <!-- <p id="err" class="text-danger">please enter the name before submit and should be more than 3 characters</p> -->
-   <form:errors path="fullname"/>
+   <form:errors path="fullname" cssClass="error"/>
 </div>
   
   <div class="form-group">
@@ -141,6 +141,7 @@ $("#sel1").val("course");
 <div class="g-recaptcha" name="g-recaptcha-response" data-sitekey="6LeJ9Y4UAAAAAJBgdraRwMJCLu0FNYGrEyRtdUJh"></div>
 <br>
   <button type="submit" id="registerButton" onclick="validation();" class="btn btn-primary">Submit</button>
+  <button type="reset" class="btn btn-primary">Reset</button>
 </form:form>
     </div>
     
@@ -158,26 +159,15 @@ $("#sel1").val("course");
   
   <br>
   <button type="submit" class="btn btn-primary">Submit</button>
+  <button type="reset" class="btn btn-primary">Reset</button>
 </form:form>
    
   </div>
-
-
 
     </div>
   </div>
   </div>
 </div>
-
-<div id="popup1" class="overlay">
-		<div class="popup">
-			<h2 style="color: orange;">Login Error</h2>
-			<a class="close" href="#" onclick="funchange(4)">&times;</a>
-			<div class="content">
-				Your USERNAME or PASSWORD/OTP is incorrect please Enter valid user credentials...!
-			</div>
-		</div>
-	</div>
 
 </body>
 <!--  Footer

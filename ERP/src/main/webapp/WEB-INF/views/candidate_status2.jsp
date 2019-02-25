@@ -48,28 +48,28 @@
   </div>
   
   <div class="row">
-    <div class="col" style="background-color:lavender;">Reference ID</div>
-    <div class="col" style="background-color:orange;"><input type="text" class="form-control" value="${listValue.getReferenceid()}" disabled></div>
+    <div class="col text-center">Reference ID</div>
+    <div class="col"><input type="text" class="form-control" value="${listValue.getReferenceid()}" disabled></div>
   </div>
   
   <div class="row">
-    <div class="col" style="background-color:lavender;">Full Name</div>
-    <div class="col" style="background-color:orange;"><input type="text" class="form-control" value="${listValue.getFullname()}"></div>
+    <div class="col text-center" >Full Name</div>
+    <div class="col"><input type="text" class="form-control" value="${listValue.getFullname()}" disabled></div>
   </div>
   
   <div class="row">
-    <div class="col" style="background-color:lavender;">Phone number</div>
-    <div class="col" style="background-color:orange;"><input type="text" class="form-control" value="${listValue.getPhonenumber()}"></div>
+    <div class="col text-center">Phone number</div>
+    <div class="col" ><input type="text" class="form-control" value="${listValue.getPhonenumber()}" disabled></div>
   </div>
   
   <div class="row">
-    <div class="col" style="background-color:lavender;">Mail ID</div>
-    <div class="col" style="background-color:orange;"><input type="text" class="form-control" value="${listValue.getMailid()}"></div>
+    <div class="col text-center" >Mail ID</div>
+    <div class="col" ><input type="text" class="form-control" value="${listValue.getMailid()}" disabled></div>
   </div>
   
   <div class="row">
-    <div class="col" style="background-color:lavender;">Status</div>
-    <div class="col" style="background-color:orange;"><input type="text" class="form-control" value="${listValue.getReferenceid()}"></div>
+    <div class="col text-center">Status</div>
+    <div class="col" ><input type="text" class="form-control" value="${listValue.getReferenceid()}" disabled></div>
   </div>
   </div>
   </c:forEach>

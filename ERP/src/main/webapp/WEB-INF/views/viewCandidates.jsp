@@ -36,7 +36,7 @@
    					<td>${registered.mailid}</td> 
    						<td>${registered.course}</td>   
    						<td><a href="/editCandidate/${registered.id}">Edit</a></td>  
-  						<td><a href="/deletecandidate/${registered.id}"><span class="glyphicon glyphicon-trash">delete</span></a></td>
+  						<td><a href="/deletecandidate/${registered.id}"><span class="fa fa">Delete</span></a></td>
    						
    </tr>  
    </c:forEach> 

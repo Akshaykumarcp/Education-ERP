@@ -31,7 +31,7 @@ public class Registeration implements Serializable{
 	}
 	
 	@NotEmpty(message="Not valid")
-	@Size(min=1, message="Enter value")
+	@Size(min=3, message="Enter value")
 	private String fullname;
 	
 	@javax.validation.constraints.NotEmpty(message="Not valid")
