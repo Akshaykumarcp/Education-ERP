@@ -4,114 +4,81 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
-$(document).ready(function(){
-	//alert("ga");
-	$("#programtype").on('change',function(){
-		/* var a = $('mytag').val();
-		alert(a); */
-		var countryid = $('#programtype option:selected').attr("mytag");
-		alert(countryid);
-		$('#setMyTag').val(myTag); */
-/* var countryid =  val(mytag);
-alert(countryid); */
- $.ajax({
-	 type:'GET', 
-	 /* 
-	url:'loadCourse', */
-	/* data: countryid,
-		 */
-	url: '/loadCourse/'+countryid,
-	       /*  data: { 'id' : countryid}, */
-	      // ContentType: 'application/json',
-	success:function(result)
-	{
-
-		/* var sav= result;
-		alert(result); */
-		
-		//var sav= result;
-		//alert(result);
-		 var result = JSON.parse(result);
-		 alert(result);
-		 //var obj = sav;
-		  //var obj = jQuery.parseJSON(sav); 
-		 //alert(obj.getId());
-		 //alert(obj.name === "course" );
-		 var s="";
-		console.log(5 + 6);
-		for(var i=0;i<result.length;i++)
-			{
-			console.log("hello");
-				s+='<option>'+result[i].course+'</option>';
-				console.log(s);		
-			} 
-
-		/*  var output = [];
-
-		$.each(sav, function(key, value)
-		{
-		  output.push('<option value="'+ key +'">'+ value +'</option>');
-		});
-
-		$('#allcoursess').html(output.join('')); */
-/* 
-		$.each(JSON.parse(sav), function(key, value) {
-			alert(key+" "+value);
-		     $('#allcoursess')
-		          .append($('<option>', { value : key })
-		          .text(value));
-		}); */
-
-				 
-		   $("#allcoursess").html(s); 
-		  console.log(5 + 6);
-		}  
-}); 
-			}); 
- 
-
-	/* var txt = '{"course":"bca", "course":"bsc", "course":"bbm"}'
-		var txt = JSON.parse(txt);
-	alert(txt.length);
-	//document.getElementById("demo").innerHTML = obj.name + ", " + obj.age;
-	for(var i=0;i <obj.length;i++){
-		alert("ff");
-	document.getElementById("demo").innerHTML = obj[i];
+$(document).ready(function()
+{
 	
-	console.log(obj.course[i]);
-	} */
+	$("#programtype").on('change',function()
+	{		
+		var countryid = $('#programtype option:selected').attr("mytag");
+		/* alert(countryid); */
+		
+ 		$.ajax({ 		 
+			url: '/loadCourse/'+countryid,
+			type:'GET', 
+			success:function(result)
+				{		
+		 			var result = JSON.parse(result);
+		 			/* alert(result); */	
+		 			var s="";
+					console.log(5 + 6);
+					for(var i=0;i<result.length;i++)
+						{
+							console.log("hello");
+							s+='<option>'+result[i].course+'</option>';
+							console.log(s);		
+						} 		 
+		   			$("#allcoursess").html(s); 
+		  			console.log(5 + 6);
+				}  
+				});
+		}); 
 
 	$("#filterStudents").click(function(){
-alert("testing");
+		alert("All students");
+		$.ajax({
+		url : 'filterStudents',
+		success : function(data)
+		{
+		$("#displayMee").html(data);
+			}
 
-var programType = $('#programtype option:selected').val();
-var course = $('#allcoursess option:selected').val();
-var entranceExam = $('#exam').val();
-var caste = $('#exam option:selected').val();
+			}); 
+		});
+	 
+ /* 
+	 $("#filterStudents").click(function(){
+			alert("testing");
+				var programType = $('#programtype option:selected').val();
+				var course = $('#allcoursess option:selected').val();
+				var entranceExam = $('#exam').val();
+				var caste = $('#caste option:selected').val();
 
-alert(programType);
-alert(course);
-alert(entranceExam);
-alert(caste);
+				alert(programType+""+course+""+entranceExam+""+caste);
 
-$.ajax({
-type:'GET', 
-url: '/loadCourse/'+countryid,
-   
-success:function(result)
-{
- var result = JSON.parse(result);
- alert(result);
-		 
-   $("#allcoursess").html(s); 
-  console.log(5 + 6);
-}  
-}); 
-	}); 
-	});
-
-	
+				$.ajax
+				({
+					type : 'GET',
+					url : '/loadStudents/'+course+'/'+entranceExam+'/'+caste,
+					success : function(result) 
+					{
+						alert(result);
+						var result = JSON.parse(result);
+						//int i=1;
+						alert(result);
+						var s="";
+						for(var i=0;i<result.length;i++)
+						{
+							console.log("For loop entry");
+							s+='<tr><td>'+result[i].id+'</td><td>'+result[i].name+'</td><td>'+result[i].course+'</td><td>'+result[i].entrance_exam+'</td><td>'+result[i].r_no+'</td><td>'+result[i].r_marks+'</td></tr>';
+							console.log("or loop exit");
+						}
+						$("#filterstudents").html(s);
+						console.log(5 + 6);
+					}
+				});
+			}); */
 });
+
 </script>
 </head>
 
@@ -119,7 +86,7 @@ success:function(result)
 
  <div class="container">
  
- <form:form  method="GET" action="">
+ <form  method="GET" action="/filterStudents">
  
  
   <div class="card">
@@ -144,7 +111,7 @@ success:function(result)
     </div>
     <div class="form-group col-md-4">
       <label for="course">Course:</label>
-       <select class="form-control" style="width: 220px;" id="allcoursess" >
+       <select class="form-control" style="width: 220px;" name="course" id="allcoursess" >
       </select>
       <%-- <form:option value = "NONE" label = "Select"/>
                      <form:options  items = "${courses}" />
@@ -169,12 +136,12 @@ success:function(result)
   <div class="form-row">
     <div class="form-group col-md-4">
     <label for="course">Entrance Exam Marks Cut Off:</label>
-   <input type="text" class="form-control" id="exam" style="width: 220px;"/>
+   <input type="text" class="form-control" name="marks" id="exam" style="width: 220px;"/>
     </div>
     <div class="form-group col-md-4">
       <label for="course">Caste:</label>
-      <select class="form-control" id="caste" style="width: 220px;">
-                      <option value = "-1">SELECT</option>
+      <select class="form-control" id="caste" name="cast" style="width: 220px;">
+                      <option value = "">SELECT</option>
                      <option value="SC">SC</option>
                      <option value="ST">ST</option>
   					<option value="OBC">OBC</option>
@@ -221,7 +188,7 @@ success:function(result)
   
     <div class="form-row">
     <div class="form-group col-md-6">
-    <button type="submit" id="filterStudents" class="btn btn-outline-primary float-right" >Submit</button>
+    <button type="submit" id="filterStudentsss" class="btn btn-outline-primary float-right" >Submit</button>
   
     </div>
     <div class="form-group col-md-6">
@@ -233,8 +200,12 @@ success:function(result)
   
   </div>
   
-  </form:form>
+  </form>
+  <button id="filterStudents" class="btn btn-outline-primary" >submit</button>
   </div>
+  
+  <span id="displayMee"> </span>
+  
   <%-- 
   <!-- TABLE FOR DISPLAYING INTERVIEW DEFINITION -->
   <br/>
@@ -273,41 +244,98 @@ success:function(result)
  --%>
  
  <!-- TABLE FOR DISPLAYING Students according to criteria-->
+ <!--  <br/>
   <br/>
-  <br/>
-  <br/>
-  <div class=container>
-		<div class=table-responsive>
-			<table  class="table table-hover">
-				<thead><tr><th>Sl No</th><th>Student Name</th><th>Course</th><th>Entrance Exam</th>
+  <br/> -->
+ 
+		<!-- <div class=table-responsive>
+			<table  class="table table-hover" id="filterstudents">
+				<tr><th>Sl No</th><th>Student Name</th><th>Course</th><th>Entrance Exam</th>
 					<th>Register Number</th><th>Marks</th><th>Caste</th>
-					<th>Select</th><th>Delete</th></tr> </thead>
-				<tbody>
-				<c:set var="count" value="0" scope="page" />
-   					<c:forEach var="intDef" items="${list}"> 
+					<th>Select</th><th>Delete</th></tr> -->
+				
+				<%-- <c:set var="count" value="0" scope="page" />
+   					<c:forEach var="stud" items="${list}"> 
    					
    					<tr>  
    					<% int i=1; %>
    					
    					<td><%= i++ %></td>  
-   					<td>${intDef.programType}</td> 
-   					<td>${intDef.course}</td> 
-   					<td>${intDef.academicYear}</td>  
-   					<td>${intDef.interviewType}</td> 
-   					<td>${intDef.inCharge}</td>  
-   					<td>${intDef.inCharge}</td>  
-   						<td><a href="/editInterviewDefinition/${intDef.id}"><div class="form-check-inline">
-  <label class="form-check-label">
+   					<td>${stud.name}</td> 
+   					<td>${stud.course}</td> 
+   					<td>${stud.r_exam}</td>  
+   					<td>${stud.r_no}</td> 
+   					<td>${stud.r_marks}</td>  
+   					<td>${stud.caste}</td>  
+   					 <td><a href="/editInterviewDefinition/${stud.id}">
     <input type="checkbox" class="form-check-input" value="">
-  </label>
-</div></td>  
-  						<td><a href="/deleteInterviewDefinition/${intDef.id}"><span class="fa fa-trash-o"></span></a></td>
+  
+</td>  
+  						<td><a href="/deleteInterviewDefinition/${stud.id}"><span class="fa fa-trash-o"></span></a></td>
    						
    </tr>  
-   </c:forEach> 
-   </tbody>
-   </table>  
-   </div>
-   </div>
+   </c:forEach>  --%>
+   
+ <!--   </table>  
+   </div> -->
+    
 
 </body>
+
+
+
+<!-- 
+ var sav= result;
+	alert(result); 
+	
+	//var sav= result;
+	//alert(result);
+ 
+ //var obj = sav;
+  //var obj = jQuery.parseJSON(sav); 
+ //alert(obj.getId());
+ //alert(obj.name === "course" );
+ 
+ 
+ 
+ var output = [];
+
+$.each(sav, function(key, value)
+{
+  output.push('<option value="'+ key +'">'+ value +'</option>');
+});
+
+$('#allcoursess').html(output.join('')); */
+ 
+$.each(JSON.parse(sav), function(key, value) {
+	alert(key+" "+value);
+     $('#allcoursess')
+          .append($('<option>', { value : key })
+          .text(value));
+}); 
+ 
+	 var txt = '{"course":"bca", "course":"bsc", "course":"bbm"}'
+		var txt = JSON.parse(txt);
+	alert(txt.length);
+	//document.getElementById("demo").innerHTML = obj.name + ", " + obj.age;
+	for(var i=0;i <obj.length;i++){
+		alert("ff");
+	document.getElementById("demo").innerHTML = obj[i];
+	
+	console.log(obj.course[i]);
+	}  -->
+	
+	 <!-- var a = $('mytag').val();
+		alert(a); 
+
+		//$('#setMyTag').val(myTag);
+		 var countryid =  val(mytag);
+		alert(countryid);  -->
+	
+	 
+	<!-- url:'loadCourse', 
+	 data: countryid,
+		 
+
+		    data: { 'id' : countryid}, */
+	      ContentType: 'application/json', -->

@@ -1,12 +1,16 @@
 package com.example.erp.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.example.erp.model.Courses;
 import com.example.erp.model.InterviewDefinition;
 import com.example.erp.model.ProgramType;
+import com.example.erp.model.ReCaptchaResponse;
 import com.example.erp.model.Registeration;
 import com.example.erp.service.InterviewDefinitionService;
 import com.google.gson.Gson;
@@ -43,9 +48,6 @@ public class InterviewController {
 		/* return "/interview-definition"; */
 	}
 
-	/* @ModelAttribute("register") */
-
-	/* @GetMapping("/loadCourse/{counid}") */
 	@RequestMapping(value = "loadCourse/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public String loadCourse(@PathVariable int id, ModelMap model) {
@@ -60,8 +62,32 @@ public class InterviewController {
 		// model.addAttribute("course", gs);
 		/* gs.toJson(intser.getProgramById(id)) */
 		return gs.toJson(intser.getProgramById(id));
-
 	}
+	
+	/* '/loadStudents/'+programType+'/'+course+'/'+entranceExam+'/'+caste */
+	
+	@RequestMapping(value = "loadStudents/{cour}/{entraExam}/{caste}", method = RequestMethod.GET)
+	@ResponseBody
+	public String loadStudents(@PathVariable String cour,@PathVariable String entraExam,@PathVariable String caste) {
+
+		// Courses idd = intser.getProgramById(id);
+		System.out.println(cour+""+entraExam+""+caste);
+		//Gson gs = new Gson();
+		/* gs.toJson(intser.getProgramById(id)); *
+		// model.put("co", idd);
+		// System.out.println("Get Program By ID object=="+gs.toString());
+		// model.addAttribute("course", gs);
+		/* gs.toJson(intser.getProgramById(id)) */
+		Gson gs = new Gson();
+		/*
+		 * List<Registeration> filteredStudents =
+		 * intser.getStudentsByFilter(cour,entraExam,caste);
+		 */
+		/* System.out.println(filteredStudents.toString()); */
+		/* return filteredStudents; */
+		return  gs.toJson(intser.getStudentsByFilter(cour,entraExam,caste));
+	}
+
 
 	@PostMapping("/interview-definition")
 	public String interviewDef(InterviewDefinition in) {
@@ -133,6 +159,14 @@ public class InterviewController {
 	    	intser.updateInterviewDefinition(re);  
 	        return new ModelAndView("redirect:/interview-definition");  
 	    }
+	  
+
+		@RequestMapping(value ="/filterStudents",method = RequestMethod.GET)
+		public ModelAndView getFilterStudents(@RequestParam(name="course") String co,@RequestParam(name="marks") String marks,@RequestParam(name="cast") String cast) throws IOException {
+			System.out.println(co+""+marks+""+cast);
+			List<Registeration> list=intser.getStudentsByFilter(co,marks,cast);
+	        return new ModelAndView("admissionFilteredStudents","list",list);
+			}
 	 
 
 }

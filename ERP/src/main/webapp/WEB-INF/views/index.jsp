@@ -4,9 +4,14 @@
 <link rel="stylesheet" href="popupstyle.css">
 <style>
 body  {
-  background-image: url(https://images.unsplash.com/photo-1472289065668-ce650ac443d2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80.jpg);
+/* https://images.unsplash.com/photo-1457369804613-52c61a468e7d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80.jpg */
+  background-image: url(https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80.jpg);
   background-size: cover;
 }
+
+.error { 
+		color: red; font-weight: bold; 
+	}
 </style>
   <script>
   $(document).ready(function(){
@@ -131,12 +136,12 @@ $("#sel1").val("course");
   </form:select>
 </div>
 
-<div class="form-group">
-  <!-- <label for="sel1">Select list:</label> -->
+<!-- <div class="form-group">
+  <label for="sel1">Select list:</label>
   <select style="width: 180px" class="form-control" id="sel1">
       <option>4</option>
   </select>
-</div>
+</div> -->
 
 <div class="g-recaptcha" name="g-recaptcha-response" data-sitekey="6LeJ9Y4UAAAAAJBgdraRwMJCLu0FNYGrEyRtdUJh"></div>
 <br>

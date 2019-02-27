@@ -60,7 +60,7 @@ public class MainController {
 	 
 	
 	@RequestMapping(value ="/registeration",method = RequestMethod.POST)
-	public String saveRegistration(@Validated Registeration registeration,
+	public String saveRegistration(@Valid @ModelAttribute("registeration") Registeration registeration,
 			BindingResult result, ModelMap model,@RequestParam(name="g-recaptcha-response") String captchaResponse) throws IOException {
 
 
