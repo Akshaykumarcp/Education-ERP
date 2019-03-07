@@ -1,13 +1,11 @@
 package com.example.erp.model;
 
-import java.io.Serializable;   
-import javax.persistence.Id;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import java.io.Serializable;     
 
- 
+import javax.persistence.Id;
+/*import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;*/
 
 public class Registeration implements Serializable{
 
@@ -20,30 +18,43 @@ public class Registeration implements Serializable{
 	private int id;
 	
 	
-	private int referenceid;
+	private String referenceid;
 	
-	public int getReferenceid() {
+	private int otp;
+	
+	public int getOtp() {
+		return otp;
+	}
+	public void setOtp(int otp) {
+		this.otp = otp;
+	}
+	public String getReferenceid() {
 		return referenceid;
 	}
-	
-	public void setReferenceid(int referenceid) {
+	public void setReferenceid(String referenceid) {
 		this.referenceid = referenceid;
 	}
-	
-	@NotEmpty(message="Not valid")
-	@Size(min=3, message="Enter value")
+	/*
+	 * @NotNull(message="Not valid")
+	 * 
+	 * @Size(min=3, max=30, message="Enter value")
+	 */
 	private String fullname;
 	
-	@javax.validation.constraints.NotEmpty(message="Not valid")
+	/* @javax.validation.constraints.NotNull(message="Not valid") */
 	private String phonenumber;
 	
 	
-	@Email
-	@NotEmpty(message="Not valid")
-	@Size(min=4, max=30)
+	/*
+	 * @Email
+	 * 
+	 * @NotNull(message="Not valid")
+	 * 
+	 * @Size(min=4, max=30)
+	 */
 	private String mailid;
 	
-	@NotEmpty
+	/* @NotNull */
 	private String course;
 	
 	private String dob;
@@ -113,12 +124,7 @@ public class Registeration implements Serializable{
 	public void setS_percentage(String s_percentage) {
 		this.s_percentage = s_percentage;
 	}
-	public int getS_yop() {
-		return s_yop;
-	}
-	public void setS_yop(int s_yop) {
-		this.s_yop = s_yop;
-	}
+
 	public String getPuc_board() {
 		return puc_board;
 	}
@@ -131,12 +137,22 @@ public class Registeration implements Serializable{
 	public void setP_percentage(String p_percentage) {
 		this.p_percentage = p_percentage;
 	}
-	public int getP_yop() {
+	public String getS_yop() {
+		return s_yop;
+	}
+
+	public void setS_yop(String s_yop) {
+		this.s_yop = s_yop;
+	}
+
+	public String getP_yop() {
 		return p_yop;
 	}
-	public void setP_yop(int p_yop) {
+
+	public void setP_yop(String p_yop) {
 		this.p_yop = p_yop;
 	}
+
 	public String getGraduate_board() {
 		return graduate_board;
 	}
@@ -231,10 +247,10 @@ public class Registeration implements Serializable{
 	private String p_address;
 	private String sslc_board;
 	private String s_percentage;
-	private int s_yop;
+	private String s_yop;
 	private String puc_board;
 	private String p_percentage;
-	private int p_yop;
+	private String p_yop;
 	private String graduate_board;
 	private String g_percentage;
 	private String g_yop;

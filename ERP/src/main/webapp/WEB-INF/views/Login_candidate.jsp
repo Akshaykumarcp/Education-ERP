@@ -1,34 +1,16 @@
 
 
 <%@include file="header.jsp"%>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
 
-  <!-- <h2>Login form</h2> -->
-  
-  <!-- <div class="panel panel-primary">
-      <div class="panel-heading">Login form</div> -->
-      <%-- <c:url var="getMob" value="/getMobile/add" ></c:url> --%>
-      
-
-  
- 
- 
-   <%--  <div class="form-group">
-    <label for="otp">Enter OTP:</label>
-    <form:input type="text" path="" class="form-control" id="ot" placeholder="Enter password" name="otp"/>
-    </div> --%>
-   
-   
-<!--   </div> -->
  <style>
 
-/* BASIC */
-
-html {
-  background-color: #56baed;
+body  {
+  background-image: url(https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80.jpg);
+  background-size: cover;
 }
 
-body {
-  font-family: "Poppins", sans-serif;
+body { 
   height: 100vh;
 }
 
@@ -59,7 +41,7 @@ h2 {
   flex-direction: column; 
   justify-content: center;
   width: 100%;
-  min-height: 100%;
+  min-height: 60%;
   padding: 20px;
 }
 
@@ -85,9 +67,6 @@ h2 {
   -webkit-border-radius: 0 0 10px 10px;
   border-radius: 0 0 10px 10px;
 }
-
-
-
 /* TABS */
 
 h2.inactive {
@@ -98,8 +77,6 @@ h2.active {
   color: #0d0d0d;
   border-bottom: 2px solid #5fbae9;
 }
-
-
 
 /* FORM TYPOGRAPHY*/
 
@@ -284,18 +261,6 @@ input[type=text]:placeholder {
 }
 
 </style>
-<script>
-
-$(document).ready(function(){
-    
-    $("#otp").hide();
-
-    $(".form-group").on("change",function() {
-      $("#otp").show();
-    });
-
-});
-</script>
 <%-- <div class="container">
   
   <div class="card">
@@ -320,14 +285,21 @@ $(document).ready(function(){
     </div> -->
 
     <!-- Login Form -->
-    <form:form  method="GET" modelAttribute="loginCandi" action="/Mobile">
+    
+    <form  method="GET"  id="loginCandidate" action="/Mobile" autoComplete="off">
     <h3>Login</h3>
     <br/>
-    <label for="ref">Enter Reference ID:</label>
-      <form:input  type="text" id="loginto" path="referenceid" class="fadeIn second form-group" name="login" placeholder="Enter Reference ID"/>
-      <form:input type="text" id="otp" class="fadeIn third" path="" name="login" placeholder="Enter OTP"/><br/>
+      <input type="text"  min="4" class="fadeIn second form-group" name="referenceid" placeholder="Enter Reference ID"/>
+      <%-- <form:input type="text" id="otp" class="fadeIn third" path="" minlength="4" name="otp" placeholder="Enter OTP"/><br/> --%>
+      <input type="submit" class="fadeIn fourth">
+    </form>
+    <!-- data-toggle="modal" data-target="#myModal" -->
+    <!-- OTP FORM -->
+    
+    <%-- <form:form  method="GET" id="otpForm" action="/otpValidate" autoComplete="off">
+       <form:input type="text" id="otp" class="fadeIn third" path="" minlength="4" name="otp" placeholder="Enter OTP"/><br/>
       <input type="submit" class="fadeIn fourth" value="Log In">
-    </form:form>
+    </form:form> --%>
 
     <!-- Remind Passowrd -->
     <!-- <div id="formFooter">
@@ -336,6 +308,60 @@ $(document).ready(function(){
  -->
   </div>
 </div>
+ 
+<script>
+$("#loginCandidate").validate();
+</script>
+<script>
+
+$(document).ready(function(){
+     
+
+    $("#loginCandidate").validate
+	({
+
+		rules:{
+			referenceid : {
+				required:true,
+				minlength:4,
+				digits: true,
+				
+						}
+			
+			},
+		messages: 
+			{
+			referenceid : 
+						{
+					required : "Enter Reference ID",
+					minlength : "Reference ID is 4 digits Number",
+					digits : "Enter only numbers"
+						}
+				
+			}		
+	});
+
+    $("#otpForm").validate
+	({
+			rules :{
+				otp: {
+					required : true,
+					minlength:4,
+					digits: true
+							}
+				},
+			messages:
+				{
+				otp : 
+				{
+			required : "Enter OTP",
+			minlength : "OTP is 4 digits Number",
+			digits : "Enter only numbers"
+				}
+				}
+	});
+});
+</script>
 
 </body>
 </html>

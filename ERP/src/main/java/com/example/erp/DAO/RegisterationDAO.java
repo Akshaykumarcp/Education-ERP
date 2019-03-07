@@ -76,7 +76,7 @@ public List<Registeration> getAllStudents() {
 		        while(rs.next()){  
 		        	Registeration e=new Registeration();  
 		        e.setId(rs.getInt(1));  
-		        e.setReferenceid(rs.getInt(2));
+		        e.setReferenceid(rs.getString(2));
 		        e.setFullname(rs.getString(3));  
 		        e.setPhonenumber(rs.getString(4));
 		        e.setMailid(rs.getString(5));
@@ -100,7 +100,7 @@ public Registeration getStudentById(int id) {
 	        while(rs.next()){  
 	       
 	        	e.setId(rs.getInt(1));  
-		        e.setReferenceid((rs.getInt(2)));  
+		        e.setReferenceid((rs.getString(2)));  
 		        e.setFullname(rs.getString(3));  
 		        e.setPhonenumber(rs.getString(4));
 		        e.setMailid(rs.getString(5));
@@ -114,7 +114,7 @@ public Registeration getStudentById(int id) {
 
 public Registeration getCandidatesByreferenceID(int ref) {
 	// TODO Auto-generated method stub
-	return template.query("select * from registeration where referenceid="+ref,new ResultSetExtractor<Registeration>(){  
+	return template.query("select id,referenceid,fullname,phonenumber,mailid,course from registeration where referenceid="+ref,new ResultSetExtractor<Registeration>(){  
 	    
 	     public Registeration extractData(ResultSet rs) throws SQLException,  
 	            DataAccessException {  
@@ -122,12 +122,13 @@ public Registeration getCandidatesByreferenceID(int ref) {
 	    	 Registeration e=new Registeration();  
 	        while(rs.next()){  
 	       
-	        	e.setId(rs.getInt(1));  
-		        e.setReferenceid((rs.getInt(2)));  
-		        e.setFullname(rs.getString(3));  
-		        e.setPhonenumber(rs.getString(4));
-		        e.setMailid(rs.getString(5));
-		        e.setCourse(rs.getString(6));    
+							
+							  e.setId(rs.getInt(1));
+							  e.setReferenceid((rs.getString(2)));
+							  e.setFullname(rs.getString(3));				  
+							  e.setPhonenumber(rs.getString(4));
+							  e.setMailid(rs.getString(5));
+							  e.setCourse(rs.getString(6)); 
 	        }  
 	        return e;  
 	        }  
@@ -193,7 +194,7 @@ public List<Registeration> getRegisteration() {
 	        while(rs.next()){  
 	        	Registeration e=new Registeration();  
 	        e.setId(rs.getInt(1));  
-	        e.setReferenceid(rs.getInt(2));
+	        e.setReferenceid(rs.getString(2));
 	        e.setFullname(rs.getString(3));  
 	        e.setPhonenumber(rs.getString(4));
 	        e.setMailid(rs.getString(5));
@@ -215,5 +216,34 @@ public void saveAdmission(Registeration re) {
      template.update(sql);
 
 	
+}
+
+public void saveOTP(int otp, int id) {
+
+	String sql="update registeration set otp='"+otp+"' where referenceid="+id+"";
+	System.out.println(sql);
+    template.update(sql);
+}
+
+public Registeration getOTP(int refer) {
+	
+	return template.query("select otp from registeration where referenceid="+refer,new ResultSetExtractor<Registeration>(){  
+	    
+	     public Registeration extractData(ResultSet rs) throws SQLException,  
+	            DataAccessException {  
+	      
+	    	 Registeration e=new Registeration();  
+	        while(rs.next()){  
+	       					
+							  e.setOtp(rs.getInt(1));
+							/*
+							 * e.setReferenceid((rs.getString(2))); e.setFullname(rs.getString(3));
+							 * e.setPhonenumber(rs.getString(4)); e.setMailid(rs.getString(5));
+							 * e.setCourse(rs.getString(6));
+							 */ 
+	        }  
+	        return e;  
+	        }  
+	    });  
 }
 }

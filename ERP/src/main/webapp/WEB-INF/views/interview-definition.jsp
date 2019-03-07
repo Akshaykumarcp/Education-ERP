@@ -44,6 +44,7 @@ $(document).ready(function()
 
 			}); 
 		});
+});
 	 
  /* 
 	 $("#filterStudents").click(function(){
@@ -77,7 +78,7 @@ $(document).ready(function()
 					}
 				});
 			}); */
-});
+
 
 </script>
 </head>

@@ -2,6 +2,10 @@
    <%@include file="header.jsp"%>
 <head>
 <link rel="stylesheet" href="popupstyle.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+
+<script src="js/registerForm.js"></script>
 <style>
 body  {
 /* https://images.unsplash.com/photo-1457369804613-52c61a468e7d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80.jpg */
@@ -10,65 +14,80 @@ body  {
 }
 
 .error { 
-		color: red; font-weight: bold; 
+		color: red; 
 	}
 </style>
+
   <script>
   $(document).ready(function(){
-	  
-  $("#otp").hide();
 
-   $(".form-group").on("change",function() {
-     $("#otp").show();
+/* HOMEPAGE LOGIN */
+
+	  $("#admin").hide(); 
+	/*   $("#enterMe").hide(); 
+  	$("#otp").hide(); */
+  	$("#pass").hide();
+
+   $("#selectMe").on("change",function() {
+/* var stor = $("#selectMe option:selected").val();
+alert(stor);
+	if(stor==3)
+		{ */
+		/* $("#enterMe").show();	
+		}
+	else */
+		$("#admin").show();
+	$("#pass").show();
+	     
    });
 
-  });
+   $("#enterMe").on("change",function() {
+	     $("#otp").show();
+	   });
 
+
+  $("#programtype").on('change',function()
+			{		
+				var countryid = $('#programtype option:selected').attr("mytag");
+				 /* alert(countryid); */
+				
+		 		$.ajax({ 		 
+					url: '/loadCourse/'+countryid,
+					type:'GET', 
+					success:function(result)
+						{		
+				 			var result = JSON.parse(result);
+				 			 /* alert(result);  */
+				 			var s="";
+							console.log(5 + 6);
+							for(var i=0;i<result.length;i++)
+								{
+									console.log("hello");
+									s+='<option>'+result[i].course+'</option>';
+									console.log(s);		
+								} 		 
+				   			$("#allcoursess").html(s); 
+				  			console.log(5 + 6);
+						}  
+						});
+				}); 
+
+  
   function validation()
   {
 	  swal("Good job!", "You clicked the button!", "success");
 	  }
+
+  }); 
   
 </script>
-  
-<!-- <script>
-
-$(document).ready(function(){
-    
-    $("#otp").hide();
-   $("#err").hide();
-    $(".err").hide();
-    $(".numerr").hide();	
-    $(".err1").hide();
-    $(".err2").hide();
-    var count=0;
-
-    $(".form-group").on("change",function() {
-      $("#otp").show();
-    });
-
-});
-
-
-function isCharKey(evt)				
-{
-	var charCode = (evt.which) ? evt.which : event.keyCode
-	if ((charCode >= 65 && charCode <= 91) || (charCode >= 97 && charCode <= 123) || (charCode >= 48 && charCode <= 57))
-		return true;
-	$("#popup1").show();
-	alert("Testing");
-	return false;
-}
-
-/*Code for reset button*/
+ <!-- 
 $("#restbtn").click(function(){
 $("#name").val("");
 $("#number").val("");
 $("#mail").val("");
 $("#sel1").val("course");
-});
-
-</script> -->
+}); -->
 </head>
 <body>
 <div class="container">
@@ -77,7 +96,7 @@ $("#sel1").val("course");
    <div class="row">
     <div class="col" ></div>
     <div class="col" ></div>
-    <div class="col" >
+    <div class="col" style="float:right; border: black;border-style: solid; border-radius: 25px; background-color: white;padding-top: 30px; padding-bottom: 30px">
       <!-- Nav pills -->
   <ul class="nav nav-tabs" role="tablist">
     <li class="nav-item">
@@ -96,14 +115,14 @@ $("#sel1").val("course");
     
     <!-- REGISTERATION FORM BEGINING -->
     
-      <form:form method="POST" modelAttribute="registeration" action="/registeration">
+      <form:form method="POST" modelAttribute="Registeration" id="registerForm" action="/registeration" autoComplete="off">
       <%@ page import="java.security.SecureRandom" %>
            
            <%
            int refid = (int)(Math.random()*9000)+1000;
           	%>
           	
-          	 <form:errors cssClass="error"/> 
+          	 <%-- <form:errors cssClass="error"/>  --%>
           	<div class="form-group">
       <!-- <label for="name">Enter Full Name:</label> -->
       <form:input type="hidden" class="form-control"  path="referenceid" id="ref" value="<%= refid %>" name="referenceid"/>
@@ -113,40 +132,48 @@ $("#sel1").val("course");
   <div class="form-group">
 
     <!-- <label for="email">Name:</label> -->
-   <form:input type="text" class="form-control" path="fullname" name="fullname" onkeypress="return isCharKey(event)" placeholder="Enter Name" id="name"/>
+   <form:input type="text" class="form-control" path="fullname"  minlength="5" placeholder="Enter Name" id="name" />
    <!-- <p id="err" class="text-danger">please enter the name before submit and should be more than 3 characters</p> -->
-   <form:errors path="fullname" cssClass="error"/>
+   <%-- <form:errors path="fullname" cssClass="error"/> --%>
 </div>
   
   <div class="form-group">
-  <form:input type="text" class="form-control" path="phonenumber" name="phonenumber" placeholder="Enter Contact Number" id="phone"/>
- <form:errors path="phonenumber" cssClass="error"/>				
+  <form:input type="text" class="form-control" path="phonenumber" minlength="10" placeholder="Enter Contact Number" />
+ <%-- <form:errors path="phonenumber" cssClass="error"/>	 --%>			
   </div>
   
   <div class="form-group">
     <%-- <form:label path="mailid" for="pwd">Mail ID:</form:label> --%>
-    <form:input type="text" class="form-control"  path="mailid" name="mailid"  placeholder="Enter Mail ID" id="mail"/>
-	<form:errors path="mailid" cssClass="error"/>			
+    <form:input type="email" class="form-control"  path="mailid"  placeholder="Enter Mail ID" id="mail" />
+	<%-- <form:errors path="mailid" cssClass="error"/>	 --%>		
   </div>
   
   <div class="form-group">
-  <form:select style="width: 180px" path = "course" name="course" class="form-control" id="sel1">
-  <form:option value = "NONE" label = "Select"/>
-  <form:options items = "${courses}" />
+  <form:select style="width: 180px" path="" class="form-control" id="programtype" >
+  <form:option value = "NONE" label = "Select Program"/>
+  <%-- <form:options items = "${courses}" /> --%>
+  <c:forEach var="program" items="${programs}">  
+      	 <option label="Select"  myTag="${program.id}" > ${program.programname} </option>
+      </c:forEach>
   </form:select>
 </div>
 
-<!-- <div class="form-group">
-  <label for="sel1">Select list:</label>
-  <select style="width: 180px" class="form-control" id="sel1">
-      <option>4</option>
-  </select>
-</div> -->
+<div class="form-group">
+  <!-- <label for="sel1">Select Course</label> -->
+  <form:select style="width: 180px" path = "course" class="form-control" id="allcoursess">
+  <form:option value = "NONE" label = "Select Course"/>
+      <!-- <option>4</option> -->
+  </form:select>
+</div>
 
-<div class="g-recaptcha" name="g-recaptcha-response" data-sitekey="6LeJ9Y4UAAAAAJBgdraRwMJCLu0FNYGrEyRtdUJh"></div>
+<!-- name="g-recaptcha-response" -->
+<div class="form-group">
+<div class="g-recaptcha" data-sitekey="6LeJ9Y4UAAAAAJBgdraRwMJCLu0FNYGrEyRtdUJh"></div>
+<input type="hidden" class="hiddenRecaptcha required" name="hiddenRecaptcha" id="hiddenRecaptcha">
 <br>
-  <button type="submit" id="registerButton" onclick="validation();" class="btn btn-primary">Submit</button>
+  <button type="submit" id="registerButton" class="btn btn-primary">Submit</button>
   <button type="reset" class="btn btn-primary">Reset</button>
+  </div>
 </form:form>
     </div>
     
@@ -154,18 +181,36 @@ $("#sel1").val("course");
     
     <div id="login" class="container tab-pane fade"><br>
     
-       <form:form  method="GET" modelAttribute="loginCandi" action="/Mobile">
+       <form  method="GET" action="/logIn">
   <div class="form-group">
-   <form:input type="text" class="form-control" path="referenceid" placeholder="Enter Reference ID" id="email"/>
+  
+  <!-- style="color: white; margin-left: 5px;margin-bottom: 0.5rem;" -->
+    <label>You Are ?</label>
+    <select id="selectMe" class="browser-default custom-select" name="selector">
+  <option selected>select</option>
+  <option value="1">Admin</option>
+  <option value="2">Department</option>
+  <option value="3">Student</option>
+</select>
+</div>
+  
+ <!--  <div class="form-group">
+   <input type="text" class="form-control"  placeholder="Enter Reference ID" id="enterMe"/>
+  </div> -->
+  <div class="form-group">
+   <input type="text" class="form-control"  name="userName" placeholder="Enter UserName" id="admin"/>
   </div>
-  <div class="form-group">
+  <%-- <div class="form-group">
     <form:input type="text" class="form-control" path="" placeholder="Enter OTP" id="otp"/>
+  </div> --%>
+  <div class="form-group">
+    <input type="password" class="form-control" name="passWord" path="" placeholder="Enter Password" id="pass"/>
   </div>
   
   <br>
   <button type="submit" class="btn btn-primary">Submit</button>
   <button type="reset" class="btn btn-primary">Reset</button>
-</form:form>
+</form>
    
   </div>
 
@@ -173,84 +218,7 @@ $("#sel1").val("course");
   </div>
   </div>
 </div>
-
+<script>
+$("#registerForm").validate();
+</script>
 </body>
-<!--  Footer
-  <footer class="py-5 bg-dark">
-    <div class="container">
-      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>
-    </div>
-    /.container
-  </footer> -->
-
-  <!-- <div class="container">
-
-    Jumbotron Header
-    <header class="jumbotron my-4">
-      <h1 class="display-3">A Warm Welcome!</h1>
-      <p class="lead">Come join the institute to gain the power of knowledge.</p>
-      <a href="#" class="btn btn-primary btn-lg">Know more!</a>
-    </header>
-
-    Page Features
-    <div class="row text-center">
-
-      <div class="col-lg-3 col-md-6 mb-4">
-        <div class="card h-100">
-          <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-          <div class="card-body">
-            <h4 class="card-title">Card title</h4>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
-          </div>
-          <div class="card-footer">
-            <a href="#" class="btn btn-primary">Find Out More!</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-3 col-md-6 mb-4">
-        <div class="card h-100">
-          <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-          <div class="card-body">
-            <h4 class="card-title">Card title</h4>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo magni sapiente, tempore debitis beatae culpa natus architecto.</p>
-          </div>
-          <div class="card-footer">
-            <a href="#" class="btn btn-primary">Find Out More!</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-3 col-md-6 mb-4">
-        <div class="card h-100">
-          <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-          <div class="card-body">
-            <h4 class="card-title">Card title</h4>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
-          </div>
-          <div class="card-footer">
-            <a href="#" class="btn btn-primary">Find Out More!</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-3 col-md-6 mb-4">
-        <div class="card h-100">
-          <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-          <div class="card-body">
-            <h4 class="card-title">Card title</h4>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo magni sapiente, tempore debitis beatae culpa natus architecto.</p>
-          </div>
-          <div class="card-footer">
-            <a href="#" class="btn btn-primary">Find Out More!</a>
-          </div>
-        </div>
-      </div>
-
-    </div>
-    /.row
-
-  </div>
-  /.container -->
-
-  

@@ -8,9 +8,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class WebController {
 
 
-	@RequestMapping(value = "/home", method = RequestMethod.GET)
+	@RequestMapping(value = "/akshay", method = RequestMethod.GET)
 	public String home() {
-		return "index2";
+		return "admin";
+	}
+	
+	@RequestMapping(value = "/admin", method = RequestMethod.GET)
+	public String home2() {
+		return "starter";
 	}
 
 }

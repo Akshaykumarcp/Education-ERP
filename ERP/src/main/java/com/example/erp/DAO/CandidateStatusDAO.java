@@ -37,7 +37,7 @@ JdbcTemplate template;
 		        while(rs.next()){  
 		        	Registeration e=new Registeration();
 		        	//e.setId(rs.getInt(1));  
-		        	e.setReferenceid(rs.getInt(1));  
+		        	e.setReferenceid(rs.getString(1));  
 			        e.setFullname(rs.getString(2));  
 			        e.setPhonenumber(rs.getString(3));
 			        
