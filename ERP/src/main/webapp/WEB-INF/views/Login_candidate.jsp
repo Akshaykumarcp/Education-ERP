@@ -14,6 +14,10 @@ body {
   height: 100vh;
 }
 
+.error { 
+		color: red; 
+	}
+
 a {
   color: #92badd;
   display:inline-block;
@@ -261,6 +265,29 @@ input[type=text]:placeholder {
 }
 
 </style>
+<style>
+	#commentForm {
+		width: 500px;
+	}
+	#commentForm label {
+		width: 250px;
+	}
+	#commentForm label.error, #commentForm input.submit {
+		margin-left: 253px;
+	}
+	#signupForm {
+		width: 670px;
+	}
+	#signupForm label.error {
+		margin-left: 10px;
+		width: auto;
+		display: inline;
+	}
+	#newsletter_topics label.error {
+		display: none;
+		margin-left: 103px;
+	}
+	</style>
 <%-- <div class="container">
   
   <div class="card">
@@ -280,18 +307,22 @@ input[type=text]:placeholder {
     <!-- Tabs Titles -->
 
     <!-- Icon -->
+    
+   
+				
+				
     <!-- <div class="fadeIn first">
       <img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="User Icon" />
     </div> -->
 
     <!-- Login Form -->
     
-    <form  method="GET"  id="loginCandidate" action="/Mobile" autoComplete="off">
+    <form  method="GET"  id="loginCandidate"  action="/Mobile" autoComplete="off">
     <h3>Login</h3>
     <br/>
       <input type="text"  min="4" class="fadeIn second form-group" name="referenceid" placeholder="Enter Reference ID"/>
       <%-- <form:input type="text" id="otp" class="fadeIn third" path="" minlength="4" name="otp" placeholder="Enter OTP"/><br/> --%>
-      <input type="submit" class="fadeIn fourth">
+      <input type="submit" class="fadeIn fourth" id="alertdisp">
     </form>
     <!-- data-toggle="modal" data-target="#myModal" -->
     <!-- OTP FORM -->
@@ -310,58 +341,63 @@ input[type=text]:placeholder {
 </div>
  
 <script>
-$("#loginCandidate").validate();
+/* $("#alertdisp").click(function(){
+swal("Good job!", "You clicked the button!", "success");
+
+}); */
 </script>
-<script>
+	<script>
 
-$(document).ready(function(){
-     
+	$(document).ready(function() {
+		// validate the comment form when it is submitted
+		
 
-    $("#loginCandidate").validate
-	({
-
-		rules:{
-			referenceid : {
-				required:true,
-				minlength:4,
-				digits: true,
+		// validate signup form on keyup and submit
+		$("#loginCandidate").validate({
+			rules: {
+				referenceid: {
+					required: true,
+					minlength: 4,
+					maxlength:4,
+					digits:true
+				}
 				
-						}
-			
 			},
-		messages: 
-			{
-			referenceid : 
-						{
-					required : "Enter Reference ID",
-					minlength : "Reference ID is 4 digits Number",
-					digits : "Enter only numbers"
-						}
-				
-			}		
-	});
+			messages: {
+				referenceid: {
+					required: "Please provide a Reference Id",
+					minlength: "Your Reference Id is 4 digits long",
+					maxlength: "Enter Only 4 Digits",
+					digits:"Enter Only Digits"
+				}
+			}
+		});
+       
+		// propose username by combining first- and lastname
+		$("#username").focus(function() {
+			var firstname = $("#firstname").val();
+			var lastname = $("#lastname").val();
+			if (firstname && lastname && !this.value) {
+				this.value = firstname + "." + lastname;
+			}
+		});
 
-    $("#otpForm").validate
-	({
-			rules :{
-				otp: {
-					required : true,
-					minlength:4,
-					digits: true
-							}
-				},
-			messages:
-				{
-				otp : 
-				{
-			required : "Enter OTP",
-			minlength : "OTP is 4 digits Number",
-			digits : "Enter only numbers"
-				}
-				}
+		//code to hide topic selection, disable for demo
+		var newsletter = $("#newsletter");
+		// newsletter topics are optional, hide at first
+		var inital = newsletter.is(":checked");
+		var topics = $("#newsletter_topics")[inital ? "removeClass" : "addClass"]("gray");
+		var topicInputs = topics.find("input").attr("disabled", !inital);
+		// show when newsletter is checked
+		newsletter.click(function() {
+			topics[this.checked ? "removeClass" : "addClass"]("gray");
+			topicInputs.attr("disabled", !this.checked);
+		});
+
+
+		
 	});
-});
-</script>
+	</script>
 
 </body>
 </html>

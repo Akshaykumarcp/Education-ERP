@@ -10,7 +10,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <title>Dashboard</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
@@ -36,10 +36,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <script>
 $(document).ready(function(){
 	//alert("ga");
-	$("#clickME").click(function(){
+	$("#candidatesApplied").click(function(){
 		//alert("All students");
 		$.ajax({
 		url : 'viewCandidates',
+		success : function(data)
+		{
+		$("#mainContent").html(data);
+			}
+
+			}); 
+		});
+
+	$("#interviewDefinition").click(function(){
+		//alert("All students");
+		$.ajax({
+		url : 'interview-definition',
 		success : function(data)
 		{
 		$("#mainContent").html(data);
@@ -195,7 +207,7 @@ desired effect
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <!-- The user image in the navbar-->
-              <!-- <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image"> -->
+              <!-- <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">	
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
               <span class="hidden-xs">Welcome Admin</span>
             </a>
@@ -286,8 +298,8 @@ desired effect
               </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#" id="clickME">Candidates Applied</a></li>
-            <li><a href="#">Link in level 2</a></li>
+            <li><a href="#" id="candidatesApplied">Candidates Applied</a></li>
+            <li><a  id="interviewDefinition">Interview Definition</a></li>
           </ul>
         </li>
       </ul>

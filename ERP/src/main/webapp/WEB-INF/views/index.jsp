@@ -1,11 +1,7 @@
 
    <%@include file="header.jsp"%>
 <head>
-<link rel="stylesheet" href="popupstyle.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
-<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
-
-<script src="js/registerForm.js"></script>
+<!-- <script src="js/registerForm.js"></script> -->
 <style>
 body  {
 /* https://images.unsplash.com/photo-1457369804613-52c61a468e7d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80.jpg */
@@ -18,69 +14,7 @@ body  {
 	}
 </style>
 
-  <script>
-  $(document).ready(function(){
 
-/* HOMEPAGE LOGIN */
-
-	  $("#admin").hide(); 
-	/*   $("#enterMe").hide(); 
-  	$("#otp").hide(); */
-  	$("#pass").hide();
-
-   $("#selectMe").on("change",function() {
-/* var stor = $("#selectMe option:selected").val();
-alert(stor);
-	if(stor==3)
-		{ */
-		/* $("#enterMe").show();	
-		}
-	else */
-		$("#admin").show();
-	$("#pass").show();
-	     
-   });
-
-   $("#enterMe").on("change",function() {
-	     $("#otp").show();
-	   });
-
-
-  $("#programtype").on('change',function()
-			{		
-				var countryid = $('#programtype option:selected').attr("mytag");
-				 /* alert(countryid); */
-				
-		 		$.ajax({ 		 
-					url: '/loadCourse/'+countryid,
-					type:'GET', 
-					success:function(result)
-						{		
-				 			var result = JSON.parse(result);
-				 			 /* alert(result);  */
-				 			var s="";
-							console.log(5 + 6);
-							for(var i=0;i<result.length;i++)
-								{
-									console.log("hello");
-									s+='<option>'+result[i].course+'</option>';
-									console.log(s);		
-								} 		 
-				   			$("#allcoursess").html(s); 
-				  			console.log(5 + 6);
-						}  
-						});
-				}); 
-
-  
-  function validation()
-  {
-	  swal("Good job!", "You clicked the button!", "success");
-	  }
-
-  }); 
-  
-</script>
  <!-- 
 $("#restbtn").click(function(){
 $("#name").val("");
@@ -116,6 +50,11 @@ $("#sel1").val("course");
     <!-- REGISTERATION FORM BEGINING -->
     
       <form:form method="POST" modelAttribute="Registeration" id="registerForm" action="/registeration" autoComplete="off">
+      <c:if test="${message ne null}">
+      	<div class="alert alert-danger">
+      		${message}
+      	</div>
+      </c:if>
       <%@ page import="java.security.SecureRandom" %>
            
            <%
@@ -132,7 +71,10 @@ $("#sel1").val("course");
   <div class="form-group">
 
     <!-- <label for="email">Name:</label> -->
-   <form:input type="text" class="form-control" path="fullname"  minlength="5" placeholder="Enter Name" id="name" />
+    
+    <!-- <i class="fa fa-address-card-o"></i> -->
+    
+   <form:input type="text" class="form-control" path="fullname" name="personName" minlength="5" placeholder="Enter Name" id="name" />
    <!-- <p id="err" class="text-danger">please enter the name before submit and should be more than 3 characters</p> -->
    <%-- <form:errors path="fullname" cssClass="error"/> --%>
 </div>
@@ -149,8 +91,8 @@ $("#sel1").val("course");
   </div>
   
   <div class="form-group">
-  <form:select style="width: 180px" path="" class="form-control" id="programtype" >
-  <form:option value = "NONE" label = "Select Program"/>
+  <form:select style="width: 180px" path="" name="prgm" class="form-control" id="programtype" >
+  <form:option value="default" label = "Select Program"/>
   <%-- <form:options items = "${courses}" /> --%>
   <c:forEach var="program" items="${programs}">  
       	 <option label="Select"  myTag="${program.id}" > ${program.programname} </option>
@@ -160,8 +102,8 @@ $("#sel1").val("course");
 
 <div class="form-group">
   <!-- <label for="sel1">Select Course</label> -->
-  <form:select style="width: 180px" path = "course" class="form-control" id="allcoursess">
-  <form:option value = "NONE" label = "Select Course"/>
+  <form:select style="width: 180px" path="course" class="form-control" id="allcoursess">
+  <form:option value ="default" label = "Select Course"/>
       <!-- <option>4</option> -->
   </form:select>
 </div>
@@ -218,7 +160,172 @@ $("#sel1").val("course");
   </div>
   </div>
 </div>
+
 <script>
-$("#registerForm").validate();
-</script>
+
+	$(document).ready(function() {
+		// validate the comment form when it is submitted
+		
+		/* HOMEPAGE LOGIN */
+
+		  $("#admin").hide(); 
+		/*   $("#enterMe").hide(); 
+	  	$("#otp").hide(); */
+	  	$("#pass").hide();
+
+	   $("#selectMe").on("change",function() {
+	/* var stor = $("#selectMe option:selected").val();
+	alert(stor);
+		if(stor==3)
+			{ */
+			/* $("#enterMe").show();	
+			}
+		else */
+			$("#admin").show();
+		$("#pass").show();
+		     
+	   });
+
+	   $("#enterMe").on("change",function() {
+		     $("#otp").show();
+		   });
+
+
+	  $("#programtype").on('change',function()
+				{		
+					var countryid = $('#programtype option:selected').attr("mytag");
+					  alert(countryid); 
+					
+			 		$.ajax({ 		 
+						url:'/loadCourse/'+countryid,
+						type:'GET', 
+						success:function(result)
+							{		
+					 			var result = JSON.parse(result);
+					 			 /* alert(result);  */
+					 			var s="";
+								console.log(5 + 6);
+								for(var i=0;i<result.length;i++)
+									{
+										console.log("hello");
+										s+='<option>'+result[i].course+'</option>';
+										console.log(s);		
+									} 		 
+					   			$("#allcoursess").html(s); 
+					  			console.log(5 + 6);
+							}  
+							});
+					}); 
+
+	  
+	  function validation()
+	  {
+		  swal("Good job!", "You clicked the button!", "success");
+		  }
+
+	 
+		
+$.validator.addMethod("valueNotEquals", function(value, element, arg){
+  return arg !== value;
+ }, "Value must not equal arg.");
+
+$.validator.addMethod("valueNotEqu", function(value, element, arg){
+	  return arg !== value;
+	 }, "Value must not equal arg.");
+	 
+		// validate signup form on keyup and submit
+		$("#registerForm").validate({
+			rules: {
+				fullname: {
+					required: true,
+					minlength: 3,
+					maxlength:25
+				},
+				phonenumber: {
+					required: true,
+					minlength: 10,
+					maxlength:10,
+					digits : true
+				},
+				mailid: {
+					required: true,
+					email: true
+				},
+				prgm:
+					{
+					valueNotEquals: "default"
+					},
+				course:{
+					valueNotEqu: "default"
+					},
+					hiddenRecaptcha: {
+						required: function () {
+				                    if (grecaptcha.getResponse() == '') {
+				                        return true;
+				                    } else {
+				                        return false;
+				                    }
+				                				}
+									}	
+			},
+			/* highlight : function(element)
+			{
+				$(element).closes('.form-group').removeClass('has-success').addClass('has-error');
+			},
+			unhighlight:function(element)
+			{
+				$(element).closes('.form-group').removeClass('has-error').addClass('has-success');
+			}, */
+			messages: {
+				 fullname: {
+						required: "Please enter FullName",
+						minlength: "FullName should be more than equal to 3",
+						maxlength:"FullName should be less than equal to 25"
+						
+					},
+				phonenumber: {
+						required: "Please enter Phonenumber",
+						minlength: "Phonenumber should be 10 digits",
+						maxlength:"Phone number is 10 digits",
+						digits:"Enter only digits"
+					},
+				email: {
+					required:"Please enter MailID"
+						},
+				prgm : "Select Program",
+				course: "Select Program",
+				hiddenRecaptcha :{
+
+required : "Verify captcha"
+					}
+					
+			}
+		});
+       
+		// propose username by combining first- and lastname
+		$("#username").focus(function() {
+			var firstname = $("#firstname").val();
+			var lastname = $("#lastname").val();
+			if (firstname && lastname && !this.value) {
+				this.value = firstname + "." + lastname;
+			}
+		});
+
+		//code to hide topic selection, disable for demo
+		var newsletter = $("#newsletter");
+		// newsletter topics are optional, hide at first
+		var inital = newsletter.is(":checked");
+		var topics = $("#newsletter_topics")[inital ? "removeClass" : "addClass"]("gray");
+		var topicInputs = topics.find("input").attr("disabled", !inital);
+		// show when newsletter is checked
+		newsletter.click(function() {
+			topics[this.checked ? "removeClass" : "addClass"]("gray");
+			topicInputs.attr("disabled", !this.checked);
+		});
+
+
+		
+	});
+	</script>
+
 </body>

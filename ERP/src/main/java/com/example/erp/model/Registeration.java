@@ -17,7 +17,6 @@ public class Registeration implements Serializable{
 	@Id
 	private int id;
 	
-	
 	private String referenceid;
 	
 	private int otp;

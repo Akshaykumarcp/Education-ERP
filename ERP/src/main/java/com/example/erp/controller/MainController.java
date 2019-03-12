@@ -1,6 +1,6 @@
-package com.example.erp.controller;
+package com.example.erp.controller; 
 
-import java.io.IOException;
+import java.io.IOException; 
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,8 +19,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 import com.example.erp.model.ReCaptchaResponse;
@@ -31,7 +29,6 @@ import com.example.erp.service.RegisterationService;
 import com.twilio.rest.api.v2010.account.Message;*/
 
 @Controller
-
 public class MainController {
 
 	private String message;
@@ -41,6 +38,9 @@ public class MainController {
 
 	@Autowired
 	private InterviewDefinitionService intser;
+	
+	@Autowired
+	private RestTemplate restTemplate;
 
 	@GetMapping("/logIn")
 	public String homepage_login(@RequestParam(name = "selector") int select,
@@ -63,14 +63,12 @@ public class MainController {
 	public String newRegistration(ModelMap model) {
 
 		// Registeration candi = new Registeration();
+		model.addAttribute("message", message);
 		model.addAttribute("Registeration", new Registeration());
 		model.addAttribute("programs", intser.retriveAllProgramType());
 		model.addAttribute("loginCandi", new Registeration());
 		return "/index";
 	}
-
-	@Autowired
-	RestTemplate restTemplate;
 
 	/*
 	 * @RequestMapping( value ="/registeration",method = RequestMethod.GET)
@@ -82,42 +80,57 @@ public class MainController {
 
 	@RequestMapping(value = "/registeration", method = RequestMethod.POST)
 	public String saveRegistration(@ModelAttribute("Registeration") Registeration Registeration, Model model,
-			@RequestParam(name = "g-recaptcha-response") String captchaResponse) throws IOException {
-
+			@RequestParam(name="g-recaptcha-response") String captchaResponse) throws IOException {
 		/*
 		 * if(result.hasErrors()) {
 		 * 
 		 * return "redirect:/"; }
 		 */
 		// Registeration list=regserv.getStudentByRef(reff);
+		
+		message=null;
+		
 		model.addAttribute("loginCandi", new Registeration());
 
 		String url = "https://www.google.com/recaptcha/api/siteverify";
-		String params = "?secret=6LeJ9Y4UAAAAAI4GXvmTWcGWOvMG3rLtPmNYE55W&response=" + captchaResponse;
+		String params = "?secret=6LeJ9Y4UAAAAAI4GXvmTWcGWOvMG3rLtPmNYE55W&response="+captchaResponse;
 
-		ReCaptchaResponse reCaptchaResponse = restTemplate
-				.exchange(url + params, HttpMethod.POST, null, ReCaptchaResponse.class).getBody();
-		/*
-		 * if(reCaptchaResponse.isSuccess()) {
-		 */
+		ReCaptchaResponse reCaptchaResponse = restTemplate.exchange(url +params, HttpMethod.POST, null, ReCaptchaResponse.class).getBody();
+		
+		 if(reCaptchaResponse.isSuccess()) { 
+		 
 		regserv.save(Registeration);
 		// regserv.sendRef(id);
 		/*
 		 * regserv.sendReferrenceIdViaMsg(Registeration.getPhonenumber(),Registeration.
 		 * getReferenceid());
 		 */
-		regserv.sendReferrenceIdViaMail(Registeration.getMailid(), Registeration.getReferenceid());
+			
+			  regserv.sendReferrenceIdViaMail(Registeration.getMailid(), Registeration.getReferenceid());
+			 
 		return "display_candidate";
-
+		 }
+		  else
+		  {
+			 message="Please Verify captcha"; 
+		
+		 return "redirect:/"; }
+		 
 		/* } return "redirect:/"; */
 
 	}
+	
+	@GetMapping("/jqueryTest")
+	public String log(ModelMap model) {
+	
+		return "testJquery";
+	}
+	
 
 	@GetMapping("/Login_candidate")
 	public String login_candidate(ModelMap model) {
 		// Registeration logincandi = new Registeration();
 		model.addAttribute("loginCandi", new Registeration());
-		model.addAttribute("register", new Registeration());
 		return "/Login_candidate";
 	}
 
@@ -261,24 +274,24 @@ public class MainController {
 	 */
 
 	@RequestMapping(value = "/Mobile", method = RequestMethod.GET)
-	public ModelAndView sendReferenceIDTOMob(@RequestParam("referenceid") int id, ModelMap model,HttpServletRequest request) {
+	public ModelAndView sendReferenceIDTOMob(@RequestParam("referenceid") int enteredRef, ModelMap model,HttpServletRequest request) {
 		/* @RequestParam("otp") int ootp, */
-		Registeration list3 = regserv.getCandidatesByreferenceID(id);
+		Registeration list3 = regserv.getCandidatesByreferenceID(enteredRef);
 		System.out.println("Mailid is --> " + list3.getMailid());
 		System.out.println("Phonenumber is --> " + list3.getPhonenumber());
-
-		int otp = (int) (Math.random() * 9000) + 1000;
+		System.out.println("Reference id -- > "+ list3.getReferenceid());
 		
-		System.out.println("OTP is:" + otp);
-
-		regserv.saveOTP(otp,id);
-		
-		model.addAttribute("candidateAdmission", new Registeration());
-		model.addAttribute("verifyOTPMA", new Registeration());
-	 
+		  int ref = 0; 
+		  
+		/* ref = Integer.parseInt(list3.getReferenceid()); */
+		  System.out.println(ref);
+		  
+		  if(list3.getReferenceid() == null) {
+			  return new ModelAndView("dammy","listme",list3);
+			 
 		/* CREATE ONE MORE METHOD FOR OTP IN SERVICE LAYER */
 
-		/* regserv.sendLoginCandidateOtpViaMail(list3.getMailid(),otp); */
+		 
 
 		/*
 		 * if(otp==ootp) { return new ModelAndView("admission_form_fill",
@@ -296,14 +309,29 @@ public class MainController {
 
 		/* return new ModelAndView("dammy", "listme", list3); */
 		/* return "forward:mobilenumbers/{phonenumber}/otp"; */
-		return new ModelAndView("verifyOTP","listme",list3);
+		
+	 }
+	  else {
+			/* ref = Integer.parseInt(list3.getReferenceid()); */
+		  int otp = (int) (Math.random() * 9000) + 1000;
+			
+			System.out.println("OTP is:" + otp);
+
+			regserv.saveOTP(otp,enteredRef);
+			regserv.sendLoginCandidateOtpViaMail(list3.getMailid(),otp); 
+			model.addAttribute("candidateAdmission", new Registeration());
+			model.addAttribute("verifyOTPMA", new Registeration());
+			return new ModelAndView("verifyOTP","listme",list3);
+		  }
+	 
+			
 		/* return new ModelAndView("verifyOTP","disp",list3); */
 	}
 
 	
 	
 	@GetMapping("/verify")
-	public String displayAdmissionForm(@RequestParam("otp") int otp,@RequestParam("referenceid") int refer, ModelMap model) {
+	public ModelAndView displayAdmissionForm(@RequestParam("otp") int otp,@RequestParam("referenceid") int refer, ModelMap model) {
 		/* @RequestParam("referenceid") int refer, */
 		
 		System.out.println("Entered OTP is:" + otp);
@@ -320,12 +348,15 @@ public class MainController {
 		 * Registeration list3 = regserv.getCandidatesByreferenceID(otp); return new
 		 * ModelAndView("dammy", "listme", list3);
 		 */
+		Registeration list3 = regserv.getCandidatesByreferenceID(refer);
+		
 		if(otp == getOTP.getOtp() ) {
-			return "admission_form_fill";
+			
+			return new ModelAndView("admission_form_fill","listme",list3);
 		}
 		/*return new ModelAndView("admission_form_fill","candi",list4);}*/
 		else
-			return "dammy";
+			return new ModelAndView("dammy","listme",list3);
 		/* return new ModelAndView("dammy","listme",list4); */	
 	}
 

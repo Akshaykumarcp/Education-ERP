@@ -198,7 +198,12 @@ public class InterviewDefintionDAO implements IinterviewDefinitionDAO{
 		{*/
 		String sql="select * from Registeration where (course='"+course+"' AND caste='"+caste+"') OR (course='"+course+"' AND r_marks>='"+entraExam+"'";
 		System.out.println(sql);
-		return template.query("select * from Registeration where (course='"+course+"' AND caste='"+caste+"') OR (course='"+course+"' AND r_marks>='"+entraExam+"')",new ResultSetExtractor<List<Registeration>>(){
+		/*
+		 * return template.query("select * from Registeration where (course='"
+		 * +course+"' AND caste='"+caste+"') OR (course='"+course+"' AND r_marks>='"
+		 * +entraExam+"')",new ResultSetExtractor<List<Registeration>>(){
+		 */
+		return template.query("select * from Registeration where course='"+course+"' AND caste='"+caste+"' ",new ResultSetExtractor<List<Registeration>>(){
 	
 		     public List<Registeration> extractData(ResultSet rs) throws SQLException, DataAccessException {  
 		    	 
@@ -218,4 +223,61 @@ public class InterviewDefintionDAO implements IinterviewDefinitionDAO{
 		        }  
 		    }); 
 		}
+
+	public List<Registeration> getStudentsByFilter(String co) {
+		
+		String sql="select * from Registeration where course='"+co+"'";
+		System.out.println(sql);
+		/*
+		 * return template.query("select * from Registeration where (course='"
+		 * +course+"' AND caste='"+caste+"') OR (course='"+course+"' AND r_marks>='"
+		 * +entraExam+"')",new ResultSetExtractor<List<Registeration>>(){
+		 */
+		return template.query("select * from Registeration where course='"+co+"'",new ResultSetExtractor<List<Registeration>>(){
+	
+		     public List<Registeration> extractData(ResultSet rs) throws SQLException, DataAccessException {  
+		    	 
+		    	 List<Registeration> list=new ArrayList<Registeration>();  
+		    	
+		        while(rs.next()){  
+		        	 Registeration e=new Registeration();  
+		        	e.setFullname(rs.getString(3));		        	
+			        e.setCourse(rs.getString(6));
+			        e.setEntrance_exam(rs.getString(28));
+			        e.setR_no(rs.getString(29));		        
+			        e.setR_marks(rs.getString(30));  
+			        e.setCaste(rs.getString(10)); 			        
+			        list.add(e); 
+		        }  
+		        return list;  
+		        }  
+		    }); 
+		
+	}
+
+	public List<Registeration> getStudentsByFilter(String co, String cast) {
+	
+		return template.query("select * from Registeration where course='"+co+"' AND caste='"+cast+"'",new ResultSetExtractor<List<Registeration>>(){
+			
+		     public List<Registeration> extractData(ResultSet rs) throws SQLException, DataAccessException {  
+		    	 
+		    	 List<Registeration> list=new ArrayList<Registeration>();  
+		    	
+		        while(rs.next()){  
+		        	 Registeration e=new Registeration();  
+		        	e.setFullname(rs.getString(3));		        	
+			        e.setCourse(rs.getString(6));
+			        e.setEntrance_exam(rs.getString(28));
+			        e.setR_no(rs.getString(29));		        
+			        e.setR_marks(rs.getString(30));  
+			        e.setCaste(rs.getString(10)); 			        
+			        list.add(e); 
+		        }  
+		        return list;  
+		        }  
+		    }); 
+		
+	}
+	
+	
 	}

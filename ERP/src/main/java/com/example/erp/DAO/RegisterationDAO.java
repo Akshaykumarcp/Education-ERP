@@ -121,8 +121,7 @@ public Registeration getCandidatesByreferenceID(int ref) {
 	      
 	    	 Registeration e=new Registeration();  
 	        while(rs.next()){  
-	       
-							
+	       	
 							  e.setId(rs.getInt(1));
 							  e.setReferenceid((rs.getString(2)));
 							  e.setFullname(rs.getString(3));				  

@@ -63,31 +63,29 @@ public class InterviewController {
 		/* gs.toJson(intser.getProgramById(id)) */
 		return gs.toJson(intser.getProgramById(id));
 	}
-	
+
 	/* '/loadStudents/'+programType+'/'+course+'/'+entranceExam+'/'+caste */
-	
-	@RequestMapping(value = "loadStudents/{cour}/{entraExam}/{caste}", method = RequestMethod.GET)
-	@ResponseBody
-	public String loadStudents(@PathVariable String cour,@PathVariable String entraExam,@PathVariable String caste) {
 
-		// Courses idd = intser.getProgramById(id);
-		System.out.println(cour+""+entraExam+""+caste);
-		//Gson gs = new Gson();
-		/* gs.toJson(intser.getProgramById(id)); *
-		// model.put("co", idd);
-		// System.out.println("Get Program By ID object=="+gs.toString());
-		// model.addAttribute("course", gs);
-		/* gs.toJson(intser.getProgramById(id)) */
-		Gson gs = new Gson();
-		/*
-		 * List<Registeration> filteredStudents =
-		 * intser.getStudentsByFilter(cour,entraExam,caste);
-		 */
-		/* System.out.println(filteredStudents.toString()); */
-		/* return filteredStudents; */
-		return  gs.toJson(intser.getStudentsByFilter(cour,entraExam,caste));
-	}
-
+	/*
+	 * @RequestMapping(value = "loadStudents/{cour}/{entraExam}/{caste}", method =
+	 * RequestMethod.GET)
+	 * 
+	 * @ResponseBody public String loadStudents(@PathVariable String
+	 * cour,@PathVariable String entraExam,@PathVariable String caste) {
+	 * 
+	 * // Courses idd = intser.getProgramById(id);
+	 * System.out.println(cour+""+entraExam+""+caste); //Gson gs = new Gson();
+	 * gs.toJson(intser.getProgramById(id)); * // model.put("co", idd); //
+	 * System.out.println("Get Program By ID object=="+gs.toString()); //
+	 * model.addAttribute("course", gs); /* gs.toJson(intser.getProgramById(id))
+	 * Gson gs = new Gson();
+	 * 
+	 * List<Registeration> filteredStudents =
+	 * intser.getStudentsByFilter(cour,entraExam,caste);
+	 * 
+	 * System.out.println(filteredStudents.toString()); return filteredStudents;
+	 * return gs.toJson(intser.getStudentsByFilter(cour,entraExam,caste)); }
+	 */
 
 	@PostMapping("/interview-definition")
 	public String interviewDef(InterviewDefinition in) {
@@ -137,36 +135,47 @@ public class InterviewController {
 		return new ModelAndView("redirect:/interview-definition");
 	}
 
-	
-	  @RequestMapping(value="/editInterviewDefinition/{id}")
-	  public String   edit(@PathVariable int id,ModelMap model)
-	  { 
-		  InterviewDefinition intedefi=intser.getInterviewDefinitionById(id);
-	  model.addAttribute("interviewdef", intedefi);
-	  return "edit_interview_definition"; 
-	  }
-	  
-	  @GetMapping("/edit_interview_defition")
-	  public String getEdit(ModelMap model)
-	  {
-		  model.addAttribute("interviewdef", new InterviewDefinition());
-		  return "edit_interview_definition";
-	  }
-	  
-	  @RequestMapping(value="/save-interview-definition",method = RequestMethod.POST)  
-	    public ModelAndView editSave(@ModelAttribute("interviewdef") InterviewDefinition re){  
-	    	System.out.println("id is"+re.getId());
-	    	intser.updateInterviewDefinition(re);  
-	        return new ModelAndView("redirect:/interview-definition");  
-	    }
-	  
+	@RequestMapping(value = "/editInterviewDefinition/{id}")
+	public String edit(@PathVariable int id, ModelMap model) {
+		InterviewDefinition intedefi = intser.getInterviewDefinitionById(id);
+		model.addAttribute("interviewdef", intedefi);
+		return "edit_interview_definition";
+	}
 
-		@RequestMapping(value ="/filterStudents",method = RequestMethod.GET)
-		public ModelAndView getFilterStudents(@RequestParam(name="course") String co,@RequestParam(name="marks") String marks,@RequestParam(name="cast") String cast) throws IOException {
-			System.out.println(co+""+marks+""+cast);
-			List<Registeration> list=intser.getStudentsByFilter(co,marks,cast);
-	        return new ModelAndView("admissionFilteredStudents","list",list);
-			}
-	 
+	@GetMapping("/edit_interview_defition")
+	public String getEdit(ModelMap model) {
+		model.addAttribute("interviewdef", new InterviewDefinition());
+		return "edit_interview_definition";
+	}
 
+	@RequestMapping(value = "/save-interview-definition", method = RequestMethod.POST)
+	public ModelAndView editSave(@ModelAttribute("interviewdef") InterviewDefinition re) {
+		System.out.println("id is" + re.getId());
+		intser.updateInterviewDefinition(re);
+		return new ModelAndView("redirect:/interview-definition");
+	}
+
+	@RequestMapping(value = "/filterStudents", method = RequestMethod.GET)
+	public ModelAndView getFilterStudents(@RequestParam(name = "course") String co,
+			@RequestParam(name = "marks") String marks, @RequestParam(name = "cast") String cast) throws IOException {
+		System.out.println(co + "" + marks + "" + cast);
+		
+		if(co!=null) {
+			System.out.println("i'll display course");
+		List<Registeration> listt = intser.getStudentsByFilter(co);
+		System.out.println("Display Course");
+		return new ModelAndView("admissionFilteredStudents", "list", listt);
+		}
+		else if(cast!=null)
+		{
+			System.out.println("i'll display course and caste");
+			List<Registeration> listt = intser.getStudentsByFilter(co,cast);
+			System.out.println("Displaying Course and cast candidates");
+			return new ModelAndView("admissionFilteredStudents", "list", listt);
+		}
+		else
+		System.out.println("displaying null");
+		return null;
+	}	
 }
+

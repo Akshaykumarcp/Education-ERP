@@ -17,5 +17,10 @@ public class WebController {
 	public String home2() {
 		return "starter";
 	}
+	
+	@RequestMapping(value = "/blackadmin", method = RequestMethod.GET)
+	public String home3() {
+		return "index2";
+	}
 
 }

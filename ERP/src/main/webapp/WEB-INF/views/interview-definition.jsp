@@ -1,93 +1,28 @@
-<%@include file="header.jsp"%>
+
 
 <head>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script>
-$(document).ready(function()
-{
-	
-	$("#programtype").on('change',function()
-	{		
-		var countryid = $('#programtype option:selected').attr("mytag");
-		/* alert(countryid); */
-		
- 		$.ajax({ 		 
-			url: '/loadCourse/'+countryid,
-			type:'GET', 
-			success:function(result)
-				{		
-		 			var result = JSON.parse(result);
-		 			/* alert(result); */	
-		 			var s="";
-					console.log(5 + 6);
-					for(var i=0;i<result.length;i++)
-						{
-							console.log("hello");
-							s+='<option>'+result[i].course+'</option>';
-							console.log(s);		
-						} 		 
-		   			$("#allcoursess").html(s); 
-		  			console.log(5 + 6);
-				}  
-				});
-		}); 
-
-	$("#filterStudents").click(function(){
-		alert("All students");
-		$.ajax({
-		url : 'filterStudents',
-		success : function(data)
-		{
-		$("#displayMee").html(data);
-			}
-
-			}); 
-		});
-});
-	 
- /* 
-	 $("#filterStudents").click(function(){
-			alert("testing");
-				var programType = $('#programtype option:selected').val();
-				var course = $('#allcoursess option:selected').val();
-				var entranceExam = $('#exam').val();
-				var caste = $('#caste option:selected').val();
-
-				alert(programType+""+course+""+entranceExam+""+caste);
-
-				$.ajax
-				({
-					type : 'GET',
-					url : '/loadStudents/'+course+'/'+entranceExam+'/'+caste,
-					success : function(result) 
-					{
-						alert(result);
-						var result = JSON.parse(result);
-						//int i=1;
-						alert(result);
-						var s="";
-						for(var i=0;i<result.length;i++)
-						{
-							console.log("For loop entry");
-							s+='<tr><td>'+result[i].id+'</td><td>'+result[i].name+'</td><td>'+result[i].course+'</td><td>'+result[i].entrance_exam+'</td><td>'+result[i].r_no+'</td><td>'+result[i].r_marks+'</td></tr>';
-							console.log("or loop exit");
-						}
-						$("#filterstudents").html(s);
-						console.log(5 + 6);
-					}
-				});
-			}); */
-
-
-</script>
+  <!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" type="text/css" rel="stylesheet"> -->
+  <!-- <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"> -->
+  
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.0/dist/jquery.validate.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+  <script src='https://www.google.com/recaptcha/api.js'></script>
+   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
 </head>
 
 <body>
 
  <div class="container">
- 
- <form  method="GET" action="/filterStudents">
+
+ <form  method="GET" action="/filterStudents" id="interviewSelection">
  
  
   <div class="card">
@@ -102,9 +37,9 @@ $(document).ready(function()
     <%-- <h1>${programs.programname}</h1> --%>
     
        <select class="form-control" style="width: 220px;"  id="programtype" name="programtype" >
-      <option value = "-1">SELECT</option>
+      <option value = "default">Select</option>
       <c:forEach var="program" items="${programs}"> 
-      	 <option label="Select"  myTag="${program.id}" > ${program.programname} </option>
+      	 <option  myTag="${program.id}" > ${program.programname} </option>
       </c:forEach>       
       </select>
        <!-- <input type="text" id="setMyTag" /> -->
@@ -189,7 +124,7 @@ $(document).ready(function()
   
     <div class="form-row">
     <div class="form-group col-md-6">
-    <button type="submit" id="filterStudentsss" class="btn btn-outline-primary float-right" >Submit</button>
+    <button type="submit" class="btn btn-outline-primary float-right" >Submit</button>
   
     </div>
     <div class="form-group col-md-6">
@@ -202,7 +137,115 @@ $(document).ready(function()
   </div>
   
   </form>
-  <button id="filterStudents" class="btn btn-outline-primary" >submit</button>
+  <!-- <button id="filterStudents" class="btn btn-outline-primary" >submit</button> -->
+  
+<script>
+
+
+	 
+$(document).ready(function()
+{
+	
+	$("#programtype").on('change',function()
+	{		
+		var countryid = $('#programtype option:selected').attr("mytag");
+		/* alert(countryid); */
+		
+ 		$.ajax({ 		 
+			url: '/loadCourse/'+countryid,
+			type:'GET', 
+			success:function(result)
+				{		
+		 			var result = JSON.parse(result);
+		 			/* alert(result); */	
+		 			var s="";
+					console.log(5 + 6);
+					for(var i=0;i<result.length;i++)
+						{
+							console.log("hello");
+							s+='<option>'+result[i].course+'</option>';
+							console.log(s);		
+						} 		 
+		   			$("#allcoursess").html(s); 
+		  			console.log(5 + 6);
+				}  
+				});
+		}); 
+
+	$("#filterStudents").click(function(){
+		alert("All students");
+		$.ajax({
+		url : 'filterStudents',
+		success : function(data)
+		{
+		$("#displayMee").html(data);
+			}
+
+			}); 
+		});
+
+
+	
+	$.validator.addMethod("valueNotEquals", function(value, element, arg){
+	  return arg !== value;
+	 }, "Value must not equal arg.");
+
+/* 	$.validator.addMethod("valueNotEqu", function(value, element, arg){
+		  return arg !== value;
+		 }, "Value must not equal arg."); */
+		 
+			// validate signup form on keyup and submit
+			$("#interviewSelection").validate({
+				rules: {
+					
+					programtype:
+						{
+						valueNotEquals: "default"
+						}
+					/* allcoursess:{
+						valueNotEqu: "default"
+						} */
+				},
+				/* highlight : function(element)
+				{
+					$(element).closes('.form-group').removeClass('has-success').addClass('has-error');
+				},
+				unhighlight:function(element)
+				{
+					$(element).closes('.form-group').removeClass('has-error').addClass('has-success');
+				}, */
+				messages: {
+							programtype : "Select Program"
+						/* 	allcoursess: "Select Program" */
+						
+				}
+			});
+	       
+			// propose username by combining first- and lastname
+			$("#username").focus(function() {
+				var firstname = $("#firstname").val();
+				var lastname = $("#lastname").val();
+				if (firstname && lastname && !this.value) {
+					this.value = firstname + "." + lastname;
+				}
+			});
+
+			//code to hide topic selection, disable for demo
+			var newsletter = $("#newsletter");
+			// newsletter topics are optional, hide at first
+			var inital = newsletter.is(":checked");
+			var topics = $("#newsletter_topics")[inital ? "removeClass" : "addClass"]("gray");
+			var topicInputs = topics.find("input").attr("disabled", !inital);
+			// show when newsletter is checked
+			newsletter.click(function() {
+				topics[this.checked ? "removeClass" : "addClass"]("gray");
+				topicInputs.attr("disabled", !this.checked);
+			});
+
+
+	
+});
+</script>
   </div>
   
   <span id="displayMee"> </span>

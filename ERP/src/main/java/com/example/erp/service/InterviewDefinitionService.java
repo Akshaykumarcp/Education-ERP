@@ -70,5 +70,17 @@ public class InterviewDefinitionService implements IinterviewDefinition {
 	}
 
 
+	public List<Registeration> getStudentsByFilter(String co) {
+		// TODO Auto-generated method stub
+		return intedao.getStudentsByFilter(co);
+	}
+
+
+	public List<Registeration> getStudentsByFilter(String co, String cast) {
+		
+		return intedao.getStudentsByFilter(co,cast);
+	}
+
+
 
 }
