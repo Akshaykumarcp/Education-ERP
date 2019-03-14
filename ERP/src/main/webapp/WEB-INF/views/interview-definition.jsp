@@ -20,23 +20,34 @@
 
 <body>
 
+<section class="content-header">
+      <h1>
+        Interview Selection Process
+        <small></small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i>Admission</a></li>
+        <li class="active">Interview Selection Process</li>
+      </ol>
+    </section>
+<br/>
  <div class="container">
 
  <form  method="GET" action="/filterStudents" id="interviewSelection">
  
  
   <div class="card">
-          <div class="card-header">Interview Selection Process</div>
+          <!-- <div class="card-header">Interview Selection Process</div> -->
  <br/>
  
  <!-- first row -->
 
   <div class="form-row">
     <div class="form-group col-md-4">
-    <label for="course">Program Type:</label>
+    <label style="width: 220px;margin-left: 60px" for="course">Program Type:</label>
     <%-- <h1>${programs.programname}</h1> --%>
     
-       <select class="form-control" style="width: 220px;"  id="programtype" name="programtype" >
+       <select class="form-control" style="width: 220px;margin-left: 60px" id="programtype" name="programtype" >
       <option value = "default">Select</option>
       <c:forEach var="program" items="${programs}"> 
       	 <option  myTag="${program.id}" > ${program.programname} </option>
@@ -71,8 +82,8 @@
   <!-- Second row -->
   <div class="form-row">
     <div class="form-group col-md-4">
-    <label for="course">Entrance Exam Marks Cut Off:</label>
-   <input type="text" class="form-control" name="marks" id="exam" style="width: 220px;"/>
+    <label style="width: 220px;margin-left: 60px" for="course">Entrance Exam Marks Cut Off:</label>
+   <input type="text" class="form-control" name="marks" style="width: 220px;margin-left: 60px" id="exam" style="width: 220px;"/>
     </div>
     <div class="form-group col-md-4">
       <label for="course">Caste:</label>

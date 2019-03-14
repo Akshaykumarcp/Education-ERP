@@ -264,6 +264,7 @@ public class Registeration implements Serializable{
 	private String r_marks2;
 	private String quota_sports;
 	private String quota_speciallyenabled;
+	private String status;
 	/*
 	 * private String course; private String course; private String course; private
 	 * String course;
@@ -271,6 +272,12 @@ public class Registeration implements Serializable{
 	
 	
 	
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	public int getId() {
 		return id;
 	}

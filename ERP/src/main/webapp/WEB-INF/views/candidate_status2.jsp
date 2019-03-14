@@ -43,9 +43,11 @@ body  {
 		color: red; font-weight: bold; 
 	}
 </style>
-<c:if test="${not empty list}">
+
+
+<%-- <c:if test="${not empty list}"> --%>
 <ul>
-    <c:forEach var="listValue" items="${list}">
+    <%-- <c:forEach var="listValue" items="${list}"> --%>
         
     
 
@@ -53,7 +55,7 @@ body  {
   <h1 align="center" style="color: #4DB6AC">Candidate Status</h1><br/>
    <hr style="width: 200px;margin-top;border-style: ridge;border-block-color: black;">
   <div class="row">
-  <div class="col">  <h3>Welcome ${listValue.getFullname()} </h3><br/>  </div>
+  <div class="col">  <h3>Welcome ${candidate} </h3><br/>  </div>
   <div class="col"><h6 align="right"><a href="/candidate-status">Logout</a></h6>  </div>
 
   </div>
@@ -64,33 +66,33 @@ body  {
   
     <div class="col text-center">Reference ID</div>
     <%-- <input type="text" class="form-control" value="${listValue.getReferenceid()}" disabled> --%>
-    <div class="col"><label>${listValue.getReferenceid()}</label></div>
+    <div class="col"><label>${list.getReferenceid()}</label></div>
   </div>
   <div class="row">
     <div class="col text-center" >Full Name</div>
     <%-- <input type="text" class="form-control" value="${listValue.getFullname()}" disabled> --%>
-    <div class="col">  <label >${listValue.getFullname()}</label></div>
+    <div class="col">  <label >${list.getFullname()}</label></div>
   </div>
   
   <div class="row">
     <div class="col text-center">Phone number</div>
-    <div class="col" ><input type="text" class="form-control" value="${listValue.getPhonenumber()}" disabled></div>
+    <div class="col" ><input type="text" class="form-control" value="${list.getPhonenumber()}" disabled></div>
   </div>
   
   <div class="row">
     <div class="col text-center" >Mail ID</div>
-    <div class="col" ><input type="text" class="form-control" value="${listValue.getMailid()}" disabled></div>
+    <div class="col" ><input type="text" class="form-control" value="${list.getMailid()}" disabled></div>
   </div>
   
   <div class="row">
     <div class="col text-center">Status</div>
     <%-- <input type="text" class="form-control" value="${listValue.getReferenceid()}" disabled> --%>
-    <div class="col" ><label >${listValue.getMailid()}</label></div>
+    <div class="col" ><label >${list.getStatus()}</label></div>
   </div>
   </div>
   </div>
   </div>
-  </c:forEach>
+  <%-- </c:forEach> --%>
 </ul>
-  </c:if>
+ <%--  </c:if> --%>
 

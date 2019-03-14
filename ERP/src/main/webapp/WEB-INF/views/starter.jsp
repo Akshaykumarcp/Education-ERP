@@ -203,22 +203,26 @@ desired effect
             </ul>
           </li>
           <!-- User Account Menu -->
-          <li class="dropdown user user-menu">
+          <!-- class="dropdown user user-menu" -->
+         <!--  <li > -->
             <!-- Menu Toggle Button -->
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <!-- class="dropdown-toggle" data-toggle="dropdown" -->
+            <a href="#">
               <!-- The user image in the navbar-->
               <!-- <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">	
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
-              <span class="hidden-xs">Welcome Admin</span>
+              <span class="hidden-xs" style="color:white">Welcome Admin</span>
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
-                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+              
+              <!-- ADMIN IMAGE -->
+                <!-- <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image"> -->
 
                 <p>
                   Credessol College
-                  <small>Member since Nov. 2008</small>
+                  <!-- <small>Member since Nov. 2008</small> -->
                 </p>
               </li>
               <!-- Menu Body -->
@@ -239,10 +243,10 @@ desired effect
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
+                  <!-- <a href="#" class="btn btn-default btn-flat">Profile</a> -->
                 </div>
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                  <!-- <a href="#" class="btn btn-default btn-flat">Sign out</a> -->
                 </div>
               </li>
             </ul>
@@ -264,12 +268,15 @@ desired effect
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel">
         <div class="pull-left image">
+        
+        <!-- WELCOME ADMIN IMAGE -->
+        
           <img src="dist/img/user2.jpg" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p>Welcome Admin</p>
           <!-- Status -->
-          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+          <!-- <a href="#"><i class="fa fa-circle text-success"></i> Online</a> -->
         </div>
       </div>
 
@@ -287,10 +294,10 @@ desired effect
 
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">HEADER</li>
+        <li class="header">Activities</li>
         <!-- Optionally, you can add icons to the links -->
-        <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Dashboard</span></a></li>
-        <li><a href="#"><i class="fa fa-link"></i> <span>Dashboard</span></a></li>
+        <!-- <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Dashboard</span></a></li>
+        <li><a href="#"><i class="fa fa-link"></i> <span>Dashboard</span></a></li> -->
         <li class="treeview">
           <a href="#"><i class="fa fa-link"></i> <span>Admission</span>
             <span class="pull-right-container">
@@ -311,7 +318,7 @@ desired effect
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <section class="content-header">
+    <!-- <section class="content-header">
       <h1>
         Page Header
         <small>Optional description</small>
@@ -320,7 +327,7 @@ desired effect
         <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
         <li class="active">Here</li>
       </ol>
-    </section>
+    </section> -->
 
     <!-- Main content -->
     <section class="content container" id="mainContent">
@@ -329,40 +336,7 @@ desired effect
         | Your Page Content Here |
         -------------------------->
         
-        
-        
- <div class="row">
-        <div class="col-xs-12">
-          <div class="box">
-            <div class="box-header">
-              <h3 class="box-title">Hover Data Table</h3>
-            </div>
- <div class="box-body">
-			<table  class="table table-hover">
-				<thead><tr><th>Id</th><th>Reference ID</th><th>Full Name</th><th>Phone number</th>
-					<th>Mail ID</th><th>course</th>
-					<th>Edit</th><th>Delete</th></tr>  </thead>
-				<tbody>
-   					<c:forEach var="registered" items="${list}"> 
-   					<tr>  
-   					
-   					<td>${registered.id}</td>  
-   							<td>${registered.referenceid}</td> 
-   					<td>${registered.fullname}</td> 
-   					<td>${registered.phonenumber}</td>  
-   					<td>${registered.mailid}</td> 
-   						<td>${registered.course}</td>   
-   						<td><a href="/editCandidate/${registered.id}">Edit</a></td>  
-  						<td><a href="/deletecandidate/${registered.id}"><span class="fa fa">Delete</span></a></td>
-   						
-   </tr>  
-   </c:forEach> 
-   </tbody>
-   </table>  
-   </div>
-   </div>
-   </div>
-   </div>
+        <h3>Education is the most powerful weapon which you can use to change the world.</h3>
         
         
         

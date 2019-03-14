@@ -133,7 +133,7 @@ public class RegisterationService implements IregisterationService{
 				mail1.setTo(mail);
 				mail1.setFrom("akshay1.k@credessol.com");
 				System.out.println("mail captured");
-				mail1.setText("Your Referrence ID is"+ referenceid+"");
+				mail1.setText("Thanks for registering to CREDESSOL COLLEGE. Your Referrence ID is -->"+ referenceid+". Use the link credessol.com to login ");
 				 System.out.println("text captured");
 				 mail1.setSubject("Credessol College - Online Application Form - Referrence ID");
 				   System.out.println("subject captured");
@@ -155,7 +155,7 @@ public void sendLoginCandidateOtpViaMail(String mail, int otp) throws MailExcept
 		        
 				mail2.setTo(mail);
 				mail2.setFrom("akshay1.k@credessol.com");
-				mail2.setText("Your OTP is"+ otp+"");
+				mail2.setText("Use the One Time Password (OTP) "+ otp+" to Login");
 				mail2.setSubject("Credessol College - Online Application Form Login - OTP");
 				   
 		        javamailsender.send(mail2);

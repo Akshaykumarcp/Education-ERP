@@ -15,7 +15,7 @@ public class CandidateStatusService {
 	@Autowired
 	CandidateStatusDAO stat ; 
 	
-	public List<Registeration> getCandidatesStatus(int ref)
+	public Registeration getCandidatesStatus(int ref)
 	{
 		return stat.getCandidatesStatus(ref); 
 	}

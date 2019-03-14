@@ -25,17 +25,17 @@ JdbcTemplate template;
 		template = new JdbcTemplate(dataSource);
 	}
 	
-	public List<Registeration> getCandidatesStatus(int ref)
+	public Registeration getCandidatesStatus(int ref)
 	{
-		return template.query("select referenceid,fullname,phonenumber,mailid from registeration where referenceid="+ref,new ResultSetExtractor<List<Registeration>>(){
+		return template.query("select referenceid,fullname,phonenumber,mailid,status from registeration where referenceid="+ref,new ResultSetExtractor<Registeration>(){
 		    
-		     public List<Registeration> extractData(ResultSet rs) throws SQLException,  
+		     public Registeration extractData(ResultSet rs) throws SQLException,  
 		            DataAccessException {  
 		      
-		    	 List<Registeration> list=new ArrayList<Registeration>();   
-		    	 
+						/* List<Registeration> list=new ArrayList<Registeration>(); */
+		    	 Registeration e=new Registeration();
 		        while(rs.next()){  
-		        	Registeration e=new Registeration();
+		        	
 		        	//e.setId(rs.getInt(1));  
 		        	e.setReferenceid(rs.getString(1));  
 			        e.setFullname(rs.getString(2));  
@@ -43,10 +43,10 @@ JdbcTemplate template;
 			        
 			        e.setMailid(rs.getString(4));
 			        //e.setCourse(rs.getString(6));  
-			        list.add(e);
+							/* list.add(e); */
 		        }  
 		        //System.out.println("phonenumber"+e.toString());
-		        return list;  
+		        return e;  
 		        }  
 		    });  
 	}

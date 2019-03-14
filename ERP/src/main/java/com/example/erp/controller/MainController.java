@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 import com.example.erp.model.ReCaptchaResponse;
@@ -29,9 +30,11 @@ import com.example.erp.service.RegisterationService;
 import com.twilio.rest.api.v2010.account.Message;*/
 
 @Controller
+@SessionAttributes("candidate")
 public class MainController {
 
 	private String message;
+	private String success;
 
 	@Autowired
 	private RegisterationService regserv;
@@ -88,7 +91,7 @@ public class MainController {
 		 */
 		// Registeration list=regserv.getStudentByRef(reff);
 		
-		message=null;
+		
 		
 		model.addAttribute("loginCandi", new Registeration());
 
@@ -106,13 +109,18 @@ public class MainController {
 		 * getReferenceid());
 		 */
 			
-			  regserv.sendReferrenceIdViaMail(Registeration.getMailid(), Registeration.getReferenceid());
+			/*
+			 * regserv.sendReferrenceIdViaMail(Registeration.getMailid(),
+			 * Registeration.getReferenceid());
+			 */
+		success = "how";
+		
 			 
-		return "display_candidate";
+		return "redirect:/";
 		 }
 		  else
 		  {
-			 message="Please Verify captcha"; 
+		 message="Please Verify captcha";
 		
 		 return "redirect:/"; }
 		 
