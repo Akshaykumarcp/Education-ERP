@@ -82,5 +82,14 @@ public class InterviewDefinitionService implements IinterviewDefinition {
 	}
 
 
+	public void updateStatus(String regisId) {
+		 intedao.updateStatus(regisId);;
+		// TODO Auto-generated method stub
+		
+		
+		
+	}
+
+
 
 }

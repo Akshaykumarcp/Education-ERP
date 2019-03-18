@@ -28,15 +28,59 @@
 
 }
 </style>
+<script type="text/javascript">
+	$(document).ready(function(){
+
+		$('#displaySelectedOrNot').show();
+		
+		$('#checkBoxAll').click(function(){
+			if($(this).is(":checked"))
+				$('.chkCheckBoxId').prop("checked",true);
+			else
+				$('.chkCheckBoxId').prop("checked",false);
+
+			})
+			
+		
+
+		/*  $("#status").on('change',function()
+ 				{
+  		 var stat = $('#status option:selected').val();
+  		 alert(stat); 
+  		 var selected;
+				if(stat == "selected"){
+		 
+					/* alert("value is"+ stat); 
+					 $('.test.checkbox').checkbox('check');
+				}
+		  else{
+			$('.test.checkbox').checkbox('uncheck');
+		  }
+ 				}); */
+
+ 				$("#check").on('change',function()
+ 		 				{
+ 					if('#check').prop("unchecked")
+ 					{
+ 						$('#displaySelectedOrNot').hide();
+ 						}
+ 		 				});
+		
+
+		})
+		
+		
+</script>
 </head>
   
   
   <div class=container>
+  <form:form action="/updateStatus" method="POST" modelAttribute="updateStatus">
 		<div class=table-responsive>
 			<table  class="table table-hover" id="filterstudents">
 				<tr><th>Sl No</th><th>Student Name</th><th>Course</th><th>Entrance Exam</th>
 					<th>Register Number</th><th>Marks</th><th>Caste</th>
-					<th>Status</th>
+					<!-- <th>Status</th> -->
 					<th>Select</th><!-- <th>Delete</th> --></tr>
    					<c:forEach var="stud" items="${list}"> 
    					
@@ -61,31 +105,35 @@
     <div class="item" data-value="0">Rejected</div>
   </div>
 </div> -->
-<select class="form-control" id="status" name="cast" style="width: 100px;">
+<!-- <select class="form-control" id="status" name="cast" style="width: 100px;">
                       <option value = "default">SELECT</option>
                      <option value="selected">Selected</option>
                      <option value="rejected">Rejected</option>
-      </select>
+      </select> -->
 
-</td> 
-   					<td><div class="column">
     <div class="ui test toggle checkbox">
-      <input type="checkbox" checked="checked" id="check">
-    </div>
-</div></td> 
+    <!-- <small>Not Selected</small> -->
+      <form:checkbox checked="checked" value="${stud.id}" name="status" class="chkCheckBoxId" path="status" id="check"/>
+      <small id="displaySelectedOrNot">Selected</small>
+     <c:out value="${stud.id}"></c:out>
+      
+          </div>
+          </div>
+</td> 
    		
   						<%-- <td><a href="/deleteInterviewDefinition/${stud.id}"><span class="fa fa-trash-o"></span></a></td> --%>			
    </tr>  
    </c:forEach> 
    
    </table>  
-  <div class="ui positive check button">Select All</div> 
+  <div class="ui positive check button" id="checkBoxAll">Select All</div> 
 <div class="ui negative uncheck button">Deselect All</div>
-
+<input type="submit" value="Apply" />
 
 
 
    </div>
+   </form:form>
    </div>
    <script>
           $(document).ready(function(){
@@ -96,20 +144,7 @@
         	  $('.ui.dropdown')
         	  .dropdown();
 
-         	  $("#status").on('change',function()
-        				{
-         		 var stat = $('#status option:selected').val();
-         		 /* alert(stat); */
-         		 var selected;
-					if(stat == "selected"){
-       		 
-						/* alert("value is"+ stat); */
-						 $('.test.checkbox').checkbox('check');
-					}
-       		  else{
-       			$('.test.checkbox').checkbox('uncheck');
-       		  }
-        				});
+         	 
 
          	 /* $("#check").on('change',function()
      				{

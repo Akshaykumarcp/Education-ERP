@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
@@ -41,6 +43,7 @@ public class InterviewController {
 
 		modelmap.addAttribute("interviewdef", new InterviewDefinition());
 		modelmap.addAttribute("programs", intser.retriveAllProgramType());
+		modelmap.addAttribute("updateStatus", new Registeration());
 		// modelmap.addAttribute("progr", new ProgramType());
 		List<InterviewDefinition> list = intser.getAllInterviewDefintions();
 		/* modelmap.addAttribute("register", new Registeration()); */
@@ -157,9 +160,9 @@ public class InterviewController {
 
 	@RequestMapping(value = "/filterStudents", method = RequestMethod.GET)
 	public ModelAndView getFilterStudents(@RequestParam(name = "course") String co,
-			@RequestParam(name = "marks") String marks, @RequestParam(name = "cast") String cast) throws IOException {
+			@RequestParam(name = "marks") String marks, @RequestParam(name = "cast") String cast,ModelMap modelmap) throws IOException {
 		System.out.println(co + "" + marks + "" + cast);
-		
+		modelmap.addAttribute("updateStatus", new Registeration());
 		if(co!=null) {
 			System.out.println("i'll display course");
 		List<Registeration> listt = intser.getStudentsByFilter(co);
@@ -176,6 +179,31 @@ public class InterviewController {
 		else
 		System.out.println("displaying null");
 		return null;
-	}	
+	}
+	
+	
+	@GetMapping("/filteredStudents")
+	public String filteredStudents(ModelMap modelmap)
+	{
+	modelmap.addAttribute("updateStatus", new Registeration());
+	
+	return "admissionFilteredStudents";
+	}
+	
+	
+	@PostMapping("/updateStatus")
+	public String updateStatus(@ModelAttribute("updateStatus") Registeration stat, ModelMap model )
+	{
+		System.out.println("status :"+stat.getStatus());
+		
+		List<String> statId = stat.getStatus();
+		
+		for(String regisId :statId)
+		{
+			intser.updateStatus(regisId);
+			System.out.println("Inside Loop"+regisId);
+		}
+		return "admissionFilteredStudents";
+	}
 }
 

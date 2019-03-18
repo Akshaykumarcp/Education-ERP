@@ -1,85 +1,99 @@
 
-   <%@include file="header.jsp"%>
+<!-- IMPORTS -->
+<%@include file="header.jsp"%>
+<%@ page import="java.security.SecureRandom" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <head>
+
 <!-- <script src="js/registerForm.js"></script> -->
+
 <style>
-body  {
-/* https://images.unsplash.com/photo-1457369804613-52c61a468e7d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80.jpg */
-  background-image: url(https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80.jpg);
-  background-size: cover;
+body  
+	  {
+  		background-image: url(https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80.jpg);
+  		background-size: cover;
+	  }
+
+.error
+	 { 
+		color: red; 
+	 }
+</style>
+<script>
+function alerttme()
+{
+	
+	  /* alert("suceess"); */
+	  swal({
+		  title: "Thank You For Registering",
+		  text: "Check Your Mail For Reference ID To Login",
+		  icon: "success",
+	  })
+	  
 }
 
-.error { 
-		color: red; 
-	}
-</style>
 
-
- <!-- 
-$("#restbtn").click(function(){
-$("#name").val("");
-$("#number").val("");
-$("#mail").val("");
-$("#sel1").val("course");
-}); -->
+</script>
 </head>
+
 <body>
+
 <div class="container">
   <br>
-
    <div class="row">
-    <div class="col" ></div>
-    <div class="col" ></div>
-    <div class="col" style="float:right; border: black;border-style: solid; border-radius: 25px; background-color: white;padding-top: 30px; padding-bottom: 30px">
-      <!-- Nav pills -->
-  <ul class="nav nav-tabs" role="tablist">
-    <li class="nav-item">
-      <a class="nav-link active" data-toggle="tab" href="#register">Register</a>
-    </li>
-    <li class="nav-item">
+    	<div class="col" ></div>
+	    	<div class="col" ></div>
+    			<div class="col" style="float:right; border: black;border-style: solid; border-radius: 25px; background-color: white;padding-top: 30px; padding-bottom: 30px">
+      				<!-- Nav pills -->
+  						<ul class="nav nav-tabs" role="tablist">
+    						<li class="nav-item">
+      							<a class="nav-link active" data-toggle="tab" href="#register">Register</a>
+    						</li>
+    						<li class="nav-item">
+      							<a class="nav-link" data-toggle="tab" href="#login">Login</a>
+    						</li>
+  						</ul>
 
-      <a class="nav-link" data-toggle="tab" href="#login">Login</a>
-    </li>
+  						<!-- Tab panes -->
+  						<div class="tab-content">
+    						<div id="register" class="container tab-pane active"><br>
+    							<small style="float:right; color:red;">* Mandatory fields</small>
+    								<!-- REGISTERATION FORM BEGINING -->
     
-  </ul>
-
-  <!-- Tab panes -->
-  <div class="tab-content">
-    <div id="register" class="container tab-pane active"><br>
-    <small style="float:right; color:red;">* Mandatory fields</small>
-    <!-- REGISTERATION FORM BEGINING -->
-    
-      <form:form method="POST" modelAttribute="Registeration" id="registerForm" action="/registeration" autoComplete="off">
-       <c:if test="${message ne null}">
-      	<div class="alert alert-danger">
-      		${message}
-      	</div>
-      	<script>
-      	alerttme();
-      	</script>
-       </c:if> 
-       <c:if test="${success ne null}">
-      	<div class="alert alert-danger">
-      		${success}
-      		<script>
-      	alerttme();
-      	</script>
-      	</div>
-      	
-       </c:if> 
-      <%@ page import="java.security.SecureRandom" %>
-           
-           <%
-           int refid = (int)(Math.random()*9000)+1000;
-          	%>
+      									<form:form method="POST" modelAttribute="Registeration" id="registerForm" action="/registeration" autoComplete="off">
+       
+       										<c:if test="${message ne null}">		
+      											<div class="alert alert-danger">
+      												${message}
+      											</div>
+       										</c:if> 
+       
+       										<c:if test="${success ne null}">
+      											<h1>${success}</h1>
+      													<script type="text/javascript">
+															/* window.onload = function(){
+																alert("yes!!!!") */
+																alerttme();
+															success = null;
+																
+																/* }  */ 														
+      													</script>
+      													
+      													<c:set var="success" value=""/>
+      										
+       										</c:if> 
+              
+             									 <!-- JSP SCRIPLET FOR GENERATING REFERENCE ID -->
+               
+          					 					<% int refid = (int)(Math.random()*9000)+1000; %>
           	
-          	 <%-- <form:errors cssClass="error"/>  --%>
-          	<div class="form-group">
-      <!-- <label for="name">Enter Full Name:</label> -->
-      <form:input type="hidden" class="form-control"  path="referenceid" id="ref" value="<%= refid %>" name="referenceid"/>
-      <%-- <form:errors path="referenceid" cssClass="error"/> --%>
-					
-					</div>
+          				<%-- <form:errors cssClass="error"/>  --%>
+          				<div class="form-group">
+      						<form:input type="hidden" class="form-control"  path="referenceid" id="ref" value="<%= refid %>" name="referenceid"/>
+      							<%-- <form:errors path="referenceid" cssClass="error"/> --%>
+						</div>
+						
   <div class="form-group">
 
     <!-- <label for="email">Name:</label> -->
@@ -187,7 +201,10 @@ $("#sel1").val("course");
 <script>
 
 	$(document).ready(function() {
+		
 		// validate the comment form when it is submitted
+		
+
 		
 		/* HOMEPAGE LOGIN */
 
@@ -209,15 +226,10 @@ $("#sel1").val("course");
 		     
 	   });
 
-	   $("#enterMe").on("change",function() {
-		     $("#otp").show();
-		   });
-
-
-	  $("#programtype").on('change',function()
+	   $("#programtype").on('change',function()
 				{		
 					var countryid = $('#programtype option:selected').attr("mytag");
-					  alert(countryid); 
+					  /* alert(countryid);  */
 					
 			 		$.ajax({ 		 
 						url:'/loadCourse/'+countryid,
@@ -238,20 +250,18 @@ $("#sel1").val("course");
 					  			console.log(5 + 6);
 							}  
 							});
-					}); 
+					});	 
+
+
+
+
+	   
+	   $("#enterMe").on("change",function() {
+		     $("#otp").show();
+		   });
+
 
 	  
-	  function alerttme()
-	  {
-		  alert("suceess");
-		  swal({
-			  title: "Thank You For Registering",
-			  text: "Check Your Mail For Reference ID To Login",
-			  icon: "success",
-		  })
-	 }
-
-	 
 		
 $.validator.addMethod("valueNotEquals", function(value, element, arg){
   return arg !== value;
@@ -273,16 +283,6 @@ $.validator.addMethod("valueNotEqu", function(value, element, arg){
 					required: true,
 					minlength: 3,
 					maxlength:25
-				},
-				userName: {
-					required: true,
-					minlength: 4,
-					maxlength:4
-				},
-				passWord: {
-					required: true,
-					minlength: 4,
-					maxlength:4
 				},
 				phonenumber: {
 					required: true,
@@ -326,18 +326,6 @@ $.validator.addMethod("valueNotEqu", function(value, element, arg){
 						maxlength:"FullName Too Long"
 						
 					},
-					userName: {
-						required: "Enter Username",
-						minlength: "Username Too Short",
-						maxlength:"Username Too Long"
-						
-					},
-					passWord: {
-						required: "Enter Password",
-						minlength: "Password Too Short",
-						maxlength:"Password Too Long"
-						
-					},
 				phonenumber: {
 						required: "Enter Phonenumber",
 						minlength: "Phonenumber should be 10 digits",
@@ -366,12 +354,12 @@ $.validator.addMethod("valueNotEqu", function(value, element, arg){
 				},
 				userName: {
 					required: true,
-					minlength: 4,
+					minlength: 3,
 					maxlength:4
 				},
 				passWord: {
 					required: true,
-					minlength: 4,
+					minlength: 3,
 					maxlength:4
 				}
 			},
@@ -393,8 +381,7 @@ $.validator.addMethod("valueNotEqu", function(value, element, arg){
 					passWord: {
 						required: "Enter Password",
 						minlength: "Password Too Short",
-						maxlength:"Password Too Long"
-						
+						maxlength:"Password Too Long"	
 					},
 					selector : "Select Your Role",
 				

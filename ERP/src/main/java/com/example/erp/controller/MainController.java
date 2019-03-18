@@ -34,7 +34,7 @@ import com.twilio.rest.api.v2010.account.Message;*/
 public class MainController {
 
 	private String message;
-	private String success;
+	String success;
 
 	@Autowired
 	private RegisterationService regserv;
@@ -66,7 +66,10 @@ public class MainController {
 	public String newRegistration(ModelMap model) {
 
 		// Registeration candi = new Registeration();
+		message=null;
+		success=null;
 		model.addAttribute("message", message);
+		model.addAttribute("success", success);
 		model.addAttribute("Registeration", new Registeration());
 		model.addAttribute("programs", intser.retriveAllProgramType());
 		model.addAttribute("loginCandi", new Registeration());
@@ -90,7 +93,7 @@ public class MainController {
 		 * return "redirect:/"; }
 		 */
 		// Registeration list=regserv.getStudentByRef(reff);
-		
+		success=null;
 		
 		
 		model.addAttribute("loginCandi", new Registeration());
@@ -101,7 +104,7 @@ public class MainController {
 		ReCaptchaResponse reCaptchaResponse = restTemplate.exchange(url +params, HttpMethod.POST, null, ReCaptchaResponse.class).getBody();
 		
 		 if(reCaptchaResponse.isSuccess()) { 
-		 
+		 System.out.println("success before --> "+ success);
 		regserv.save(Registeration);
 		// regserv.sendRef(id);
 		/*
@@ -114,12 +117,13 @@ public class MainController {
 			 * Registeration.getReferenceid());
 			 */
 		success = "how";
-		
+		System.out.println("after assigning value to success -->"+ success);
 			 
 		return "redirect:/";
 		 }
 		  else
 		  {
+			  model.addAttribute("Registeration", new Registeration());
 		 message="Please Verify captcha";
 		
 		 return "redirect:/"; }
@@ -326,7 +330,7 @@ public class MainController {
 			System.out.println("OTP is:" + otp);
 
 			regserv.saveOTP(otp,enteredRef);
-			regserv.sendLoginCandidateOtpViaMail(list3.getMailid(),otp); 
+			/* regserv.sendLoginCandidateOtpViaMail(list3.getMailid(),otp); */
 			model.addAttribute("candidateAdmission", new Registeration());
 			model.addAttribute("verifyOTPMA", new Registeration());
 			return new ModelAndView("verifyOTP","listme",list3);

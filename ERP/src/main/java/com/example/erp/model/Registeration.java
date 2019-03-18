@@ -1,8 +1,10 @@
 package com.example.erp.model;
 
-import java.io.Serializable;     
+import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Id;
+
 /*import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;*/
@@ -264,18 +266,31 @@ public class Registeration implements Serializable{
 	private String r_marks2;
 	private String quota_sports;
 	private String quota_speciallyenabled;
-	private String status;
+	private List<String> status;
+	private List statid;
+
+	public List<Registeration> getStatid() {
+		return statid;
+	}
+
+	public void setStatid(List<Registeration> statid) {
+		this.statid = statid;
+	}
 	/*
 	 * private String course; private String course; private String course; private
 	 * String course;
 	 */
 	
+	public Registeration()
+	{
+		
+	}
 	
-	
-	public String getStatus() {
+	public List<String> getStatus() {
 		return status;
 	}
-	public void setStatus(String status) {
+	
+	public void setStatus(List<String> status) {
 		this.status = status;
 	}
 	public int getId() {

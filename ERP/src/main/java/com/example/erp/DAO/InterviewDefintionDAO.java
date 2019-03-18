@@ -240,7 +240,8 @@ public class InterviewDefintionDAO implements IinterviewDefinitionDAO{
 		    	 List<Registeration> list=new ArrayList<Registeration>();  
 		    	
 		        while(rs.next()){  
-		        	 Registeration e=new Registeration();  
+		        	 Registeration e=new Registeration(); 
+		        	 e.setId(rs.getInt(1));
 		        	e.setFullname(rs.getString(3));		        	
 			        e.setCourse(rs.getString(6));
 			        e.setEntrance_exam(rs.getString(28));
@@ -276,6 +277,15 @@ public class InterviewDefintionDAO implements IinterviewDefinitionDAO{
 		        return list;  
 		        }  
 		    }); 
+		
+	}
+
+	public void updateStatus(String regisId) {
+		String selected="selected";
+		// TODO Auto-generated method stub
+		String sql="update Registeration set status='"+selected+"' where id="+regisId+"";
+		System.out.println(sql);
+	   template.update(sql); 
 		
 	}
 	

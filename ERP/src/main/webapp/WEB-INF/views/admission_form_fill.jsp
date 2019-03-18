@@ -4,6 +4,9 @@
 <meta name="viewport" content="width=device-width">
  <style>
  
+ .red{
+  color:red;
+}
 
 body  {
   background-image: url(https://images.pexels.com/photos/242236/pexels-photo-242236.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500.jpg);
@@ -26,13 +29,39 @@ body  {
   font-family: 'Californian FB', sans-serif !important;
 }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+   <script type="text/javascript">
+   	$(document).ready(function() {
+   	$('.collbtn').click(function(){ //you can give id or class name here for $('button')
+          $(this).text(function(i,old){
+            return old=='+' ?  '-' : '+';
+           });
+       });
 
+   	function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#image_upload_preview').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#inputFile").change(function () {
+        readURL(this);
+    });
+    
+   }); 
+   </script>
 </head>>
 <body>
 
 <div class="container-fluid">
 
-<form:form  method="POST" modelAttribute="candidateAdmission" id="admissionForm" action="/candidate-admission-form">
+<form:form  method="POST" modelAttribute="candidateAdmission" enctype="multipart/form-data" id="admissionForm" action="/candidate-admission-form">
  <%-- <c:forEach var="getlist" items="${listme}"> --%>
 <div class="container">
 <div class="container-fluid">
@@ -44,7 +73,7 @@ body  {
 </div>
      <br/>
        <div class="card">
-          <div class="card-header">Personal Details</div>
+          <div class="card-header">Personal Details<span class="red">*</span></div>
           
           <div class="row">
 			<div class="form-group col-md-12">
@@ -62,15 +91,41 @@ body  {
           
           <div class="form-row">
     <div class="form-group col-md-4">
-      <label for="inputname" style="padding-left: 20px">Full Name</label>
-      <input type="text" class="form-control"  name="fullname" style="width: 220px; align:center; margin-left: 20px" value="${listme.fullname}" id="fulname"  disabled/>
+      <%-- <label for="inputname" style="padding-left: 20px">Full Name</label>
+      <input type="text" class="form-control"  name="fullname" style="width: 220px; align:center; margin-left: 20px" value="${listme.fullname}" id="fulname"  disabled/> --%>
+       <label for="inputname" style="padding-left: 20px;margin-top: 10px;">Full Name</label><span class="red">*</span>
+      <input type="text" class="form-control" name="fullname" style="width: 220px; align:center; margin-left: 20px" value="" id="fulname" disabled>
     </div>
-    <div class="form-group col-md-4">
+    <%-- <div class="form-group col-md-4">
       <label for="inputdob">DOB</label>
       <form:input type="date" class="form-control" id="date" style="width: 220px" name="dob" path="dob" placeholder=""/>
-    </div>
+     --%>
+     
+     <div class="form-group col-md-3">
+      <label for="inputdob" style="margin-top: 10px;">DOB</label><span class="red">*</span>
+      <form:input type="date" class="form-control" id="date" style="width: 220px" name="dob" path="dob" placeholder=""/>
+     
+     </div>
     <div class="form-group col-md-4">
-    <label for="inputdob">Gender</label><br>
+    
+    
+    </div>
+  </div>
+  
+  <!-- Row Ended -->
+  
+      <div class="form-row">
+    <div class="form-group col-md-3">
+      <label for="email" style="padding-left: 20px">Email</label><span class="red">*</span>
+      <input type="email" class="form-control"  value=" ${listme.mailid}" style="width: 220px ; margin-left: 20px" name="mail" placeholder="" disabled/>
+    </div>
+    <div class="form-group col-md-3">
+      <label for="phonenumber">Phone Number</label><span class="red">*</span>
+      <input type="text" class="form-control" name="phonenumber"  style="width: 220px" value=" ${listme.phonenumber}"  placeholder="" disabled/>
+    </div>
+    
+    <div class="form-group col-md-3">
+      <label for="inputdob">Gender</label><span class="red">*</span><br>
     <div class="form-check-inline">
   <label class="form-check-label">
     <form:radiobutton class="form-check-input"  path="gender" value="Male" name="optradio"/>Male
@@ -81,38 +136,30 @@ body  {
     <form:radiobutton class="form-check-input" path="gender" value="Female" name="optradio"/>Female
   </label>
 </div>
-
     </div>
-  </div>
-  
-  <!-- Row Ended -->
-  
-      <div class="form-row">
-    <div class="form-group col-md-4 col-md-offset-3">
-      <label for="email" style="padding-left: 20px">Email</label>
-      <input type="email" class="form-control"  value=" ${listme.mailid}" style="width: 220px ; margin-left: 20px" name="mail" placeholder="" disabled/>
-    </div>
-    <div class="form-group col-md-4">
-      <label for="phonenumber">Phone Number</label>
-      <input type="text" class="form-control" name="phonenumber"  style="width: 220px" value=" ${listme.phonenumber}"  placeholder="" disabled/>
-    </div>
-    <div class="form-group col-md-4">
-      <label for="nation">Nationality</label>
-      <form:input type="text" class="form-control" minlength="3" name="nationality" style="width: 220px" path="nationality" placeholder=""/>
+     <div class="form-group col-md-3">
+      <img id="image_upload_preview" width="160px" height="150px" style="margin-top:-100px;" src="http://placehold.it/160x150" alt="your image" />
+     
+ <input type='file' id="inputFile" name="photo"/>
     </div>
     </div>
   
    <div class="form-row">
-    <div class="form-group col-md-4">
-      <label for="caste" style="padding-left: 20px">Caste</label>
-       <form:select class="form-control" style="width: 220px; margin-left: 20px" path = "caste">
+    <div class="form-group col-md-3">
+      <label for="caste" style="padding-left: 20px">Caste</label><span class="red">*</span>
+       <form:select class="form-control" style="width: 190px; margin-left: 20px" path = "caste">
                      <form:option value = "default" label = "Select"/>
   						<form:options items = "${caste}" />
   						</form:select>
     </div>
-    <div class="form-group col-md-8">
-      <label for="inputdob">Address</label>
-      <form:textarea class="form-control" style=" height: 40px; width: 620px; margin-right: 20px" minlength="10" name="address" path="address" placeholder=""></form:textarea>
+    <div class="form-group col-md-3">
+      <label for="nation">Nationality</label><span class="red">*</span>
+      <form:input type="text" class="form-control" minlength="3" name="nationality" style="width: 220px" path="nationality" placeholder=""/>
+    </div>
+     
+    <div class="form-group col-md-6">
+      <label for="inputdob">Address</label><span class="red">*</span>
+      <form:textarea class="form-control" style=" height: 35px; width: 520px; margin-right: 20px" minlength="10" name="address" path="address" placeholder=""></form:textarea>
     </div>
   </div>
   
@@ -124,16 +171,16 @@ body  {
   <div class="container">
      
        <div class="card">
-          <div class="card-header" style="padding-left: 20px">Parent / Gaurdian Details</div>
-          
+          <div class="card-header" style="padding-left: 20px">Parent / Gaurdian Details<span class="red">*</span> <button type="button"  class="btn btn-info collbtn" data-toggle="collapse" data-target="#demo1" style="float: right;">+</button></div>
+           <div id="demo1" class="collapse">
           
           <div class="form-row">
     <div class="form-group col-md-4">
-      <label for="parent" style="padding-left: 20px">Parent / Gaurdian Name</label>
+      <label for="parent" style="padding-left: 20px">Parent / Gaurdian Name</label><span class="red">*</span>
       <form:input type="text" class="form-control" minlength="3" style="width: 220px; margin-left: 20px" path="p_name" placeholder=""/>
     </div>
     <div class="form-group col-md-8">
-      <label for="parentPhoneNumber">Phone Number</label>
+      <label for="parentPhoneNumber">Phone Number</label><span class="red">*</span>
       <form:input type="text" class="form-control"  minlength="10" style="width: 220px" path="p_phonenumber" placeholder=""/>
     </div><br/>
   </div>
@@ -144,68 +191,68 @@ body  {
       <form:input type="email" class="form-control" style="width: 220px; margin-left: 20px" path="p_mailid" placeholder=""/>
     </div>
     <div class="form-group col-md-8">
-      <label for="address">Address</label>
+      <label for="address">Address</label><span class="red">*</span>
       <form:textarea class="form-control" rows="5" style=" height: 40px; width: 620px; margin-right: 20px" minlength="10" id="date" path="p_address" placeholder=""></form:textarea>
     </div>
   </div>
           
   </div>
   </div>
-  
+  </div>
   <br/>
   
   
   <div class="container">
      
        <div class="card">
-          <div class="card-header">Academic Details</div>
-         
+          <div class="card-header">Academic Details<span class="red">*</span> <button type="button"  class="btn btn-info collbtn" data-toggle="collapse" data-target="#demo2" style="float: right;">+</button></div>
+          <div id="demo2" class="collapse">
          <div class="form-row">
     <div class="form-group col-md-4">
-      <label for="sslcBoard" style="padding-left: 20px">SSLC Board</label>
+      <label for="sslcBoard" style="padding-left: 20px">SSLC Board</label><span class="red">*</span>
       <form:input type="text" name="sslcBoard" class="form-control"  minlength="3" style="width: 220px; margin-left: 20px" path="sslc_board" placeholder=""/>
     </div>
     <div class="form-group col-md-4">
-      <label for="pucBoard">PUC Board</label>
+      <label for="pucBoard">PUC Board</label><span class="red">*</span>
       <form:input type="text" class="form-control" name="pucBoard" minlength="3" style="width: 220px" path="puc_board" placeholder=""/>
     </div>
     <div class="form-group col-md-4">
-      <label for="graduationBoard">Graduation Board</label>
+      <label for="graduationBoard">Graduation Board</label><span class="red">*</span>
       <form:input type="text" class="form-control" name="graduationBoard" minlength="3" style="width: 220px" path="graduate_board" placeholder=""/>
     </div>
   </div>
   
   <div class="form-row">
     <div class="form-group col-md-4">
-      <label for="sYop" style="padding-left: 20px">YOP</label>
+      <label for="sYop" style="padding-left: 20px">YOP</label><span class="red">*</span>
       <form:input type="text" class="form-control" name="sYop" minlength="4" style="width: 220px; margin-left: 20px;" path="s_yop" />
     </div>
     <div class="form-group col-md-4">
-      <label for="pYOP">YOP</label>
+      <label for="pYOP">YOP</label><span class="red">*</span>
       <form:input type="text" class="form-control" name="pYop" minlength="4" style="width: 220px;" path="p_yop" />
     </div>
     <div class="form-group col-md-4">
-      <label for="gYop">YOP</label>
+      <label for="gYop">YOP</label><span class="red">*</span>
       <form:input type="text" class="form-control" name="gYop" minlength="4" style="width: 220px;" path="g_yop" />
     </div>
   </div>
   
   <div class="form-row">
     <div class="form-group col-md-4">
-      <label for="sPerc" style="padding-left: 20px">%</label>
+      <label for="sPerc" style="padding-left: 20px">%</label><span class="red">*</span>
       <form:input type="text" class="form-control" name="sPerc"  style="width: 220px; margin-left: 20px" path="s_percentage" placeholder=""/>
     </div>
     <div class="form-group col-md-4">
-      <label for="pPerc">%</label>
+      <label for="pPerc">%</label><span class="red">*</span>
       <form:input type="text" class="form-control" name="pPerc" style="width: 220px" path="p_percentage" placeholder=""/>
     </div>
     <div class="form-group col-md-4">
-      <label for="gPerc">%</label>
+      <label for="gPerc">%</label><span class="red">*</span>
       <form:input type="text" class="form-control" style="width: 220px" path="g_percentage" name="gPerc" placeholder=""/>
     </div>
   </div>
   
-
+</div>
         </div>
   </div>
   
@@ -214,18 +261,18 @@ body  {
   <div class="container">
      
        <div class="card">
-          <div class="card-header">Course Details</div>
-          
+          <div class="card-header">Course Details<span class="red">*</span> <button type="button"  class="btn btn-info collbtn" data-toggle="collapse" data-target="#demo3" style="float: right;">+</button></div>
+          <div id="demo3" class="collapse">
            <div class="form-row">
     <div class="form-group col-md-4">
-      <label for="course" style="padding-left: 20px">Course</label>
+      <label for="course" style="padding-left: 20px">Course</label><span class="red">*</span>
       <form:select class="form-control" style="width: 220px; margin-left: 20px" path = "course" >
                      <form:option value=" ${listme.course}"/>
                      
       </form:select>
     </div>
     <div class="form-group col-md-4">
-      <label for="inputdob">Course Type</label>
+      <label for="inputdob">Course Type</label><span class="red">*</span>
      <form:select style="width: 220px" path="course_type"  class="form-control">
   <form:option value = "default" label = "Select"/>
   <form:options items = "${coursesType}" />
@@ -233,7 +280,7 @@ body  {
     </div>
 
     <div class="form-group col-md-4">
-      <label for="inputname">First Language</label>
+      <label for="inputname">First Language</label><span class="red">*</span>
       <form:select style="width: 220px" path="first_language" name="firstLanguage" class="form-control">
   <form:option value = "default" label = "Select"/>
   <form:options items = "${firstLanguage}" />
@@ -245,14 +292,14 @@ body  {
   </div>
   </div>
   </div>
-  
+  </div>
     <br/>
   
   <div class="container">
      
        <div class="card">
-          <div class="card-header">Quota</div>
-          
+          <div class="card-header">Quota<span class="red">*</span> <button type="button"  class="btn btn-info collbtn" data-toggle="collapse" data-target="#demo4" style="float: right;">+</button></div>
+          <div id="demo4" class="collapse">
           <div class="form-row">
     <div class="form-group col-md-4 ">
       <!-- <label for="inputname">Caste</label> --><br>
@@ -286,14 +333,14 @@ body  {
           
   </div>
   </div>
-  
+  </div>
     <br/>
   
   <div class="container">
      
        <div class="card">
-          <div class="card-header">Entrance Exam Details</div>
-          
+          <div class="card-header">Entrance Exam Details<span class="red">*</span> <button type="button"  class="btn btn-info collbtn" data-toggle="collapse" data-target="#demo5" style="float: right;">+</button></div>
+          <div id="demo5" class="collapse">
           <div class="form-group">
      			<table class="table">
   <thead>
@@ -324,13 +371,19 @@ body  {
   </div>
   
   
-  <br/>
+  <br/></div><br/>
   
- <form:button type="submit"  class="btn btn-outline-primary btn-lg justify-content-center" style="margin-left:470px">Submit</form:button> 
- <form:button type="reset"  class="btn btn-outline-primary btn-lg justify-content-center" >Reset</form:button> 
+ <%-- <form:button type="submit"  class="btn btn-outline-primary btn-lg justify-content-center" style="margin-left:470px">Submit</form:button> 
+ <form:button type="reset"  class="btn btn-outline-primary btn-lg justify-content-center" >Reset</form:button>  --%>
  
+  <div class="ui buttons">
+  <button type="submit" class="ui positive button justify-content-center" style="margin-left:470px">Submit</button>
+  <div class="or"></div>
+  <button type="reset" class="ui button justify-content-center">Reset</button>
+</div>
+</div>
 
- </div>
+ 
  
 <%-- </c:forEach> --%>
  </form:form>
@@ -476,7 +529,11 @@ body  {
 						},
 						r_marks2:{
 							maxlength:6
-						}
+						},
+						photo :
+							{
+							required: true
+							}
 			},
 			messages: {
 				dob: {
@@ -589,7 +646,8 @@ body  {
 													},
 						r_marks2:{
 						maxlength: "Value Entered is Too Long"
-						}
+						},
+						photo : "Select Photo"
 											
 			}
 		}); 

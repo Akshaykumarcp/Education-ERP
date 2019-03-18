@@ -2,7 +2,7 @@
 
 <%@include file="header.jsp"%>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
-
+<!-- 
  <style>
 
 body  {
@@ -149,11 +149,9 @@ input[type=text]:placeholder {
 }
 
 
+ -->
 
-/* ANIMATIONS */
-
-/* Simple CSS3 Fade-in-down Animation */
-.fadeInDown {
+<!-- .fadeInDown {
   -webkit-animation-name: fadeInDown;
   animation-name: fadeInDown;
   -webkit-animation-duration: 1s;
@@ -187,12 +185,9 @@ input[type=text]:placeholder {
     transform: none;
   }
 }
+ -->
 
-/* Simple CSS3 Fade-in Animation */
-@-webkit-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
-@-moz-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
-@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
-
+<!-- 
 .fadeIn {
   opacity:0;
   -webkit-animation:fadeIn ease-in 1;
@@ -231,9 +226,9 @@ input[type=text]:placeholder {
   -moz-animation-delay: 1s;
   animation-delay: 1s;
 }
+ -->
 
-/* Simple CSS3 Fade-in Animation */
-.underlineHover:after {
+<!-- .underlineHover:after {
   display: block;
   left: 0;
   bottom: -10px;
@@ -251,12 +246,11 @@ input[type=text]:placeholder {
 .underlineHover:hover:after{
   width: 100%;
 }
+ -->
 
 
 
-/* OTHERS */
-
-*:focus {
+<!-- *:focus {
     outline: none;
 } 
 
@@ -264,8 +258,8 @@ input[type=text]:placeholder {
   width:60%;
 }
 
-</style>
-<style>
+</style> -->
+<!-- <style>
 	#commentForm {
 		width: 500px;
 	}
@@ -287,7 +281,7 @@ input[type=text]:placeholder {
 		display: none;
 		margin-left: 103px;
 	}
-	</style>
+	</style> -->
 <%-- <div class="container">
   
   <div class="card">
@@ -302,8 +296,146 @@ input[type=text]:placeholder {
   </div>
 </div> --%>
 
-<div class="wrapper fadeInDown">
-  <div id="formContent">
+<!-- <style>
+	#commentForm {
+		width: 500px;
+	}
+	#commentForm label {
+		width: 250px;
+	}
+	#commentForm label.error, #commentForm input.submit {
+		margin-left: 253px;
+	}
+	#signupForm {
+		width: 670px;
+	}
+	#signupForm label.error {
+		margin-left: 10px;
+		width: auto;
+		display: inline;
+	}
+	#newsletter_topics label.error {
+		display: none;
+		margin-left: 103px;
+	}
+	</style>  -->
+	<style>
+	body {
+		background-image: url("https://images.unsplash.com/photo-1504817343863-5092a923803e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60.jpg");
+		background-size: cover;
+	}
+	.form-control {
+        min-height: 41px;
+		background: #fff;
+		box-shadow: none !important;
+		border-color: #e3e3e3;
+	}
+	.form-control:focus {
+		border-color: #70c5c0;
+	}
+    .form-control, .btn {        
+        border-radius: 2px;
+    }
+	.login-form {
+		width: 350px;
+		margin: 0 auto;
+		padding: 100px 0 30px;		
+	}
+	.login-form form {
+		color: #7a7a7a;
+		border-radius: 2px;
+    	margin-bottom: 15px;
+        font-size: 13px;
+        background: #ececec;
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+        padding: 30px;	
+        position: relative;	
+    }
+	.login-form h2 {
+		font-size: 22px;
+        margin: 35px 0 25px;
+    }
+	.login-form .avatar {
+		position: absolute;
+		margin: 0 auto;
+		left: 0;
+		right: 0;
+		top: -50px;
+		width: 95px;
+		height: 95px;
+		border-radius: 50%;
+		z-index: 9;
+		background: #70c5c0;
+		padding: 15px;
+		box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+	}
+	.login-form .avatar img {
+		width: 100%;
+	}	
+    .login-form input[type="checkbox"] {
+        margin-top: 2px;
+    }
+    .login-form .btn {        
+        font-size: 16px;
+        font-weight: bold;
+		background: #70c5c0;
+		border: none;
+		margin-bottom: 20px;
+    }
+	.login-form .btn:hover, .login-form .btn:focus {
+		background: #50b8b3;
+        outline: none !important;
+	}    
+	.login-form a {
+		color: #fff;
+		text-decoration: underline;
+	}
+	.login-form a:hover {
+		text-decoration: none;
+	}
+	.login-form form a {
+		color: #7a7a7a;
+		text-decoration: none;
+	}
+	.login-form form a:hover {
+		text-decoration: underline;
+	}
+	</style>
+	
+	
+	
+	
+<body>
+<div class="login-form">
+
+
+     
+
+
+    <form method="GET"  id="loginCandidate"  action="/Mobile" autoComplete="off">
+		<div class="avatar">
+			<img src="images/candidate_login.png" alt="Avatar">
+		</div>
+        <h2 class="text-center">Login</h2>   
+        <div class="form-group">
+        	<input type="text" class="form-control" name="referenceid" placeholder="Enter Reference ID">
+        </div>
+		<!-- <div class="form-group">
+            <input type="password" class="form-control" name="password" placeholder="Password" required="required">
+        </div> -->        
+        <div class="form-group">
+         <button type="submit" class="btn btn-primary btn-lg btn-block" id="alertdisp">Next    <span style=""><img src="images/arr.png" style="margin-bottom: 3px;margin-left: 3px;"></span></button>
+        </div>
+		<!-- <div class="clearfix">
+            <label class="pull-left checkbox-inline"><input type="checkbox"> Remember me</label>
+            <a href="#" class="pull-right">Forgot Password?</a>
+        </div> -->
+    </form>
+    <!-- <p class="text-center small">Don't have an account? <a href="#">Sign up here!</a></p> -->
+</div>
+
+<!-- <div class="wrapper fadeInDown">
+  <div id="formContent"> -->
     <!-- Tabs Titles -->
 
     <!-- Icon -->
@@ -317,13 +449,13 @@ input[type=text]:placeholder {
 
     <!-- Login Form -->
     
-    <form  method="GET"  id="loginCandidate"  action="/Mobile" autoComplete="off">
+    <!-- <form  method="GET"  id="loginCandidate"  action="/Mobile" autoComplete="off">
     <h3>Login</h3>
-    <br/>
-      <input type="text"  min="4" class="fadeIn second form-group" name="referenceid" placeholder="Enter Reference ID"/>
+    <br/> -->
+      <!-- <input type="text"  min="4" class="fadeIn second form-group" name="referenceid" placeholder="Enter Reference ID"/> -->
       <%-- <form:input type="text" id="otp" class="fadeIn third" path="" minlength="4" name="otp" placeholder="Enter OTP"/><br/> --%>
-      <input type="submit" class="fadeIn fourth" id="alertdisp">
-    </form>
+      <!-- <input type="submit" class="fadeIn fourth" id="alertdisp">
+    </form> -->
     <!-- data-toggle="modal" data-target="#myModal" -->
     <!-- OTP FORM -->
     
