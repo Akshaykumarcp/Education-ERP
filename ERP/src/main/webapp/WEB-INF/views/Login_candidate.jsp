@@ -1,7 +1,7 @@
 
 
 <%@include file="header.jsp"%>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+
 <!-- 
  <style>
 
@@ -319,9 +319,12 @@ input[type=text]:placeholder {
 		margin-left: 103px;
 	}
 	</style>  -->
+
+<head>
+
 	<style>
 	body {
-		background-image: url("https://images.unsplash.com/photo-1504817343863-5092a923803e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60.jpg");
+		background-image: url(https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80.jpg);
 		background-size: cover;
 	}
 	.form-control {
@@ -402,17 +405,44 @@ input[type=text]:placeholder {
 	}
 	</style>
 	
+	<script>
+/* alert("Alert"); */
+function alerttme2()
+{
+	/* alert("Inside function"); */
+	swal ( "Oops!" ,  "Invalid ReferenceID! \n Please Refer Registered Mail ID For ReferenceID. " ,  "error" )
+}
+
+/* function alerttme()
+{ */ 
+	/* alert("Inside function"); */
+		/* swal("OTP is sent to registered Mail ID. Enter valid OTP and proceed to Online Application Form."); */
+/* 	swal("This modal will disappear soon!", {
+		  buttons: false,
+		  timer: 6000,
+		});
+}  */
+
+</script>
+	</head>
 	
 	
 	
 <body>
 <div class="login-form">
 
-
-     
-
-
     <form method="GET"  id="loginCandidate"  action="/Mobile" autoComplete="off">
+    <%-- <h1>${loginError}</h1> --%>
+    <c:if test="${loginError ne null}">		
+      											<%-- <div class="alert alert-danger">
+      												${message}
+      											</div> --%>
+      											<%-- <h1>${loginError}</h1> --%>
+      											<script type="text/javascript">
+      											/* alert("jsp"); */
+      													alerttme2();
+												</script>
+												</c:if>
 		<div class="avatar">
 			<img src="images/candidate_login.png" alt="Avatar">
 		</div>

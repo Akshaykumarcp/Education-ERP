@@ -94,7 +94,7 @@ body  {
       <%-- <label for="inputname" style="padding-left: 20px">Full Name</label>
       <input type="text" class="form-control"  name="fullname" style="width: 220px; align:center; margin-left: 20px" value="${listme.fullname}" id="fulname"  disabled/> --%>
        <label for="inputname" style="padding-left: 20px;margin-top: 10px;">Full Name</label><span class="red">*</span>
-      <input type="text" class="form-control" name="fullname" style="width: 220px; align:center; margin-left: 20px" value="" id="fulname" disabled>
+      <input type="text" class="form-control" name="fullname" style="width: 220px; align:center; margin-left: 20px" value="${listme.fullname}" id="fulname" disabled>
     </div>
     <%-- <div class="form-group col-md-4">
       <label for="inputdob">DOB</label>
@@ -149,12 +149,24 @@ body  {
       <label for="caste" style="padding-left: 20px">Caste</label><span class="red">*</span>
        <form:select class="form-control" style="width: 190px; margin-left: 20px" path = "caste">
                      <form:option value = "default" label = "Select"/>
-  						<form:options items = "${caste}" />
+  						<c:forEach var="program" items="${programs}">
+										<option label="Select" myTag="${program.id}">
+											${program.programname}</option>
+									</c:forEach>
   						</form:select>
     </div>
     <div class="form-group col-md-3">
+      <%-- <label for="nation">Nationality</label><span class="red">*</span>
+      <form:input type="text" class="form-control" minlength="3" name="nationality" style="width: 220px" path="nationality" placeholder=""/> --%>
       <label for="nation">Nationality</label><span class="red">*</span>
-      <form:input type="text" class="form-control" minlength="3" name="nationality" style="width: 220px" path="nationality" placeholder=""/>
+      <form:select class="form-control" style="width: 190px" path = "nationality">
+                     <form:option value = "default" label = "Select"/>
+  						<%-- <form:options items = "${countries.get}" /> --%>
+  						<c:forEach var="country" items="${countries}">
+										<option>${country.name}</option>
+						</c:forEach>
+  						</form:select>
+      
     </div>
      
     <div class="form-group col-md-6">
@@ -170,7 +182,7 @@ body  {
   
   <div class="container">
      
-       <div class="card">
+       <div class="card" name="parent">
           <div class="card-header" style="padding-left: 20px">Parent / Gaurdian Details<span class="red">*</span> <button type="button"  class="btn btn-info collbtn" data-toggle="collapse" data-target="#demo1" style="float: right;">+</button></div>
            <div id="demo1" class="collapse">
           
@@ -260,7 +272,7 @@ body  {
   
   <div class="container">
      
-       <div class="card">
+       <div class="card" >
           <div class="card-header">Course Details<span class="red">*</span> <button type="button"  class="btn btn-info collbtn" data-toggle="collapse" data-target="#demo3" style="float: right;">+</button></div>
           <div id="demo3" class="collapse">
            <div class="form-row">
@@ -411,6 +423,7 @@ body  {
 			 }, "Value must not equal arg.");
 		
  		$("#admissionForm").validate({
+ 			
 			rules: {
 				dob: {
 					required: true

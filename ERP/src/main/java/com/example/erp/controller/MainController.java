@@ -35,6 +35,9 @@ public class MainController {
 
 	private String message;
 	String success;
+	String loginError;
+	String loginSuccess;
+	String verifyOtpError;
 
 	@Autowired
 	private RegisterationService regserv;
@@ -61,15 +64,23 @@ public class MainController {
 		return "/dammy";
 
 	}
+	
+	@GetMapping("/template")
+	public String starter() {		
+		return "/starter2";
+	}
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String newRegistration(ModelMap model) {
 
 		// Registeration candi = new Registeration();
-		message=null;
-		success=null;
+		
+		/* message=null; success=null; */
+		 
 		model.addAttribute("message", message);
 		model.addAttribute("success", success);
+		
+		message=null; success=null;
 		model.addAttribute("Registeration", new Registeration());
 		model.addAttribute("programs", intser.retriveAllProgramType());
 		model.addAttribute("loginCandi", new Registeration());
@@ -93,6 +104,7 @@ public class MainController {
 		 * return "redirect:/"; }
 		 */
 		// Registeration list=regserv.getStudentByRef(reff);
+		model.addAttribute("Reg", new Registeration());
 		success=null;
 		
 		
@@ -112,14 +124,18 @@ public class MainController {
 		 * getReferenceid());
 		 */
 			
+			/* UNCOMMENT BELOW CODE TO SEND REFERENCE ID TO REGISTERED MAIL ID */
+		
 			/*
 			 * regserv.sendReferrenceIdViaMail(Registeration.getMailid(),
 			 * Registeration.getReferenceid());
 			 */
+			 
+			 
 		success = "how";
 		System.out.println("after assigning value to success -->"+ success);
-			 
-		return "redirect:/";
+			/* redirect:/ */
+		return "redirect:/ ";
 		 }
 		  else
 		  {
@@ -141,8 +157,11 @@ public class MainController {
 
 	@GetMapping("/Login_candidate")
 	public String login_candidate(ModelMap model) {
+		loginError = null;
 		// Registeration logincandi = new Registeration();
 		model.addAttribute("loginCandi", new Registeration());
+		model.addAttribute("loginError", loginError);
+		model.addAttribute("loginSuccess", loginSuccess);
 		return "/Login_candidate";
 	}
 
@@ -210,10 +229,7 @@ public class MainController {
 		course.add("BCA");
 		course.add("BBM");
 		course.add("BCOM");
-		course.add("MBA");
-		course.add("MCA");
-		course.add("MTech");
-		course.add("OTHER");
+	
 		return course;
 	}
 
@@ -233,15 +249,20 @@ public class MainController {
 		firstLanguage.add("Sanskrit");
 		firstLanguage.add("Hindi");
 		firstLanguage.add("French");
+		firstLanguage.add("Spanish");
+		firstLanguage.add("Chinese ");
+		firstLanguage.add("German");
+		firstLanguage.add("Portuguese");
 		return firstLanguage;
 	}
 
 	@ModelAttribute("caste")
 	public List<String> initializeCaste() {
 		List<String> caste = new ArrayList<String>();
-		caste.add("SC/ST");
+		caste.add("ST");
+		caste.add("SC");
 		caste.add("OBC");
-		caste.add("GM");
+		caste.add("General");
 		return caste;
 	}
 
@@ -288,6 +309,7 @@ public class MainController {
 	@RequestMapping(value = "/Mobile", method = RequestMethod.GET)
 	public ModelAndView sendReferenceIDTOMob(@RequestParam("referenceid") int enteredRef, ModelMap model,HttpServletRequest request) {
 		/* @RequestParam("otp") int ootp, */
+		loginError = null;
 		Registeration list3 = regserv.getCandidatesByreferenceID(enteredRef);
 		System.out.println("Mailid is --> " + list3.getMailid());
 		System.out.println("Phonenumber is --> " + list3.getPhonenumber());
@@ -299,7 +321,11 @@ public class MainController {
 		  System.out.println(ref);
 		  
 		  if(list3.getReferenceid() == null) {
-			  return new ModelAndView("dammy","listme",list3);
+			 model.addAttribute("loginError", loginError); 
+			  System.out.println("loginerror value before assigning-->"+loginError);
+			  loginError = "referrenceid is null";
+			  System.out.println("loginerror value after assigning-->"+loginError);
+			  return new ModelAndView("Login_candidate","loginError",loginError);
 			 
 		/* CREATE ONE MORE METHOD FOR OTP IN SERVICE LAYER */
 
@@ -324,15 +350,25 @@ public class MainController {
 		
 	 }
 	  else {
+		  
+		  
+			/* model.addAttribute("loginSuccess", loginSuccess); */
 			/* ref = Integer.parseInt(list3.getReferenceid()); */
 		  int otp = (int) (Math.random() * 9000) + 1000;
 			
 			System.out.println("OTP is:" + otp);
-
+System.out.println("loginsuccss b4 assigning -->"+loginSuccess);
 			regserv.saveOTP(otp,enteredRef);
+
+			/* UNCOMMENT BELOW CODE TO SEND OTP VIA MAIL */
+			
 			/* regserv.sendLoginCandidateOtpViaMail(list3.getMailid(),otp); */
+			
 			model.addAttribute("candidateAdmission", new Registeration());
 			model.addAttribute("verifyOTPMA", new Registeration());
+			loginSuccess = "yeah";
+			model.addAttribute("loginSuccess", loginSuccess);
+			System.out.println("loginsuccss after assigning -->"+loginSuccess);
 			return new ModelAndView("verifyOTP","listme",list3);
 		  }
 	 
@@ -343,15 +379,16 @@ public class MainController {
 	
 	
 	@GetMapping("/verify")
-	public ModelAndView displayAdmissionForm(@RequestParam("otp") int otp,@RequestParam("referenceid") int refer, ModelMap model) {
+	public ModelAndView displayAdmissionForm(@RequestParam("otp1") int otp1,@RequestParam("otp2") int otp2,
+			@RequestParam("otp3") int otp3,@RequestParam("otp4") int otp4,@RequestParam("referenceid") int refer, ModelMap model) {
 		/* @RequestParam("referenceid") int refer, */
 		
-		System.out.println("Entered OTP is:" + otp);
+		System.out.println("Entered OTP is:" + otp1 + ""+otp2+""+otp3+""+otp4);
 		 System.out.println("Referenceid is : "+refer); 
-		 
+		 verifyOtpError = null;
 		model.addAttribute("verifyOTPMA", new Registeration());
 		model.addAttribute("candidateAdmission", new Registeration());
-		
+		model.addAttribute("verifyOtpError", verifyOtpError);
 		Registeration getOTP = regserv.getOTP(refer);
 		System.out.println("OTP from db --> "+ getOTP.getOtp());
 		
@@ -362,13 +399,17 @@ public class MainController {
 		 */
 		Registeration list3 = regserv.getCandidatesByreferenceID(refer);
 		
-		if(otp == getOTP.getOtp() ) {
+		int k = Integer.valueOf(String.valueOf(otp1) + String.valueOf(otp2)+ String.valueOf(otp3)+ String.valueOf(otp4));
+		System.out.println("value if concatinated entered otp values"+k);
+		
+		if(k == getOTP.getOtp() ) {
 			
 			return new ModelAndView("admission_form_fill","listme",list3);
 		}
 		/*return new ModelAndView("admission_form_fill","candi",list4);}*/
 		else
-			return new ModelAndView("dammy","listme",list3);
+			verifyOtpError="invalid otp";
+			return new ModelAndView("verifyOTP","verifyOtpError",verifyOtpError);
 		/* return new ModelAndView("dammy","listme",list4); */	
 	}
 
@@ -388,7 +429,7 @@ public class MainController {
 		 */
 		model.addAttribute("candidateAdmission", new Registeration());
 		model.addAttribute("register", new Registeration());
-
+		model.addAttribute("countries", regserv.retriveAllCountries());
 		return "/admission_form_fill";
 	}
 
@@ -411,7 +452,7 @@ public class MainController {
 		model.addAttribute("candidateAdmission", new Registeration());
 		model.addAttribute("register", new Registeration());
 		regserv.saveAdmission(re);
-		System.out.println(re.getClass());
+		
 		return "/admission_success";
 	}
 

@@ -163,12 +163,12 @@ public class InterviewController {
 			@RequestParam(name = "marks") String marks, @RequestParam(name = "cast") String cast,ModelMap modelmap) throws IOException {
 		System.out.println(co + "" + marks + "" + cast);
 		modelmap.addAttribute("updateStatus", new Registeration());
-		if(co!=null) {
+		/* if(co!=null) { */
 			System.out.println("i'll display course");
-		List<Registeration> listt = intser.getStudentsByFilter(co);
+		List<Registeration> listt = intser.getStudentsByFilter(co,marks,cast);
 		System.out.println("Display Course");
 		return new ModelAndView("admissionFilteredStudents", "list", listt);
-		}
+		/*}
 		else if(cast!=null)
 		{
 			System.out.println("i'll display course and caste");
@@ -178,7 +178,7 @@ public class InterviewController {
 		}
 		else
 		System.out.println("displaying null");
-		return null;
+		return null;*/
 	}
 	
 	

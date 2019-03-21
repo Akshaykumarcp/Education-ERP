@@ -17,6 +17,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import com.example.erp.DAO.RegisterationDAO;
+import com.example.erp.model.Countries;
 import com.example.erp.model.Registeration;
 
 @Service
@@ -172,6 +173,12 @@ public Registeration getOTP(int refer) {
 	// TODO Auto-generated method stub
 	return regi.getOTP(refer);
 	
+}
+
+public List<Countries> retriveAllCountries() {
+	// TODO Auto-generated method stub
+	
+	return regi.retriveAllCountries();
 }
 
 		

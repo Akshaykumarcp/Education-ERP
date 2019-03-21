@@ -196,14 +196,14 @@ public class InterviewDefintionDAO implements IinterviewDefinitionDAO{
 		}
 		else
 		{*/
-		String sql="select * from Registeration where (course='"+course+"' AND caste='"+caste+"') OR (course='"+course+"' AND r_marks>='"+entraExam+"'";
+		String sql="select * from Registeration WHERE (r_marks>='"+entraExam+"' OR caste='"+caste+"') AND course='"+course+"' ";
 		System.out.println(sql);
 		/*
 		 * return template.query("select * from Registeration where (course='"
 		 * +course+"' AND caste='"+caste+"') OR (course='"+course+"' AND r_marks>='"
 		 * +entraExam+"')",new ResultSetExtractor<List<Registeration>>(){
 		 */
-		return template.query("select * from Registeration where course='"+course+"' AND caste='"+caste+"' ",new ResultSetExtractor<List<Registeration>>(){
+		return template.query("select * from Registeration WHERE (r_marks>='"+entraExam+"' OR caste='"+caste+"') AND course='"+course+"'  ",new ResultSetExtractor<List<Registeration>>(){
 	
 		     public List<Registeration> extractData(ResultSet rs) throws SQLException, DataAccessException {  
 		    	 

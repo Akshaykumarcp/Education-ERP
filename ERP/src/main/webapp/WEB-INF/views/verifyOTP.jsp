@@ -2,7 +2,7 @@
 
 <style type="text/css">
 	body {
-		background-image: url("images/mm.png");
+		background-image: url(https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80.jpg);
 		background-size: cover;
 	}
 
@@ -11,8 +11,10 @@
 		margin: 0 auto;
 		padding: 100px 0 30px;		
 	}
+	
+	
 	.login-form form {
-		color: #7a7a7a;
+		color: red;
 		border-radius: 2px;
     	margin-bottom: 15px;
         font-size: 13px;
@@ -23,6 +25,7 @@
     }
 	.login-form h2 {
 		font-size: 22px;
+		color: black;
         margin: 35px 0 25px;
     }
 	.login-form .avatar {
@@ -54,8 +57,39 @@
 		background: #50b8b3;
         outline: none !important;
 	}  
+	
+	.swal-overlay {
+  background-color: rgba(43, 165, 137, 0.45);
+}
 
 </style>
+	<script>
+ /* alert("Alert");  */
+function alerttme2()
+{
+	/* alert("Inside function"); */
+	swal ( "Oops!" ,  "Invalid OTP! \n Please Refer Registered Mail ID For OTP. " ,  "error" )
+}
+
+ function alerttme()
+{
+	/* alert("Inside function"); 
+ 	swal("OTP is sent to registered Mail ID. Enter valid OTP and proceed to Online Application Form."); */
+
+	/* .swal-overlay {
+		  background-color: rgba(43, 165, 137, 0.45);
+		} */
+	 swal("OTP is sent to registered Mail ID. Enter valid OTP and proceed to Online Application Form.", {
+		  buttons: false,
+		  timer: 3000,
+		  closeOnEsc: false,
+		});
+
+ 	
+} 
+
+
+</script>
 </head>
 <body>
 
@@ -75,6 +109,20 @@
 
 
     <form:form  method="GET"  action="/verify" autoComplete="off" modelAttribute="verifyOTPMA" id="verifyOtpForm">
+       
+        <c:if test="${verifyOtpError ne null}">			
+      											<script type="text/javascript">	
+      													alerttme2();
+												</script>
+												</c:if>
+												
+									<c:if test="${loginSuccess ne null}">		
+      											<%-- <h1>${loginSuccess}</h1> --%>
+      											<script type="text/javascript">
+      											/* alert("inside js") */
+      													alerttme();
+												</script>
+												</c:if>
 		<div class="avatar">
 			<img src="images/pp1.png" alt="Avatar">
 		</div>
@@ -89,16 +137,17 @@
   <div id="dialog">
     
     <div id="form">
-    	<input type="text" name="otp" id="otp" class="quantity" maxlength="1" size="1" min="0" max="9" pattern="[0-9]{1}" style="margin-left: 40px;border: none;border-bottom: 3px solid black; font-size: 20px; background: #ececec; text-align: center;">
-      <input type="text" name="otp" id="otp" class="quantity" maxlength="1" size="1" min="0" max="9" pattern="[0-9]{1}" style="margin-left: 10px;border: none;border-bottom: 3px solid black; font-size: 20px; background: #ececec; text-align: center;">
-      <input type="text" name="otp" id="otp" class="quantity" maxlength="1" size="1" min="0" max="9" pattern="[0-9]{1}" style="margin-left: 10px;border: none;border-bottom: 3px solid black; font-size: 20px; background: #ececec; text-align: center;">
-      <input type="text" name="otp" id="otp" class="quantity" maxlength="1" size="1" min="0" max="9" pattern="[0-9]{1}" style="margin-left: 10px;border: none;border-bottom: 3px solid black; font-size: 20px; background: #ececec; text-align: center;">
+    	<input type="text" name="otp1" id="otp" class="quantity" maxlength="1" size="1" min="0" max="9" pattern="[0-9]{1}" style="margin-left: 15px;border: none;border-bottom: 3px solid black; font-size: 20px; background: #ececec; text-align: center;">
+      <input type="text" name="otp2" id="otp" class="quantity" maxlength="1" size="1" min="0" max="9" pattern="[0-9]{1}" style="margin-left: 10px;border: none;border-bottom: 3px solid black; font-size: 20px; background: #ececec; text-align: center;">
+      <input type="text" name="otp3" id="otp" class="quantity" maxlength="1" size="1" min="0" max="9" pattern="[0-9]{1}" style="margin-left: 10px;border: none;border-bottom: 3px solid black; font-size: 20px; background: #ececec; text-align: center;">
+      <input type="text" name="otp4" id="otp" class="quantity" maxlength="1" size="1" min="0" max="9" pattern="[0-9]{1}" style="margin-left: 10px;border: none;border-bottom: 3px solid black; font-size: 20px; background: #ececec; text-align: center;">
 
     </div>
     
 
   </div>
 </div> 
+<br/>
 
         <div class="form-group">
          <button type="submit" class="btn btn-primary btn-lg btn-block">Verify</button>
@@ -114,23 +163,35 @@
 		
 
 		// validate signup form on keyup and submit
-		/* $("#verifyOtpForm").validate({
+		 $("#verifyOtpForm").validate({
 			rules: {
-				otp: {
+				otp1: {
 					required: true,
-					minlength: 4,
-					maxlength:4,
-					digits:true
+				},
+				otp2: {
+					required: true,
+				},
+				otp3: {
+					required: true,
+				},
+				otp4: {
+					required: true,
 				}
 				
 			},
 			messages: {
-				otp: {
-					required: "Please provide a OTP",
-					minlength: "Your OTP is 4 digits long",
-					maxlength: "Enter Only 4 Digits",
-					digits: "Enter Only Digits"
-				}
+				otp1: {
+					required: "Enter OTP Digit",
+				},
+				otp2: {
+					required: "Enter OTP Digit",
+				},
+				otp3: {
+					required: "Enter OTP Digit",
+				},
+				otp4: {
+					required: "Enter OTP Digit",
+				},
 			}
 		});
        
@@ -154,7 +215,7 @@
 			topics[this.checked ? "removeClass" : "addClass"]("gray");
 			topicInputs.attr("disabled", !this.checked);
 		});
- */
+ 
 		  $(".quantity").keypress(function (e) {
 			     //if the letter is not digit then display error and don't type anything
 			     if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) 

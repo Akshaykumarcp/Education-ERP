@@ -58,13 +58,13 @@
 		  }
  				}); */
 
- 				$("#check").on('change',function()
+ 		/* 		$("#check").on('change',function()
  		 				{
  					if('#check').prop("unchecked")
  					{
  						$('#displaySelectedOrNot').hide();
  						}
- 		 				});
+ 		 				}); */
 		
 
 		})
