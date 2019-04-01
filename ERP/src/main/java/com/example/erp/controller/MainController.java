@@ -59,17 +59,11 @@ public class MainController {
 		{
 			System.out.println(select + " " + user + " " + pass);
 			return "/starter";
-
 		}
 		return "/dammy";
-
 	}
 	
-	@GetMapping("/template")
-	public String starter() {		
-		return "/starter2";
-	}
-
+	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String newRegistration(ModelMap model) {
 
@@ -126,10 +120,12 @@ public class MainController {
 			
 			/* UNCOMMENT BELOW CODE TO SEND REFERENCE ID TO REGISTERED MAIL ID */
 		
+			
 			/*
 			 * regserv.sendReferrenceIdViaMail(Registeration.getMailid(),
 			 * Registeration.getReferenceid());
 			 */
+			 
 			 
 			 
 		success = "how";
@@ -222,6 +218,19 @@ public class MainController {
 	 * Method used to populate the country list in view. Note that here you can call
 	 * external systems to provide real data.
 	 */
+	
+	@ModelAttribute("natioanality")
+	public List<String> initializeNationality() {
+
+		List<String> nation = new ArrayList<String>();
+		nation.add("Inidan");
+		nation.add("Australia");
+		nation.add("New Zealand");
+	
+		return nation;
+	}
+	
+	
 	@ModelAttribute("courses")
 	public List<String> initializeCountries() {
 
@@ -422,14 +431,14 @@ System.out.println("loginsuccss b4 assigning -->"+loginSuccess);
 	 */
 
 	@GetMapping("/candidate-admission-form")
-	public String admission(Model model) {
+	public String admission(ModelMap model) {
 		/*
 		 * List<Registeration> list2=regserv.getRegisteration();
 		 * System.out.println(list2.toString());
 		 */
 		model.addAttribute("candidateAdmission", new Registeration());
 		model.addAttribute("register", new Registeration());
-		model.addAttribute("countries", regserv.retriveAllCountries());
+		model.put("countries", regserv.retriveAllCountries());
 		return "/admission_form_fill";
 	}
 
@@ -456,17 +465,5 @@ System.out.println("loginsuccss b4 assigning -->"+loginSuccess);
 		return "/admission_success";
 	}
 
-	@GetMapping("/htmltesting")
-	public String candidate(Model model) {
-		/*
-		 * List<Registeration> list2=regserv.getRegisteration();
-		 * System.out.println(list2.toString());
-		 */
-		// model.addAttribute("candidateAdmission", new Registeration());
-		model.addAttribute("register", new Registeration());
-		// model.addAttribute("candidateAdmission", new Registeration());
-
-		return "/htmltesting";
-	}
 
 }

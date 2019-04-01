@@ -211,6 +211,7 @@ public class InterviewDefintionDAO implements IinterviewDefinitionDAO{
 		    	
 		        while(rs.next()){  
 		        	 Registeration e=new Registeration();  
+		        	 e.setId(rs.getInt(1));
 		        	e.setFullname(rs.getString(3));		        	
 			        e.setCourse(rs.getString(6));
 			        e.setEntrance_exam(rs.getString(28));

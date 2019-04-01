@@ -118,19 +118,13 @@ public class InterviewController {
 		return academicyear;
 	}
 
-	@ModelAttribute("courses")
-	public List<String> initializeCountries() {
-
-		List<String> course = new ArrayList<String>();
-		course.add("BCA");
-		course.add("BBM");
-		course.add("BCOM");
-		course.add("MBA");
-		course.add("MCA");
-		course.add("MTech");
-		course.add("OTHER");
-		return course;
-	}
+	/*
+	 * @ModelAttribute("courses") public List<String> initializeCountries() {
+	 * 
+	 * List<String> course = new ArrayList<String>(); course.add("BCA");
+	 * course.add("BBM"); course.add("BCOM"); course.add("MBA"); course.add("MCA");
+	 * course.add("MTech"); course.add("OTHER"); return course; }
+	 */
 
 	@RequestMapping(value = "/deleteInterviewDefinition/{id}", method = RequestMethod.GET)
 	public ModelAndView delete(@PathVariable int id) {

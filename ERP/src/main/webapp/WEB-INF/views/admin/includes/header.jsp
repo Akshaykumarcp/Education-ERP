@@ -5,6 +5,8 @@
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
   <!-- Font Awesome -->
   <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
@@ -178,7 +180,7 @@ desired effect
               <!-- The user image in the navbar-->
               <!-- <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">	
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
-              <span class="hidden-xs" style="color:white">Welcome Admin</span>
+              <span class="hidden-xs" style="color:white">Welcome ${adminname}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
@@ -241,7 +243,7 @@ desired effect
           <img src="dist/img/user2.jpg" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Welcome Admin</p>
+          <p>Welcome ${adminname}</p>
           <!-- Status -->
           <!-- <a href="#"><i class="fa fa-circle text-success"></i> Online</a> -->
         </div>
@@ -265,13 +267,16 @@ desired effect
         <!-- Optionally, you can add icons to the links -->
         <!-- <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Dashboard</span></a></li>
         <li><a href="#"><i class="fa fa-link"></i> <span>Dashboard</span></a></li> -->
+        
+        
         <li class="treeview">
-          <a href="#"><i class="fa fa-link"></i> <span>Admission</span>
+          <a href="#"><i class="fa fa-link"></i> <span>Admin</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
           </a>
           <ul class="treeview-menu">
+          <li><a href="/programtype">Program Type</a></li>
             <li><a href="#" id="candidatesApplied">Candidates Applied</a></li>
             <li><a  id="interviewDefinition">Interview Definition</a></li>
           </ul>

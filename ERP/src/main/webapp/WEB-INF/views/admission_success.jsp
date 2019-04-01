@@ -35,11 +35,11 @@ body  {
   
   <br/>
   <div class="card border-info mb-3" style="max-width: 80rem;">
-  <div class="card-header bg-transparent border-success">Pay Online Admission Application Form 2019</div>
+  <div class="card-header bg-transparent border-success"><h3>Pay Online Admission Application Form 2019</h3></div>
   <div class="card-body text-success">
     <h5 class="card-title"></h5>
-    <p class="card-text">Your details for Online Admission Form , March 2019 have been saved temporarily. The final processing of Application Form will begin only after the successfully payment of Application Form.</p>
-    <p class="card-text">You're required to pay an amount of Rs.<span style="color:red; font-size:18px"> 250 /- </span> towards Application Form Fee.</p>
+    <p class="card-text" style="font-size:18px;">Your details for Online Admission Form , March 2019 have been saved temporarily. The final processing of Application Form will begin only after the successfully payment of Application Form.</p>
+    <p class="card-text" style="font-size:18px;">You're required to pay an amount of Rs.<span style="color:red; font-size:18px"> 250 /- </span> towards Application Form Fee.</p>
   </div>
   <!-- <div class="card-footer bg-transparent border-info">Disclaimer ------------------------------------</div> -->
   
@@ -53,7 +53,7 @@ body  {
     data-buttontext="Pay Application Form Fee (Rs.250/-)"
     data-name="Credessol College"
     data-description="Online Application Form Fee Payment."
-    data-image="https://your-awesome-site.com/your_logo.jpg"
+    data-image="https://credessol.com/wp-content/uploads/2019/02/c-logo-150x150.png"
     <%-- ${lists.phonenumber} --%>
     data-prefill.name=""
     data-prefill.email=""

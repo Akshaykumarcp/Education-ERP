@@ -13,11 +13,11 @@
 
 		<section class="content-header">
 			<h1>
-				View Candidates <small></small>
+				Homepage<small></small>
 			</h1>
 			<ol class="breadcrumb">
-				<li><a href="#"><i class="fa fa-dashboard"></i>Admission</a></li>
-				<li class="active">View Candidates</li>
+				<li><a href="#"><i class="fa fa-dashboard"></i>Homepage</a></li>
+				<!-- <li class="active">View Candidates</li> -->
 			</ol>
 		</section>
 
