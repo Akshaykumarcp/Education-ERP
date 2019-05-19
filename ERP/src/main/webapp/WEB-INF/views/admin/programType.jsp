@@ -13,13 +13,67 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+<script
+	src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
+	<script
+	src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.0/dist/jquery.validate.min.js"></script>
+	
 <style>
-* {
-	font-family: calibri;
+*{
+font-family: calibri;
 }
+.label1{
+float: right;
+margin-top: 5px;
+font-size: 20px;
+}
+.rr{
+background-color: #80CBC4;
+}
+.col{
+background-color: ECEFF1;
+}
+#button{
+margin-left: 450px;
+margin-top: 15px;
+}
+#reset{
+margin-top: 15px;
+}
+orm.commentform label.error, label.error {
+	/* remove the next line when you have trouble in IE6 with labels in list */
+	color: red;
+	font-style: calibri
+}
+div.error {
+	display: none;
+}
+input {
+	border: 1px solid black;
+}
+input:focus {
+	border: 1px solid black;
+}
+input.error {
+	border: 1px solid red;
+}
+form.form .gray * {
+	color: black;
+}
+@media screen and (max-width: 600px) {
+	.label1 {
+		float: left;
+	}
+	#button{
+	margin-left: 67px;
+	}
+	
 </style>
-		<!-- <script>
+<!-- <script>
 		$(document).ready(function() {
         alert("asd");
 			function edit_row(no)
@@ -52,7 +106,52 @@
 
 <div class="content-wrapper">
 
+	<!-- Button trigger modal -->
+	<!-- <button type="button" class="btn btn-primary" data-toggle="modal"
+		data-target="#myModal">Launch demo modal</button> -->
 
+	<!-- Modal -->
+
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+
+					<div class="myForm">
+						<form id="programTypeForm">
+							<div class="form-group">
+								<label for="id">ID</label> <input type="text"
+									class="form-control" id="id" aria-describedby="" value=""
+									placeholder="" readonly>
+								<!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+							</div>
+							<div class="form-group rr">
+								<label for="programtype">Program Type</label> <input
+									type="password" class="form-control" id="mprogramType" value=""
+									name="mprogramType" placeholder="Enter Program Type">
+							</div>
+
+
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary"
+									data-dismiss="modal">Close</button>
+								<button type="submit" class="btn btn-primary">Save
+									changes</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	<!-- Main content -->
 	<section class="content container-fluid" id="mainContent">
 
@@ -95,8 +194,11 @@
 								<input type="text" class="form-control" id="programType"
 									name="programType" placeholder="Enter Program Type"
 									style="height: 35px; text-align: center; margin-bottom: 0px;">
-								<p id="error" style="color: red;">Please Enter a program
-									Type</p>
+								<input type="text" class="form-control" id="idForm" name=""
+									placeholder="Enter "
+									style="height: 35px; text-align: center; margin-bottom: 0px;"
+									hidden>
+								
 							</div>
 							<br>
 							<!--  <label id="lab" style="margin-top: -35px;margin-left: 5px;">Enter program Type </label> -->
@@ -110,8 +212,8 @@
 								style="margin-left: 33em;">Submit</button>
 							<button type="Reset" id="reset" class="btn btn-danger"
 								style="margin-left: 21px;">Reset</button>
-							<button type="button" class="btn btn-primary" data-toggle="modal"
-								data-target="#myModal">Open modal</button>
+							<!-- <button type="button" class="btn btn-primary" data-toggle="modal"
+								data-target="#myModal">Open modal</button> -->
 
 						</div>
 					</div>
@@ -145,74 +247,151 @@
 
 <script>
 $(document).ready(function() {
+/* 	alert('hi'); 
+	var programType = {};
+var dynamicURL = "";
+var methodName = "";
+var status = "";  */
 
-			/* 	alert('hi'); */
 			getAllProgramType();
+}); 
 
+/* 			$(".table #eBtn").on('click',function()
+					{
+				alert('inside');				
+$(".myForm e#examplModal").modal();
+
+				}); */
+
+		/* 		$("#eBtn").click(function()
+						{
+					alert('inside');				
+	$(".myForm #myModal").modal();
+
+					});
+ */
 			
 
 			/* $('#tblProgram').SetEditable(); */
-	 		var programType = {};
-			$("#buttonProgramType").click(function(event){
-					event.preventDefault();
-													/* alert('inside'); */
+				
+			/* $("#buttonProgramType").click(function(){
 					var ab = programType.programType = $('#programType').val();
-													/* 	 alert(ab); */
+					
+					var programTypeId = $('#idForm').val();
+					if(programTypeId)
+						{
+						dynamicURL="http://localhost:8080/updateProgramTypeById/"+programTypeId;
+						methodName="PUT";
+						status="Updated"
+						}
+					else
+						{
+						dynamicURL="http://localhost:8080/loadAdminProgramType";
+						methodName="POST";
+						status="Saved"
+						}
 		 			var programTypeObj = JSON.stringify(programType);
-		 											/* alert(programTypeObj); */
 				$.ajax({
-							url:'http://localhost:8080/loadAdminProgramType',
-							method:'POST',
+							url:dynamicURL,
+							method:methodName,
 							data: programTypeObj,
 							contentType:'application/json; charset=utf-8',
 							success: function ()
 							{
-								swal("Program Type Saved Successfully.", {
+								swal(status+" Successfully.", {
   									buttons: false,
   									timer: 1000,
 									});
 								getAllProgramType();
+								reset();
 							},
 							error: function (error)
 							{
 								alert(error);
 							}
-						});
+						});*/
+			
+						jQuery.validator.addMethod("lettersonly", function(value, element) {
+							  return this.optional(element) || /^[a-z]+$/i.test(value);
+							}, "Letters only please"); 
+
+
+			$.validator.setDefaults( {
+				submitHandler: function () {
+	                 var programType = {};
+					var dynamicURL = "";
+					var methodName = "";
+					var status = "";
+	                            					var ab = programType.programType = $('#programType').val();
+	                            					var programTypeId = $('#idForm').val();
+	                            					if(programTypeId)
+	                            						{
+	                            						dynamicURL="http://localhost:8080/updateProgramTypeById/"+programTypeId;
+	                            						methodName="PUT";
+	                            						status="Updated"
+	                            						}
+	                            					else
+	                            						{
+	                            						dynamicURL="http://localhost:8080/loadAdminProgramType";
+	                            						methodName="POST";
+	                            						status="Saved"
+	                            						}
+	                            		 			var programTypeObj = JSON.stringify(programType);
+	                            				$.ajax({
+	                            							url:dynamicURL,
+	                            							method:methodName,
+	                            							data: programTypeObj,
+	                            							contentType:'application/json; charset=utf-8',
+	                            							success: function ()
+	                            							{
+	                            								swal(status+" Successfully.", {
+	                              									buttons: false,
+	                              									timer: 1000,
+	                            									});
+	                            								getAllProgramType();
+	                            								reset();
+	                            							},
+	                            							error: function (error)
+	                            							{
+	                            								alert(error);
+	                            							}
+	                            						});
+
+	               return false;
+
+				}
+
+			} );
+
+			
+			$("#formProgramType").validate({
+				rules:{
+					programType: 
+					{
+					required: true,
+					lettersonly: true
+					}					
+					},
+			messages:{
+				programType: {
+					required: "Please Enter Program Type",
+					lettersonly: "Enter Only The Letter's"
+				}
+				}
 			});
-		 
-    $('#error').hide();
-    $("#button").click(function(){
-      	 var pgm = $("#program").val().length;
-		   	  if( pgm == '')
-          	 { 
-      		 $('#error').show();
-      		 $("#program").css("border-color","red");
-      		 }
-     });
-    
-    $("#program").keypress(function(){
-        var pgm = $("#program").val().length;
-        /* var regex=/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$/;
-        var ress=regex.test(pass); */
-        if(pgm => 1)
-        	{
-        		$("#program").css("border-color","green");
-        		$("#error").hide();
-        		}
-        		else
-        		{
-        		$("#error").show();
-        		$("#program").css("border-color","red");
-        		}
-        });
+				                                           
+
+    function reset()
+    {
+    	var programTypeId = $('#idForm').val('');
+    	var programType = $('#programType').val('');
+     }
     
         $("#reset").click(function() { 
         	$("#program").val([]);
         	
             });
         
-});
-
 function getAllProgramType()
 {
 	$.ajax({
@@ -225,34 +404,103 @@ function getAllProgramType()
 		tableBody.empty();
 		$(data).each(function(index,element)
 				{
-						/* <a href="#"></a> */
-						/* data-toggle="modal" data-target="#myModal" */
-					tableBody.append('<tr><td>'+element.id+'</td><td id="name_row">'+element.programType+'</td><td><a href="javascript:edit_row('+element.id+')"><i id="edit_button" value="edit" class="edit icon edit"></i></a></td><td><a href="/deleteProgramType/'+element.id+'"><i  class="trash icon"></i></a></td><td><a href="javascript:edit_row('+element.id+')"><input type="button" id="edit_button" value="Edit" class="edit" ></a></td></tr>');
-
-					/* tableBody.append('<tr><td>'+element.id+'</td><td>'+element.programType+'</td><td><input type="button" id="edit_button1" value="Edit" class="edit" onclick="edit_row('1')"></td></tr>'); */					 
-     
-						})
+						
+					tableBody.append('<tr><td>'+element.id+'</td><td>'+element.programType+'</td><td><i onclick="update('+element.id+')" class="edit icon"></i></td><td><i onclick="deleteProgramType('+element.id+')" class="trash icon"></i></td></tr>');
+				})
 		},
 		error:function (error)
 		{
 alert(error);
-			}
+		}
 
 		});
 }
 
+function update(id)
+{
+	alert(id);
 
-function edit_row(id){
-	console.log("Welcome"+ id);
-	/* var me =$(".attr(").val(); */
-	var me = $("#edit_button").attr("value");
-	alert(me);
-	$("#edit_button").attr("value").style.display="none";
+	$.ajax({
+		url:"http://localhost:8080/getProgramTypeById/"+id,
+		method:"GET",
+		datatype:"json",
+		success:function(data)
+			{
+			alert(data);
+				$('#programType').val(data.programType);
+				$('#idForm').val(data.id);
+				getAllProgramType();
+				},
+				error:function(error)
+				{
+alert(error);
+					}
+		
+		});
+	}
 
-	 var name=document.getElementById("name_row"+id);
-	 var name_data=name.innerHTML;
-	 name.innerHTML="<input type='text' id='name_text"+id+"' value='"+name_data+"'>";
-		}
+function deleteProgramType(id)
+{
+	/*  swal({
+			title:"Are you sure?",
+			text:"It will be deleted permanently",
+			type:"warning",
+			showCancelButton: true,
+			confirmButtonColor:'red',
+			cancelButtonColor:'#d333',
+			confirmButtonText:'Yes, Delete it!',
+			showLoaderOnConfirm:true,
+			preConfirm: function()
+			{
+				return new Promise(function(resolve){
+					alert(id);
+					$.ajax({
+						url:"http://localhost:8080/deleteProgramType/"+id,
+						method:"DELETE",
+						datatype:"json",	
+						})
+						.done(function(response){
+						swal('Deleted!', response.message, response.status);
+						getAllProgramType();
+							})
+						.fail(function(){
+							swal('OOops...!',"Something Went Wrong with Ajax!",'error');
+
+							});
+							
+					});
+				},
+		allowOutsideClick:false
+		});
+		 */ 
+	swal({
+		  title: "Are you sure?",
+		  text: "Once deleted, you will not be able to recover the Program Type!",
+		  icon: "warning",
+		  buttons: true,
+		  dangerMode: true,
+		})
+		.then((willDelete) => {
+		  if (willDelete) {
+			  $.ajax({
+					url:"http://localhost:8080/deleteProgramType/"+id,
+					method:'DELETE',
+					contentType:'application/json; charset=utf-8',
+					success: function ()
+					{
+						getAllProgramType();
+					}
+			  });
+		    swal("Program Type has been deleted!", {
+		      icon: "success",
+		    });
+		  } else {
+		    swal("program Type is Safe!");
+		  }
+		});
+}
+
+	
 
 	
 </script>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence-diagram version="1.2.3" icons="true" generate-combined-fragments="true">  
+  <object id="1" language="java" name="com.example.erp.controller.MainController" project="ERP" 
+    file="/ERP/src/main/java/com/example/erp/controller/MainController.java" binary="false" label="mainController" 
+    type="class" autoSize="true">    
+    <position height="-1" width="-1" x="191" y="0"/>    
+    <execution id="2">      
+      <position height="252" width="0" x="0" y="103"/>    
+    </execution>    
+    <execution id="4">      
+      <position height="189" width="0" x="0" y="145"/>    
+    </execution>    
+    <execution id="7">      
+      <position height="21" width="7" x="65" y="229"/>    
+    </execution>  
+  </object>  
+  <object id="8" language="java" name="com.example.erp.service.RegisterationService" project="ERP" 
+    file="/ERP/src/main/java/com/example/erp/service/RegisterationService.java" binary="false" 
+    label="registerationService" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="180" y="0"/>    
+    <execution id="6">      
+      <position height="147" width="142" x="129" y="166"/>    
+    </execution>    
+    <execution id="11">      
+      <position height="63" width="7" x="197" y="208"/>    
+    </execution>  
+  </object>  
+  <object id="13" language="java" name="com.example.erp.DAO.RegisterationDAO" project="ERP" 
+    file="/ERP/src/main/java/com/example/erp/DAO/RegisterationDAO.java" binary="false" label="registerationDAO" 
+    type="class" autoSize="true">    
+    <position height="-1" width="-1" x="392" y="0"/>    
+    <execution id="10">      
+      <position height="105" width="124" x="275" y="187"/>    
+    </execution>  
+  </object>  
+  <message id="3" operation="newRegistration(org.springframework.ui.ModelMap):java.lang.String" asynchronous="false">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </message>  
+  <message id="5" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="6"/>  
+  </message>  
+  <message id="9" asynchronous="false">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="10"/>  
+  </message>  
+  <message id="12" asynchronous="false">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="7"/>  
+  </message>  
+  <message id="14" asynchronous="false">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="11"/>  
+  </message>
+</sequence-diagram>

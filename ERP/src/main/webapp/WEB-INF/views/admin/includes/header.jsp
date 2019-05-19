@@ -176,12 +176,55 @@ desired effect
          <!--  <li > -->
             <!-- Menu Toggle Button -->
             <!-- class="dropdown-toggle" data-toggle="dropdown" -->
-            <a href="#">
+      <!--       <a href="#"> -->
               <!-- The user image in the navbar-->
               <!-- <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">	
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
+              <%-- <span class="hidden-xs" style="color:white">Welcomes ${adminname}</span>
+            </a> --%>
+            <!-- User Account: style can be found in dropdown.less -->
+            
+          <li class="dropdown user user-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <!-- <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image"> -->
               <span class="hidden-xs" style="color:white">Welcome ${adminname}</span>
             </a>
+            <ul class="dropdown-menu">
+              <!-- User image -->
+              <li class="user-header">
+                <img src="" class="img-circle" alt="User Image">
+
+               <!--  <p>
+                  Alexander Pierce - Web Developer
+                  <small>Member since Nov. 2012</small>
+                </p> -->
+              </li>
+              <!-- Menu Body -->
+              <li class="user-body">
+               <!--  <div class="row">
+                  <div class="col-xs-4 text-center">
+                    <a href="#">Followers</a>
+                  </div>
+                  <div class="col-xs-4 text-center">
+                    <a href="#">Sales</a>
+                  </div>
+                  <div class="col-xs-4 text-center">
+                    <a href="#">Friends</a>
+                  </div>
+                </div> -->
+                <!-- /.row -->
+              </li>
+              <!-- Menu Footer-->
+              <li class="user-footer">
+                <div class="pull-left">
+                  <a href="#" class="btn btn-default btn-flat">Profile</a>
+                </div>
+                <div class="pull-right">
+                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                </div>
+              </li>
+            </ul>
+          </li>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
@@ -267,8 +310,13 @@ desired effect
         <!-- Optionally, you can add icons to the links -->
         <!-- <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Dashboard</span></a></li>
         <li><a href="#"><i class="fa fa-link"></i> <span>Dashboard</span></a></li> -->
-        
-        
+        <li>
+        <a href="/homepage"> HomePage</a>
+           <!--  <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span> -->
+          
+          </li>
         <li class="treeview">
           <a href="#"><i class="fa fa-link"></i> <span>Admin</span>
             <span class="pull-right-container">
@@ -277,6 +325,13 @@ desired effect
           </a>
           <ul class="treeview-menu">
           <li><a href="/programtype">Program Type</a></li>
+           <li><a href="/programEntry">Program Configuration</a></li>
+           <li><a href="/courseEntry">Course Entry</a></li>
+           <li><a href="/applicationNoEntry">Application No Entry</a></li>
+           <li><a href="/curriculumScheme">Curriculum Scheme</a></li>
+           <li><a href="/checkListEntry">Check List Assignment</a></li>
+           <li><a href="/offlineApplication">Offline Application Form</a></li>
+           <li><a href="/onlineApplicationForm">Online Application Form</a></li>
             <li><a href="#" id="candidatesApplied">Candidates Applied</a></li>
             <li><a  id="interviewDefinition">Interview Definition</a></li>
           </ul>

@@ -84,7 +84,6 @@ public class RegisterationDAO implements IregisterationDAO {
 					e.setPhonenumber(rs.getString(4));
 					e.setMailid(rs.getString(5));
 					e.setCourse(rs.getString(6));
-
 					list.add(e);
 				}
 				return list;
