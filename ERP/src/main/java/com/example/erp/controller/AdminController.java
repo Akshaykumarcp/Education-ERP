@@ -1,9 +1,11 @@
 package com.example.erp.controller;
 
+import java.io.IOException;
 import java.util.List; 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,12 +18,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.example.erp.model.Registeration;
 import com.example.erp.model.admin.AdminLogin;
 import com.example.erp.model.admin.ApplicationNoEntry;
 import com.example.erp.model.admin.CheckListEntry;
 import com.example.erp.model.admin.CourseEntry;
 import com.example.erp.model.admin.CurriculumEntry;
+import com.example.erp.model.admin.InterviewDefinition;
+import com.example.erp.model.admin.OnlineApplicationForm;
 import com.example.erp.model.admin.ProgramEntry;
 import com.example.erp.model.admin.ProgramType;
 import com.example.erp.service.admin.AdminService;
@@ -52,7 +58,6 @@ public class AdminController {
 	@GetMapping("/admin")
 	public String starter(ModelMap model) {
 		return "admin/login";
-
 	}
 
 	@RequestMapping(value = "/adminLogin", method = RequestMethod.GET)
@@ -149,14 +154,23 @@ public class AdminController {
 		return "admin/index";
 	}
 	
-	@GetMapping("/onlineApplicationForm")
-	public String onlineApplication() {
-		return "admin/online_application_form";
-	}
+	/*
+	 * @GetMapping("/onlineApplicationForm") public String onlineApplication() {
+	 * return "admin/online_application_form"; }
+	 */
 	
 	@GetMapping("/onlineApplicationForm2")
 	public String onlineApplicationw() {
 		return "admin/online_application_form2";
+	}
+	
+	@GetMapping("/interviewDefinition")
+	public String interviewDefinition(Model model) {
+		ProgramEntry pe = new ProgramEntry();
+		model.addAttribute("applicationNo",pe);
+		model.addAttribute("fromCourseEntry", adminservice.retriveAdminProgramTypeProgramCourseFromCourseEntry());
+		model.addAttribute("fromProgramConfig", adminservice.academicYearFromProgramConfig());
+		return "admin/interview_definition";
 	}
 
 	/*
@@ -223,6 +237,14 @@ public class AdminController {
 		adminservice.loadAdminChecklistEntry(checklistentry);
 	}
 	
+	@PostMapping("/loadAdminInterviewDefinition")
+	@ResponseBody
+	public void loadAdminInterviewDefinition(@RequestBody InterviewDefinition interviewdefinition) {
+		adminservice.loadAdminInterviewDefinition(interviewdefinition);
+	}
+	
+	
+	
 	@GetMapping("/getAllProgramType")
 	@ResponseBody
 	public List<ProgramType> AllProgramType() {
@@ -259,6 +281,12 @@ public class AdminController {
 	@ResponseBody
 	public List<CheckListEntry> getAllChecklistEntry() {
 		return adminservice.getAllChecklistEntry();
+	}
+	
+	@GetMapping("/getAllInterviewDefinition")
+	@ResponseBody
+	public List<InterviewDefinition> getAllInterviewDefinition() {
+		return adminservice.getAllInterviewDefinition();
 	}
 
 	/*
@@ -310,6 +338,13 @@ public class AdminController {
 		return "Deleted Successfully";
 	}
 	
+	@RequestMapping(value = "/deleteInterviewDefinitionById/{id}", method = RequestMethod.DELETE)
+	@ResponseBody
+	public String deleteInterviewDefinitionById(@PathVariable int id) {
+		adminservice.deleteInterviewDefinitionById(id);
+		return "Deleted Successfully";
+	}
+	
 	  @RequestMapping(value = "/getProgramTypeById/{id}", method =  RequestMethod.GET)
 	  @ResponseBody
 	  public ProgramType getProgramTypeByID(@PathVariable int id) 
@@ -350,6 +385,13 @@ public class AdminController {
 	  public CheckListEntry getChecklistEntryById(@PathVariable int id) 
 	  {  
 		  return adminservice.getChecklistEntryById(id); 
+	  }
+	  
+	  @RequestMapping(value = "/getInterviewDefinitionById/{id}", method =  RequestMethod.GET)
+	  @ResponseBody
+	  public InterviewDefinition getInterviewDefinitionById(@PathVariable int id) 
+	  {  
+		  return adminservice.getInterviewDefinitionById(id); 
 	  }
 	  
 	  
@@ -393,6 +435,12 @@ public class AdminController {
 		adminservice.updateChecklistEntryById(id, checklistentry);
 	}
 	
+	@PutMapping("/updateInterviewDefinitionById/{id}")
+	@ResponseBody
+	public void updateInterviewDefinitionById(@RequestBody InterviewDefinition interviewdefinition, @PathVariable int id) {
+		adminservice.updateInterviewDefinitionById(id, interviewdefinition);
+	}
+	
 	@GetMapping("/courseToDepartment/{id}")
 	public String assignnDepartment(@PathVariable int id, ModelMap model) {
 		System.out.println("in");
@@ -413,5 +461,81 @@ public class AdminController {
 		adminservice.updateCourseEntry(ce);
 		return "admin/course_entry";
 	}
+	
+	@GetMapping("/onlineApplicationForm")
+	public String saveonlineApplicationForm(Model model)
+	{
+		model.addAttribute("onlineApplicationForm", new OnlineApplicationForm());
+		model.addAttribute("fromCourseEntry", adminservice.retriveAdminProgramTypeProgramCourseFromCourseEntry());
+		return "admin/online_application_form";
+	}
+	
+	@PostMapping("/onlineApplicationForm")
+	public String saveonlineApplicationForm(@ModelAttribute("onlineApplicationForm") OnlineApplicationForm oaf,
+			ModelMap model) {
+		model.addAttribute("onlineApplicationForm", new OnlineApplicationForm());
+		System.out.println(oaf.toString());
+		/*
+		 * model.addAttribute("phone", re.getPhonenumber()); model.addAttribute("mail",
+		 * re.getMailid());
+		 */
+		
+		adminservice.saveonlineApplicationForm(oaf);
+		
+		return "/admission_success";
+	}
+	
+	@GetMapping("/filteredStudentss")
+	public String filteredStudents(ModelMap modelmap)
+	{
+	modelmap.addAttribute("updateStatus", new Registeration());
+	
+	return "admin/admissionFilteredStudents";
+	}
+	
+	@GetMapping("/interviewSelectionProcess")
+	public String interviewSelectionProcess(ModelMap model)
+	{
+		
+		/* model.addAttribute("onlineApplicationForm", new OnlineApplicationForm()); */
+		  model.addAttribute("fromCourseEntry",adminservice.retriveAdminProgramTypeProgramCourseFromCourseEntry());
+		 
+		model.addAttribute("fromProgramConfig", adminservice.academicYearFromProgramConfig());
+		model.addAttribute("fromInterviewDefinition", adminservice.interviewTypeFromInterviewDefinition());
+		model.addAttribute("updateSelectedStatus", new Registeration());
+		return "admin/interview_selection_process";
+	}
+	
+	
+	
+	@RequestMapping(value = "/interviewSelection", method = RequestMethod.GET)
+	public ModelAndView getFilterStudents(@RequestParam(name = "academic") String academicYear,
+			@RequestParam(name = "type") String type, @RequestParam(name = "program") String program,
+			@RequestParam(name = "course") String course, @RequestParam(name = "interviewType") String interviewType,
+			@RequestParam(name = "entranceCutOff") String entranceCutOff,ModelMap modelmap) throws IOException {
+		System.out.println(academicYear + "" + type + "" + program + "" +course + "" + interviewType + "" + entranceCutOff);
+		List<Registeration> listt = adminservice.getStudentsByFilter(course);
+		System.out.println("filtered student object"+listt);
+		System.out.println(listt.toString());
+		modelmap.addAttribute("student",listt);
+		modelmap.addAttribute("updateSelectedStatus", new Registeration());
+		return new ModelAndView("admin/admissionFilteredStudents", "list", listt);
+	}
+	
+	@PostMapping("/updateSelectedStatus")
+	public String updateStatus(@ModelAttribute("updateSelectedStatus") Registeration stat, ModelMap model )
+	{
+		System.out.println("status :"+stat.getStatus());
+		
+		List<String> statId = stat.getStatus();
+		
+		for(String regisId :statId)
+		{
+			adminservice.updateStatus(regisId);
+			System.out.println("Inside Loop"+regisId);
+		}
+		return "admin/interview_selection_process";
+	}
+	
 	
 }

@@ -1,4 +1,5 @@
 <%@include file="header.jsp"%> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <style>
 .container {
 border: 2px solid #B22222;
@@ -16,6 +17,7 @@ body  {
 </style>
 <div class="container" >
 <br/>
+
 <!-- <div class="jumbotron">
   <h1>CheckOut Form</h1>
 
@@ -38,6 +40,8 @@ body  {
   <div class="card-header bg-transparent border-success"><h3>Pay Online Admission Application Form 2019</h3></div>
   <div class="card-body text-success">
     <h5 class="card-title"></h5>
+<%-- <h1>a - ${phone}</h1>
+<h1>a - ${mail}</h1> --%>
     <p class="card-text" style="font-size:18px;">Your details for Online Admission Form , March 2019 have been saved temporarily. The final processing of Application Form will begin only after the successfully payment of Application Form.</p>
     <p class="card-text" style="font-size:18px;">You're required to pay an amount of Rs.<span style="color:red; font-size:18px"> 250 /- </span> towards Application Form Fee.</p>
   </div>
@@ -55,8 +59,8 @@ body  {
     data-description="Online Application Form Fee Payment."
     data-image="https://credessol.com/wp-content/uploads/2019/02/c-logo-150x150.png"
     <%-- ${lists.phonenumber} --%>
-    data-prefill.name=""
-    data-prefill.email=""
+    data-prefill.name="${phone}"
+    data-prefill.email="${mail}"
     data-theme.color="#F37254"
 ></script>
 <input type="hidden" value="Hidden Element" name="hidden">

@@ -99,11 +99,11 @@ form.courseentry .gray * {
 
 		<section class="content-header">
 			<h1>
-				Course Entry <small></small>
+				Course <small></small>
 			</h1>
 			<ol class="breadcrumb">
 				<li><a href="#"><i class="fa fa-dashboard"></i>Admin</a></li>
-				<li class="active"><a href="">Course_Entry</a></li>
+				<li class="active"><a href="">Course</a></li>
 			</ol>
 		</section>
 

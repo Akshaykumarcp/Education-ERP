@@ -137,11 +137,11 @@ form.form1 .gray * {
 		
 		<section class="content-header">
 			<h1>
-				Curriculum Scheme <small></small>
+				Interview Definition <small></small>
 			</h1>
 			<ol class="breadcrumb">
 				<li><a href="#"><i class="fa fa-dashboard"></i>Admin</a></li>
-				<li class="active"><a href="">Curriculum Scheme</a></li>
+				<li class="active"><a href="">Interview Definition</a></li>
 			</ol>
 		</section>
 		<br />
@@ -173,7 +173,7 @@ form.form1 .gray * {
 											<option value="2">2020-2021</option>
 											<option value="3">2021-2022</option>
 										</select> -->
-										<form:select path="onlineApplicationYear" name="academic" class="form-control" id="admitted_year">
+										<form:select path="onlineApplicationYear" name="academic" class="browser-default custom-select col" style="width: 207;" id="admittedYear">
 									<form:option value="default" label="Select Program*"/>
 									<%-- <form:options items = "${courses}" /> --%>
 									<c:forEach var="programCo" items="${fromProgramConfig}">
@@ -245,38 +245,44 @@ form.form1 .gray * {
 									</br>
 										<div class="row rr" style="background-color: #80CBC4;">
 									<div class="col-md-3">
-										<label for="sch" class="label1"><span style="color: red;">*</span>No. of Scheme/Courses:</label>
+										<label for="sch" class="label1"><span style="color: red;">*</span>Interview Type:</label>
 									</div>
 									<div class="col-md-3">
-										<select name="sch" id="noOfScheme" class="browser-default custom-select col"
-											style="width: 207;" id="noOfScheme">
+										<input type="text" class="browser-default custom-select col" id="interviewType"
+											style="width: 207;">
+									</div>
+									<div class="col-md-3">
+										<label for="Scheme" class="label1"><span style="color: red;">*</span>Sequence Of Interview:</label>
+									</div>
+									<div class="col-md-3">
+										<select name="sequenceOfInterview"  class="browser-default custom-select col"
+											style="width: 207;" id="sequenceOfInterview">
 											<option value="default">-- select--</option>
-											<option value="1">BCA</option>
-											<option value="2">BBM</option>
-											<option value="3">MBA</option>
-										</select>
-									</div>
-									<div class="col-md-3">
-										<label for="Scheme" class="label1"><span style="color: red;">*</span>Scheme:</label>
-									</div>
-									<div class="col-md-3">
-										<select name="Scheme" id="scheme" class="browser-default custom-select col"
-											style="width: 207;" id="scheme">
-											<option value="default">-- select--</option>
-											<option value="1">BCA</option>
-											<option value="2">BBM</option>
-											<option value="3">MBA</option>
+											<option value="1">1</option>
+											<option value="2">2</option>
+											<option value="3">3</option>
+											<option value="4">4</option>
 										</select>
 									</div>
 								</div>
 								<!-- row ended -->
-							</div>
+							
 							<!-- column md 12 ended -->
+							<br/>
+<div class="row rr" style="background-color: #80CBC4;">
+									<div class="col-md-3">
+										<label for="sch" class="label1"><span style="color: red;">*</span>Interviewers Per Panel:</label>
+									</div>
+									<div class="col-md-3">
+										<input type="text" class="browser-default custom-select col"
+											style="width: 207;" id="interviewPerPanel">
+									</div>
+									
+								</div>
 
 
 
-
-
+</div>
 						</div>
 						<!-- panel body ended -->
 					</div>
@@ -297,14 +303,17 @@ form.form1 .gray * {
 					style="border-top-width: 1px; border-top-style: solid; border-bottom-width: 1px; border-bottom-style: solid; border-right-width: 1px; border-right-style: solid; border-left-width: 1px; border-left-style: solid; padding-top: 5px; padding-right: 5px; padding-left: 5px; border-color: whitesmoke; margin-bottom: 8px;">
 					<div class="panel-body">
 						<div class="table-responsive">
-							<table id="tblCurriculumEntry" class="table table-bordered table-hover" style="width: 100%;">
+							<table id="tblInterviewDefinition" class="table table-bordered table-hover" style="width: 100%;">
 								<thead>
 									<tr style="background-color: #80CBC4; color: white;">
 										<th>SI.NO</th>
+										<th>Admitted Year</th>
 										<th>Program Type</th>
 										<th>Program</th>
 										<th>Courses</th>
-										<th>Admitted Year</th>
+										<th>Interview Type</th>
+										<th>Sequence of interview</th>
+										<th>Interviews per panel</th>
 										<th>Edit</th>
 										<th>Delete</th>
 									</tr>
@@ -333,42 +342,43 @@ form.form1 .gray * {
 <script>
 $(document).ready(function() {
 	/* $('#example').DataTable(); */
-	getAllCurriculumEntry();
+	getAllInterviewDefinition();
 });
 
 $.validator.setDefaults( {
 	submitHandler: function () {
-		var curriculumEntry = {};
+		var interviewDefinition = {};
 	 	var dynamicURL = "";
 		var methodName = "";
 		var status = ""; 
                  					/* var ab = programType.programType = $('#programType').val(); */
 
-                 					curriculumEntry.admitted_year = $('#admitted_year').val();
-                 					curriculumEntry.programType = $('#programType').val();
-                 					curriculumEntry.program = $('#program').val();
-                 					curriculumEntry.course = $('#course').val();
-                 					curriculumEntry.noOfScheme = $('#noOfScheme').val();
-                 					curriculumEntry.scheme = $('#scheme').val();
+                 					interviewDefinition.admitted_year = $('#admittedYear').val();
+                 					interviewDefinition.programType = $('#programType').val();
+                 					interviewDefinition.program = $('#program').val();
+                 					interviewDefinition.course = $('#course').val();
+                 					interviewDefinition.interviewType = $('#interviewType').val();
+                 					interviewDefinition.sequenceOfInterview = $('#sequenceOfInterview').val();
+                 					interviewDefinition.interviewPerPanel = $('#interviewPerPanel').val();
                  					
-                 				 	var curriculumEntryId = $('#idForm').val();
-                 					if(curriculumEntryId)
+                 				 	 var interviewDefinitionID = $('#idForm').val();
+                 					if(interviewDefinitionID)
                  						{
-                 						dynamicURL="http://localhost:8080/updateCurriculumEntryById/"+curriculumEntryId;
+                 						dynamicURL="http://localhost:8080/updateInterviewDefinitionById/"+interviewDefinitionID;
                  						methodName="PUT";
                  						status="Updated"
                  						}
                  					else
                  						{
-                 						dynamicURL="http://localhost:8080/loadAdminCurriculumEntry";
+                 						dynamicURL="http://localhost:8080/loadAdminInterviewDefinition";
                  						methodName="POST";
                  						status="Saved"
-                 						} 
-                 		 			var curriculumEntryObj = JSON.stringify(curriculumEntry);
+                 						}  
+                 		 			var interviewDefinitionObj = JSON.stringify(interviewDefinition);
                  				$.ajax({
                  							url:dynamicURL,
                  							method:methodName,
-                 							data: curriculumEntryObj,
+                 							data: interviewDefinitionObj,
                  							contentType:'application/json; charset=utf-8',
                  							success: function ()
                  							{
@@ -376,15 +386,7 @@ $.validator.setDefaults( {
                    									buttons: false,
                    									timer: 1000,
                  									});
-                 								getAllCurriculumEntry();
-                 								reset();
-                 								/* getAllApplicationNoEntry();
-                 								reset(); */
-                 								/* getAllProgramEntry();
-                 								reset(); */
-                 							},
-                 							error: function (error)
-                 							{
+                 								getAllInterviewDefinition();
                  								alert(error);
                  							}
                  						});
@@ -464,19 +466,19 @@ $("#form1").validate({
 	}
 	});
 
-function getAllCurriculumEntry()
+function getAllInterviewDefinition()
 {
 	$.ajax({
-	url:"http://localhost:8080/getAllCurriculumEntry",
+	url:"http://localhost:8080/getAllInterviewDefinition",
 	method:"GET",
 	datatype:"json",
 	success:function(data)
 	{
-		var tableBody = $('#tblCurriculumEntry tbody');
+		var tableBody = $('#tblInterviewDefinition tbody');
 		tableBody.empty();
 		$(data).each(function(index,element)
 				{
-					tableBody.append('<tr><td>'+element.id+'</td><td>'+element.programType+'</td><td>'+element.program+'</td><td>'+element.course+'</td><td>'+element.admitted_year+'</td><td><i onclick="updateCurriculumEntry('+element.id+')" class="edit icon"></i></td><td><i onclick="deleteCurriculumEntry('+element.id+')" class="trash icon"></i></td></tr>');
+					tableBody.append('<tr><td>'+element.id+'</td><td>'+element.admitted_year+'</td><td>'+element.programType+'</td><td>'+element.program+'</td><td>'+element.course+'</td><td>'+element.interviewType+'</td><td>'+element.sequenceOfInterview+'</td><td>'+element.interviewPerPanel+'</td><td><i onclick="updateInterviewDefinition('+element.id+')" class="edit icon"></i></td><td><i onclick="deleteInterviewDefinition('+element.id+')" class="trash icon"></i></td></tr>');
 				})
 		},
 		error:function (error)
@@ -488,28 +490,29 @@ alert(error);
 }
 
 
-function updateCurriculumEntry(id)
+function updateInterviewDefinition(id)
 {
 	 /* alert(id); */
 
 	$.ajax({
-		url:"http://localhost:8080/getCurriculumEntryById/"+id,
+		url:"http://localhost:8080/getInterviewDefinitionById/"+id,
 		method:"GET",
 		datatype:"json",
 		success:function(data)
 			{
-			 alert(data.onlineapplicationNoFrom); 
+			 /* alert(data.onlineapplicationNoFrom);  */
 			
-				$('#admitted_year').val(data.admitted_year);
+				$('#admittedYear').val(data.admitted_year);
 				$('#programType').val(data.programType);
 				$('#program').val(data.program);
 				$('#course').val(data.course);
-				$('#noOfScheme').val(data.noOfScheme);
-				$('#scheme').val(data.scheme);
-				
+				$('#interviewType').val(data.interviewType);
+					$('#sequenceOfInterview').val(data.sequenceOfInterview);
+					$('#interviewPerPanel').val(data.interviewPerPanel);
+									
 				$('#idForm').val(data.id);
 			
-				getAllCurriculumEntry();
+				getAllInterviewDefinition();
 				},
 				error:function(error)
 				{
@@ -521,22 +524,23 @@ alert(error);
 
  function reset()
     {
-    	var admitted_year = $('#admitted_year').val('');
+    	var admitted_year = $('#admittedYear').val('');
     	var programType = $('#programType').val('');
     	var program = $('#program').val('');
     	var course = $('#course').val('');
-    	var noOfScheme = $('#noOfScheme').val('');
-    	var scheme = $('#scheme').val('');
+    	var interviewType = $('#interviewType').val('');
+    	var sequenceOfInterview = $('#sequenceOfInterview').val('');
+    			var interviewPerPanel = $('#interviewPerPanel').val('');
     	var id = $('#idForm').val('');	
     	
 	}
 
 
-	function deleteCurriculumEntry(id)
+	function deleteInterviewDefinition(id)
 	{
 		swal({
 			  title: "Are you sure?",
-			  text: "Once deleted, you will not be able to recover the Program Type!",
+			  text: "Once deleted, you will not be able to recover the Interview Definition!",
 			  icon: "warning",
 			  buttons: true,
 			  dangerMode: true,
@@ -544,19 +548,19 @@ alert(error);
 			.then((willDelete) => {
 			  if (willDelete) {
 				  $.ajax({
-						url:"http://localhost:8080/deleteCurriculumEntryByEntryBy/"+id,
+						url:"http://localhost:8080/deleteInterviewDefinitionById/"+id,
 						method:'DELETE',
 						contentType:'application/json; charset=utf-8',
 						success: function ()
 						{
-							getAllCurriculumEntry();
+							getAllInterviewDefinition();
 						}
 				  });
-			    swal("Curriculum Entry has been deleted!", {
+			    swal("Interview Definition has been deleted!", {
 			      icon: "success",
 			    });
 			  } else {
-			    swal("Curriculum Number Entry is Safe!");
+			    swal("Interview Definition Entry is Safe!");
 			  }
 			});
 	}

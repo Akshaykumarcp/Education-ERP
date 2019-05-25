@@ -13,9 +13,11 @@
 * {
 	font-family: calibri;
 }
-.col{
-background-color: ECEFF1;
+
+.col {
+	background-color: ECEFF1;
 }
+
 #button {
 	margin-left: 400px;
 	margin-top: 5px;
@@ -77,11 +79,11 @@ form.form .gray * {
 	color: black;
 }
 </style>
-<div class="content-wrapper">
+<div class="content-wrapper ">
 
 
 	<!-- Main content -->
-	<section class="content container" id="mainContent">
+	<section class="content container-fluid" id="mainContent">
 
 		<!-- HEADER -->
 
@@ -105,8 +107,10 @@ form.form .gray * {
 			<div class="card">
 				<div class="card-header bg-info text-white">Online Application</div>
 				<div class="card-body">
-					<form id="form">
-						<span style="color: red; float: right;">* manditory fields</span></br>
+					<form:form id="form" method="POST"
+						modelAttribute="onlineApplicationForm" action="/onlineApplicationForm">
+						<span style="color: red; float: right;">* mandatory fields</span>
+						</br>
 						<div class="panel panel-default"
 							style="border-top-width: 1px; border-top-style: solid; border-bottom-width: 1px; border-bottom-style: solid; margin-right: 0px; border-left-width: 1px; border-left-style: solid; border-right-width: 1px; border-right-style: solid; padding-top: 15px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px; border-color: lavender;">
 							<div class="panel-body">
@@ -114,32 +118,46 @@ form.form .gray * {
 									<div class="row">
 										<div class="col-md-4">
 											<label for="type"><span style="color: red;">*</span>Program
-												Type:</label> <select name="type"
-												class="browser-default custom-select col">
-												<option value="default">-- select--</option>
-												<option value="1">One</option>
-												<option value="2">Two</option>
-												<option value="3">Three</option>
-											</select>
+												Type:</label> 
+												
+												<form:select path="programType" class="browser-default custom-select col">
+									<form:option value="default" label="Select Program*"/>
+									<%-- <form:options items = "${courses}" /> --%>
+									<c:forEach var="programCo" items="${fromCourseEntry}">
+										<option value="${programCo.programType}">${programCo.programType}</option>
+									</c:forEach>
+								</form:select>
+																					
 										</div>
 										<div class="col-md-4">
 											<label for="program"><span style="color: red;">*</span>Program:</label>
-											<select name="program" class="browser-default custom-select col">
-												<option value="default">-- select--</option>
-												<option value="1">One</option>
-												<option value="2">Two</option>
-												<option value="3">Three</option>
-											</select>
-										</div>
-										<div class="col-md-4">
-											<label for="preference"><span style="color: red;">*</span>First
-												Preference:</label> <select name="preference"
+									
+									<form:select path="program" class="browser-default custom-select col">
+									<form:option value="default" label="Select Program*"/>
+									<%-- <form:options items = "${courses}" /> --%>
+									<c:forEach var="programCo" items="${fromCourseEntry}">
+										<option value="${programCo.program}">${programCo.program}</option>
+									</c:forEach>
+								</form:select>
+									
+											<%-- <form:select name="program" path="program"
 												class="browser-default custom-select col">
 												<option value="default">-- select--</option>
 												<option value="1">One</option>
 												<option value="2">Two</option>
 												<option value="3">Three</option>
-											</select>
+											</form:select> --%>
+										</div>
+										<div class="col-md-4">
+											<label for="preference"><span style="color: red;">*</span>First
+												Preference:</label> <form:select name="preference" path="firstPreference"
+												class="browser-default custom-select col">
+												<option value="default">-- select--</option>
+												<option value="English">English</option>
+												<option value="French">French</option>
+												<option value="Sanskrit">Sanskrit</option>
+												<option value="Korean">Korean</option>
+											</form:select>
 										</div>
 
 
@@ -150,22 +168,22 @@ form.form .gray * {
 									<div class="row">
 										<div class="col-md-4">
 											<label for="namer"><span style="color: red;">*</span>Candidate
-												Name(As per SSLC):</label> <input name="namer" type="text"
-												class="form-control col">
+												Name(As per SSLC):</label> <form:input name="namer" type="text" path="CandiateName"
+												class="form-control col"/>
 										</div>
 										<div class="col-md-4">
 											<label for Dob><span style="color: red;">*</span>DOB:</label>
-											<input name="Dob" type="date" class="form-control col">
+											<form:input name="Dob" type="date" class="form-control col" path="DOB"/>
 										</div>
 										<div class="col-md-4">
 											<label for="category"><span style="color: red;">*</span>Student
-												Category (Domicile Status):</label> <select name="category"
+												Category (Domicile Status):</label> <form:select name="category" path="studentCategory"
 												class="browser-default custom-select col">
 												<option value="default">-- select--</option>
 												<option value="1">One</option>
 												<option value="2">Two</option>
 												<option value="3">Three</option>
-											</select>
+											</form:select>
 										</div>
 
 
@@ -174,20 +192,22 @@ form.form .gray * {
 									<!-- row ended -->
 									<div class="row">
 										<div class="col-md-4">
-										<label for="number"><span style="color: red;">*</span>Number:</label>
-											<input type="number" name="number" id="number" class="form-control col">
-												
-										
+											<label for="number"><span style="color: red;">*</span>Number:</label>
+											<form:input type="number" name="number" id="number" path="phoneNumber"
+												class="form-control col"/>
+
+
 										</div>
 										<div class="col-md-4">
 											<label for="email"><span style="color: red;">*</span>Email:</label>
-											<input type="email" name="email" class="form-control col">
+											<form:input type="email" name="email" class="form-control col" path="eMail"/>
 
 										</div>
 										<div class="col-md-4">
 											<label for="remail"><span style="color: red;">*</span>Re-Confirm
-												e-mail:</label> <input type="email" name="remail"
-												class="form-control col">
+												e-mail:</label> 
+												<form:input type="email" name="remail" path="confirmEmail"
+												class="form-control col"/>
 										</div>
 
 
@@ -198,6 +218,16 @@ form.form .gray * {
 								<!-- Div col-md-12 ended -->
 							</div>
 							<!-- panel body ended -->
+							</br>
+							<div>
+								<form:checkbox path="termsAndCondition" value="agreed"/><span
+									style="margin-left: 25px;">Yes, I have understood the
+									application fee terms ans I have remitted the application fee
+									and have two copies of the Bank application Fee Challan with
+									the Reference Number, Journal Number, Branch Code and Date of
+									Transaction.</span>
+							</div>
+							</br>
 						</div>
 						<!-- panel ended -->
 						<button type="Submit" id="button" class="btn btn-lg btn-success">Continue</button>
@@ -205,7 +235,7 @@ form.form .gray * {
 						<button type="Reset" id="reset" class="btn btn-lg btn-danger"
 							style="margin-left: 10px; margin-top: 5px;">Reset</button>
 
-					</form>
+					</form:form>
 				</div>
 				<!-- card body ended -->
 				<div class="card-footer bg-info text-white"></div>

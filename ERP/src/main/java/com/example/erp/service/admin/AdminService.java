@@ -6,10 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.erp.DAO.admin.ProgramTypeDAO;
+import com.example.erp.model.Registeration;
 import com.example.erp.model.admin.ApplicationNoEntry;
 import com.example.erp.model.admin.CheckListEntry;
 import com.example.erp.model.admin.CourseEntry;
 import com.example.erp.model.admin.CurriculumEntry;
+import com.example.erp.model.admin.InterviewDefinition;
+import com.example.erp.model.admin.OnlineApplicationForm;
 import com.example.erp.model.admin.ProgramEntry;
 import com.example.erp.model.admin.ProgramType;
 
@@ -181,6 +184,43 @@ public class AdminService {
 
 	public void updateChecklistEntryById(int id, CheckListEntry checklistentry) {
 		programty.updateChecklistEntryById(id,checklistentry);
+	}
+
+	public void saveonlineApplicationForm(OnlineApplicationForm oaf) {
+		programty.saveonlineApplicationForm(oaf);
+		
+	}
+
+	public void loadAdminInterviewDefinition(InterviewDefinition interviewdefinition) {
+		programty.loadAdminInterviewDefinition(interviewdefinition);		
+	}
+
+	public List<InterviewDefinition> getAllInterviewDefinition() {
+		return programty.getAllInterviewDefinition();
+	}
+
+	public void deleteInterviewDefinitionById(int id) {
+		programty.deleteInterviewDefinitionById(id);
+	}
+
+	public void updateInterviewDefinitionById(int id, InterviewDefinition interviewdefinition) {
+		programty.updateInterviewDefinitionById(id,interviewdefinition);
+	}
+
+	public InterviewDefinition getInterviewDefinitionById(int id) {
+		return programty.getInterviewDefinitionById(id);
+	}
+
+	public List<InterviewDefinition> interviewTypeFromInterviewDefinition() {
+		return programty.interviewTypeFromInterviewDefinition();
+	}
+
+	public List<Registeration> getStudentsByFilter(String course) {
+		return programty.getStudentsByFilter(course);
+	}
+
+	public void updateStatus(String regisId) {
+		programty.updateStatus(regisId);
 	}
 
 

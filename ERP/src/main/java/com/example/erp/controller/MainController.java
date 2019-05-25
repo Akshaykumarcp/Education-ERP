@@ -28,6 +28,7 @@ import com.example.erp.service.InterviewDefinitionService;
 import com.example.erp.service.RegisterationService;
 /*import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;*/
+import com.example.erp.service.admin.AdminService;
 
 @Controller
 @SessionAttributes("candidate")
@@ -47,6 +48,9 @@ public class MainController {
 	
 	@Autowired
 	private RestTemplate restTemplate;
+	
+	@Autowired
+	private AdminService adminservice;
 
 	@GetMapping("/logIn")
 	public String homepage_login(@RequestParam(name = "selector") int select,
@@ -77,6 +81,10 @@ public class MainController {
 		message=null; success=null;
 		model.addAttribute("Registeration", new Registeration());
 		model.addAttribute("programs", intser.retriveAllProgramType());
+		/*
+		 * model.addAttribute("fromCourseEntry",adminservice.
+		 * retriveAdminProgramTypeProgramCourseFromCourseEntry());
+		 */
 		model.addAttribute("loginCandi", new Registeration());
 		return "/index";
 	}
@@ -456,10 +464,13 @@ System.out.println("loginsuccss b4 assigning -->"+loginSuccess);
 	}
 
 	@PostMapping("/candidate-admission-form")
-	public String saveAdmissionForm(@ModelAttribute("candidateAdmission") Registeration re, BindingResult result,
+	public String saveAdmissionForm(@ModelAttribute("candidateAdmission") Registeration re,
 			ModelMap model) {
 		model.addAttribute("candidateAdmission", new Registeration());
 		model.addAttribute("register", new Registeration());
+		model.addAttribute("phone", re.getPhonenumber());
+		model.addAttribute("mail", re.getMailid());
+		
 		regserv.saveAdmission(re);
 		
 		return "/admission_success";

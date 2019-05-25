@@ -198,13 +198,13 @@ else
 								class="red">*</span> <input type="email" class="form-control"
 								value=" ${listme.mailid}"
 								style="width: 220px; margin-left: 20px" name="mail"
-								placeholder="" disabled />
+								placeholder=""  />
 						</div>
 						<div class="form-group col-md-3">
 							<label for="phonenumber">Phone Number</label><span class="red">*</span>
 							<input type="text" class="form-control" name="phonenumber"
 								style="width: 220px" value=" ${listme.phonenumber}"
-								placeholder="" disabled />
+								placeholder=""  />
 						</div>
 
 						<div class="form-group col-md-3">

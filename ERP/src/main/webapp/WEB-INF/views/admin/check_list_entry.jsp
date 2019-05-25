@@ -94,17 +94,17 @@ form.form1 .gray * {
 
 
 	<!-- Main content -->
-	<section class="content container" id="mainContent">
+	<section class="content container-fluid" id="mainContent">
 
 		<!-- HEADER -->
-
+		
 		<section class="content-header">
 			<h1>
-				<small></small>
+				Check List <small></small>
 			</h1>
 			<ol class="breadcrumb">
-				<li><a href="Index.jsp"><i class="fa fa-dashboard"></i>HomePage</a></li>
-				<li class="active">Checklist Entry</li>
+				<li><a href="#"><i class="fa fa-dashboard"></i>Admin</a></li>
+				<li class="active"><a href="">Check List</a></li>
 			</ol>
 		</section>
 

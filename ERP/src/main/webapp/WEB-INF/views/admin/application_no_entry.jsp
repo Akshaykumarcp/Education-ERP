@@ -112,19 +112,29 @@ form.form .gray * {
 
 
 	<!-- Main content -->
-	<section class="content container" id="mainContent">
-
-		<!-- HEADER -->
-
-		<section class="content-header">
-			<h1>
-				<small></small>
-			</h1>
-			<ol class="breadcrumb">
-				<li><a href="#"><i class="fa fa-dashboard"></i>HomePage</a></li>
-				<li class="active">Application Entry</li>
-			</ol>
-		</section>
+		<section class="content container-fluid" id="mainContent">
+	
+			<!-- HEADER -->
+	
+			<!-- <section class="content-header">
+				<h1>
+					<small></small>
+				</h1>
+				<ol class="breadcrumb">
+					<li><a href="#"><i class="fa fa-dashboard"></i>HomePage</a></li>
+					<li class="active">Application Entry</li>
+				</ol>
+			</section> -->
+			
+			<section class="content-header">
+				<h1>
+					Application Number <small></small>
+				</h1>
+				<ol class="breadcrumb">
+					<li><a href="#"><i class="fa fa-dashboard"></i>Admin</a></li>
+					<li class="active"><a href="">Application Number</a></li>
+				</ol>
+			</section>
 
 		<br />
 

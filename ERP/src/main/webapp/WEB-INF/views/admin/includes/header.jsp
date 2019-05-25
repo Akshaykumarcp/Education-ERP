@@ -332,6 +332,9 @@ desired effect
            <li><a href="/checkListEntry">Check List Assignment</a></li>
            <li><a href="/offlineApplication">Offline Application Form</a></li>
            <li><a href="/onlineApplicationForm">Online Application Form</a></li>
+           <li><a href="/interviewDefinition">Interview Definition</a></li>
+           <li><a href="/interviewSelectionProcess">Interview Selection Process</a></li>
+           
             <li><a href="#" id="candidatesApplied">Candidates Applied</a></li>
             <li><a  id="interviewDefinition">Interview Definition</a></li>
           </ul>

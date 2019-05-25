@@ -137,11 +137,11 @@ form.form1 .gray * {
 		
 		<section class="content-header">
 			<h1>
-				Curriculum Scheme <small></small>
+				Interview Selection Process <small></small>
 			</h1>
 			<ol class="breadcrumb">
 				<li><a href="#"><i class="fa fa-dashboard"></i>Admin</a></li>
-				<li class="active"><a href="">Curriculum Scheme</a></li>
+				<li class="active"><a href="">Interview Selection Process</a></li>
 			</ol>
 		</section>
 		<br />
@@ -149,13 +149,14 @@ form.form1 .gray * {
 		<!-- BODY CONTENT -->
 
 
-		<div class="container">
+		<div class="container-fluid">
 
 
 			<div class="card">
-				<div class="card-header card bg-info text-white">Curriculum Entry</div>
+				<div class="card-header card bg-info text-white">Interview Selection Process</div>
 				<div class="card-body">
-				<form:form id="form1" modelAttribute="applicationNo">
+				<form id="form1" action="/interviewSelection" method="GET" >
+				<!-- modelAttribute="applicationNo" -->
 				<span style="color: red; float: right;margin-top: -20px;">*Mandatory Fields</span>
 					<div class="panel panel-default" style="border-top-width: 1px; margin-top: 15px; border-top-style: solid;border-bottom-width: 1px;border-bottom-style: solid;border-left-width: 1px;border-left-style: solid;border-right-width: 1px;border-right-style: solid;padding-top: 5px;padding-bottom: 5px;padding-right: 5px;padding-left: 5px;border-color: lavender;">
 						<div class="panel-body">
@@ -173,13 +174,13 @@ form.form1 .gray * {
 											<option value="2">2020-2021</option>
 											<option value="3">2021-2022</option>
 										</select> -->
-										<form:select path="onlineApplicationYear" name="academic" class="form-control" id="admitted_year">
-									<form:option value="default" label="Select Program*"/>
+										<select path="onlineApplicationYear" name="academic" class="browser-default custom-select col" style="width: 207;" id="admittedYear">
+									<option value="default" label="Select Program*"/>
 									<%-- <form:options items = "${courses}" /> --%>
 									<c:forEach var="programCo" items="${fromProgramConfig}">
 										<option value="${programCo.onlineApplicationYear}">${programCo.onlineApplicationYear}</option>
 									</c:forEach>
-								</form:select><input type="text" class="form-control" id="idForm"
+								</select><input type="text" class="form-control" id="idForm"
 											name="" placeholder=""
 											style="width: 225;" hidden>
 									</div>
@@ -195,14 +196,14 @@ form.form1 .gray * {
 											<option value="2">Two</option>
 											<option value="3">Three</option>
 										</select> -->
-										<form:select path="programType" name="type" class="browser-default custom-select col"
+										<select path="programType" name="type" class="browser-default custom-select col"
 											style="width: 207;" id="programType">
-									<form:option value="default" label="Select Program*"/>
+									<option value="default" label="Select Program*"/>
 									<%-- <form:options items = "${courses}" /> --%>
 									<c:forEach var="programCo" items="${fromCourseEntry}">
 										<option value="${programCo.programType}">${programCo.programType}</option>
 									</c:forEach>
-								</form:select>
+								</select>
 									</div>
 								</div>
 								</br>
@@ -212,14 +213,14 @@ form.form1 .gray * {
 										<label for="program" class="label1"><span style="color: red;">*</span>Program:</label>
 									</div>
 									<div class="col-md-3">
-										<form:select path="program" class="browser-default custom-select col"
-											style="width: 207;" id="program">
-									<form:option value="default" label="Select Program*"/>
+										<select path="program" class="browser-default custom-select col"
+											style="width: 207;" name="program" id="program">
+									<option value="default" label="Select Program*"/>
 									<%-- <form:options items = "${courses}" /> --%>
 									<c:forEach var="programCo" items="${fromCourseEntry}">
 										<option value="${programCo.program}">${programCo.program}</option>
 									</c:forEach>
-								</form:select>
+								</select>
 									</div>
 									<div class="col-md-3">
 										<label for="course" class="label1"><span style="color: red;">*</span>Course:</label>
@@ -233,8 +234,8 @@ form.form1 .gray * {
 											<option value="3">MBA</option>
 										</select> -->
 										<select class="browser-default custom-select col"
-											style="width: 207;" id="course">
-									<option value="default" label="--Select Program--"/>
+											style="width: 207;" name="course" id="course">
+									<option value="default" label="--Select Course--"/>
 									<%-- <form:options items = "${courses}" /> --%>
 									<c:forEach var="programCo" items="${fromCourseEntry}">
 										<option value="${programCo.courseName}">${programCo.courseName}</option>
@@ -245,38 +246,44 @@ form.form1 .gray * {
 									</br>
 										<div class="row rr" style="background-color: #80CBC4;">
 									<div class="col-md-3">
-										<label for="sch" class="label1"><span style="color: red;">*</span>No. of Scheme/Courses:</label>
+										<label for="sch" class="label1"><span style="color: red;">*</span>Interview Type:</label>
 									</div>
 									<div class="col-md-3">
-										<select name="sch" id="noOfScheme" class="browser-default custom-select col"
-											style="width: 207;" id="noOfScheme">
-											<option value="default">-- select--</option>
-											<option value="1">BCA</option>
-											<option value="2">BBM</option>
-											<option value="3">MBA</option>
-										</select>
+										<select path="program" class="browser-default custom-select col"
+											style="width: 207;" name="interviewType" >
+									<option value="default" label="Select Program*"/>
+									<%-- <form:options items = "${courses}" /> --%>
+									<c:forEach var="programCo" items="${fromInterviewDefinition}">
+										<option value="${programCo.interviewType}">${programCo.interviewType}</option>
+									</c:forEach>
+								</select>
 									</div>
 									<div class="col-md-3">
-										<label for="Scheme" class="label1"><span style="color: red;">*</span>Scheme:</label>
+										<label for="Scheme" class="label1"><span style="color: red;">*</span>Entrance Exam Marks Cutoff:</label>
 									</div>
 									<div class="col-md-3">
-										<select name="Scheme" id="scheme" class="browser-default custom-select col"
-											style="width: 207;" id="scheme">
-											<option value="default">-- select--</option>
-											<option value="1">BCA</option>
-											<option value="2">BBM</option>
-											<option value="3">MBA</option>
-										</select>
+										<input type="text" name="entranceCutOff" class="browser-default custom-select col" id="entranceExamMarksCutoff"
+											style="width: 207;">
 									</div>
 								</div>
 								<!-- row ended -->
-							</div>
+							
 							<!-- column md 12 ended -->
+							<br/>
+<!-- <div class="row rr" style="background-color: #80CBC4;">
+									<div class="col-md-3">
+										<label for="sch" class="label1"><span style="color: red;">*</span>Interviewers Per Panel:</label>
+									</div>
+									<div class="col-md-3">
+										<input type="text" class="browser-default custom-select col"
+											style="width: 207;" id="interviewPerPanel">
+									</div>
+									
+								</div> -->
 
 
 
-
-
+</div>
 						</div>
 						<!-- panel body ended -->
 					</div>
@@ -290,32 +297,13 @@ form.form1 .gray * {
 							style="margin-left: 10px; margin-top: 10px;"><span class="glyphicon glyphicon-repeat">Reset</button>
 					
 					
-					</form:form>
+					</form>
 					<hr>
 					
 					<div class="panel panel-default"
 					style="border-top-width: 1px; border-top-style: solid; border-bottom-width: 1px; border-bottom-style: solid; border-right-width: 1px; border-right-style: solid; border-left-width: 1px; border-left-style: solid; padding-top: 5px; padding-right: 5px; padding-left: 5px; border-color: whitesmoke; margin-bottom: 8px;">
 					<div class="panel-body">
-						<div class="table-responsive">
-							<table id="tblCurriculumEntry" class="table table-bordered table-hover" style="width: 100%;">
-								<thead>
-									<tr style="background-color: #80CBC4; color: white;">
-										<th>SI.NO</th>
-										<th>Program Type</th>
-										<th>Program</th>
-										<th>Courses</th>
-										<th>Admitted Year</th>
-										<th>Edit</th>
-										<th>Delete</th>
-									</tr>
-								</thead>
-								<tbody>
-									
-
-
-								</tbody>
-							</table>
-						</div>
+						
 					</div>
 				</div>
 					
@@ -331,69 +319,7 @@ form.form1 .gray * {
 
 	</section>
 <script>
-$(document).ready(function() {
-	/* $('#example').DataTable(); */
-	getAllCurriculumEntry();
-});
 
-$.validator.setDefaults( {
-	submitHandler: function () {
-		var curriculumEntry = {};
-	 	var dynamicURL = "";
-		var methodName = "";
-		var status = ""; 
-                 					/* var ab = programType.programType = $('#programType').val(); */
-
-                 					curriculumEntry.admitted_year = $('#admitted_year').val();
-                 					curriculumEntry.programType = $('#programType').val();
-                 					curriculumEntry.program = $('#program').val();
-                 					curriculumEntry.course = $('#course').val();
-                 					curriculumEntry.noOfScheme = $('#noOfScheme').val();
-                 					curriculumEntry.scheme = $('#scheme').val();
-                 					
-                 				 	var curriculumEntryId = $('#idForm').val();
-                 					if(curriculumEntryId)
-                 						{
-                 						dynamicURL="http://localhost:8080/updateCurriculumEntryById/"+curriculumEntryId;
-                 						methodName="PUT";
-                 						status="Updated"
-                 						}
-                 					else
-                 						{
-                 						dynamicURL="http://localhost:8080/loadAdminCurriculumEntry";
-                 						methodName="POST";
-                 						status="Saved"
-                 						} 
-                 		 			var curriculumEntryObj = JSON.stringify(curriculumEntry);
-                 				$.ajax({
-                 							url:dynamicURL,
-                 							method:methodName,
-                 							data: curriculumEntryObj,
-                 							contentType:'application/json; charset=utf-8',
-                 							success: function ()
-                 							{
-                 								swal(status+" Successfully.", {
-                   									buttons: false,
-                   									timer: 1000,
-                 									});
-                 								getAllCurriculumEntry();
-                 								reset();
-                 								/* getAllApplicationNoEntry();
-                 								reset(); */
-                 								/* getAllProgramEntry();
-                 								reset(); */
-                 							},
-                 							error: function (error)
-                 							{
-                 								alert(error);
-                 							}
-                 						});
-
-    return false;
-
-	}
-
-} );
 
 $.validator.addMethod("valueNotEquals", function(value, element, arg){
 	  return arg !== value;
@@ -464,102 +390,6 @@ $("#form1").validate({
 	}
 	});
 
-function getAllCurriculumEntry()
-{
-	$.ajax({
-	url:"http://localhost:8080/getAllCurriculumEntry",
-	method:"GET",
-	datatype:"json",
-	success:function(data)
-	{
-		var tableBody = $('#tblCurriculumEntry tbody');
-		tableBody.empty();
-		$(data).each(function(index,element)
-				{
-					tableBody.append('<tr><td>'+element.id+'</td><td>'+element.programType+'</td><td>'+element.program+'</td><td>'+element.course+'</td><td>'+element.admitted_year+'</td><td><i onclick="updateCurriculumEntry('+element.id+')" class="edit icon"></i></td><td><i onclick="deleteCurriculumEntry('+element.id+')" class="trash icon"></i></td></tr>');
-				})
-		},
-		error:function (error)
-		{
-alert(error);
-		}
-
-		});
-}
-
-
-function updateCurriculumEntry(id)
-{
-	 /* alert(id); */
-
-	$.ajax({
-		url:"http://localhost:8080/getCurriculumEntryById/"+id,
-		method:"GET",
-		datatype:"json",
-		success:function(data)
-			{
-			 alert(data.onlineapplicationNoFrom); 
-			
-				$('#admitted_year').val(data.admitted_year);
-				$('#programType').val(data.programType);
-				$('#program').val(data.program);
-				$('#course').val(data.course);
-				$('#noOfScheme').val(data.noOfScheme);
-				$('#scheme').val(data.scheme);
-				
-				$('#idForm').val(data.id);
-			
-				getAllCurriculumEntry();
-				},
-				error:function(error)
-				{
-alert(error);
-					}
-		
-		});
-	}
-
- function reset()
-    {
-    	var admitted_year = $('#admitted_year').val('');
-    	var programType = $('#programType').val('');
-    	var program = $('#program').val('');
-    	var course = $('#course').val('');
-    	var noOfScheme = $('#noOfScheme').val('');
-    	var scheme = $('#scheme').val('');
-    	var id = $('#idForm').val('');	
-    	
-	}
-
-
-	function deleteCurriculumEntry(id)
-	{
-		swal({
-			  title: "Are you sure?",
-			  text: "Once deleted, you will not be able to recover the Program Type!",
-			  icon: "warning",
-			  buttons: true,
-			  dangerMode: true,
-			})
-			.then((willDelete) => {
-			  if (willDelete) {
-				  $.ajax({
-						url:"http://localhost:8080/deleteCurriculumEntryByEntryBy/"+id,
-						method:'DELETE',
-						contentType:'application/json; charset=utf-8',
-						success: function ()
-						{
-							getAllCurriculumEntry();
-						}
-				  });
-			    swal("Curriculum Entry has been deleted!", {
-			      icon: "success",
-			    });
-			  } else {
-			    swal("Curriculum Number Entry is Safe!");
-			  }
-			});
-	}
 </script>
 
 

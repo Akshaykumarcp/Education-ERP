@@ -13,10 +13,13 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Service;
 
+import com.example.erp.model.Registeration;
 import com.example.erp.model.admin.ApplicationNoEntry;
 import com.example.erp.model.admin.CheckListEntry;
 import com.example.erp.model.admin.CourseEntry;
 import com.example.erp.model.admin.CurriculumEntry;
+import com.example.erp.model.admin.InterviewDefinition;
+import com.example.erp.model.admin.OnlineApplicationForm;
 import com.example.erp.model.admin.ProgramEntry;
 import com.example.erp.model.admin.ProgramType;
 
@@ -589,5 +592,134 @@ template.update(sql);
 		template.update(sql);
 	}
 
+	public void saveonlineApplicationForm(OnlineApplicationForm oaf) {
+		String sql = "insert into adminonlineapplicationform(program_type,program,first_preference,candidate_name,dob,student_category,phone_number,e_mail,confirm_email,terms_and_condition) values('"+oaf.getProgramType()+"','"+oaf.getProgram()+"','"+oaf.getFirstPreference()+"','"+oaf.getCandiateName()+"','"+oaf.getDOB()+"','"+oaf.getStudentCategory()+"','"+oaf.getPhoneNumber()+"','"+oaf.geteMail()+"','"+oaf.getConfirmEmail()+"','"+oaf.getTermsAndCondition()+"')";
+		System.out.println(sql);
+		template.update(sql);
+	}
+
+	public void loadAdminInterviewDefinition(InterviewDefinition interviewdefinition) {
+		String sql = "insert into admininterviewdefinition(admitted_year,program_type,program,course,interview_type,sequence_of_interview,interview_per_panel) values('"+interviewdefinition.getAdmitted_year()+ "','"+interviewdefinition.getProgramType()+ "','"+interviewdefinition.getProgram()+ "','"+interviewdefinition.getCourse()+ "','"+interviewdefinition.getInterviewType()+ "','"+interviewdefinition.getSequenceOfInterview()+ "','"+interviewdefinition.getInterviewPerPanel()+"')";
+		System.out.println(sql);
+		template.update(sql);
+	}
+
+	public List<InterviewDefinition> getAllInterviewDefinition() {
+		return template.query("select * from admininterviewdefinition",new ResultSetExtractor<List<InterviewDefinition>>(){  
+		    
+		     public List<InterviewDefinition> extractData(ResultSet rs) throws SQLException,  
+		            DataAccessException {  
+		      
+		        List<InterviewDefinition> list=new ArrayList<InterviewDefinition>();  
+		        while(rs.next()){  
+		        	InterviewDefinition e=new InterviewDefinition();  
+		        	e.setId(rs.getInt(1));  
+					  e.setAdmitted_year(rs.getString(2));
+				        e.setProgramType(rs.getString(3));
+				        e.setProgram(rs.getString(4));
+						e.setCourse(rs.getString(5));
+						e.setInterviewType(rs.getString(6));
+						e.setSequenceOfInterview(rs.getString(7));
+						e.setInterviewPerPanel(rs.getString(8));
+		        list.add(e);  
+		        }  
+		        return list;  
+		        }  
+		    });
+	
+	}
+
+	public void deleteInterviewDefinitionById(int id) {
+		String sql = "delete from admininterviewdefinition where id=" + id + "";
+		template.update(sql);
+	}
+
+	public void updateInterviewDefinitionById(int id, InterviewDefinition interviewdefinition) {
+		String sql = "update admininterviewdefinition set admitted_year='"+interviewdefinition.getAdmitted_year()+"',program_type='" +  interviewdefinition.getProgramType()+ "',program='" +  interviewdefinition.getProgram()+ "',course='" +  interviewdefinition.getCourse()+ "',interview_type='" +  interviewdefinition.getInterviewType()+ "',sequence_of_interview='" +  interviewdefinition.getSequenceOfInterview()+ "',interview_per_panel='" +  interviewdefinition.getInterviewPerPanel()+ "' where id=" + id + "";
+		System.out.println(sql);
+		template.update(sql);
+	}
+
+	public InterviewDefinition getInterviewDefinitionById(int id) {
+
+		return template.query("select * from admininterviewdefinition where id="+id, new ResultSetExtractor<InterviewDefinition>() {
+
+			public InterviewDefinition extractData(ResultSet rs) throws SQLException, DataAccessException {
+				InterviewDefinition e = new InterviewDefinition();
+				while (rs.next()) {
+					
+					  e.setId(rs.getInt(1));  
+				        e.setAdmitted_year(rs.getString(2));
+				        e.setProgramType(rs.getString(3));
+				        e.setProgram(rs.getString(4));
+						e.setCourse(rs.getString(5));
+						e.setInterviewType(rs.getString(6));
+						e.setSequenceOfInterview(rs.getString(7));
+						e.setInterviewPerPanel(rs.getString(8));
+						
+				}
+				return e;
+			}
+		});
+	
+	}
+
+	public List<InterviewDefinition> interviewTypeFromInterviewDefinition() {
+		return template.query("select interview_type from admininterviewdefinition", new ResultSetExtractor<List<InterviewDefinition>>() {
+
+			public List<InterviewDefinition> extractData(ResultSet rs) throws SQLException, DataAccessException {
+				List<InterviewDefinition> list = new ArrayList<InterviewDefinition>();
+				while (rs.next()) {
+					InterviewDefinition e=new InterviewDefinition();  
+					e.setInterviewType(rs.getString(1));
+					list.add(e);
+					list.toString();
+				}
+				return list;
+			}
+		});
+	
+	}
+
+	public List<Registeration> getStudentsByFilter(String course) {
+		
+		String sql="select * from Registeration WHERE course='"+course+"' ";
+		System.out.println(sql);
+	
+		return template.query("select * from registeration WHERE course='"+course+"' ",new ResultSetExtractor<List<Registeration>>(){
+
+		     public List<Registeration> extractData(ResultSet rs) throws SQLException, DataAccessException {  
+		    	 
+		    	 List<Registeration> list=new ArrayList<Registeration>();  
+		    	System.out.println("list empty" + list);
+		        while(rs.next()){  
+		        	 Registeration e=new Registeration();  
+		        	 e.setId(rs.getInt(1));
+		        	e.setFullname(rs.getString(3));		        	
+			        e.setCourse(rs.getString(6));
+			        e.setEntrance_exam(rs.getString(28));
+			        e.setR_no(rs.getString(29));		        
+			        e.setR_marks(rs.getString(30));  
+			        e.setCaste(rs.getString(10)); 			        
+			        list.add(e); 
+			        System.out.println("list with value" + list);
+			        System.out.println(list.toString());
+			     
+		        }  
+		        return list;  
+		        }  
+		    }); 
+		
+		
+	}
+	
+	public void updateStatus(String regisId) {
+		String selected="selected";
+		// TODO Auto-generated method stub
+		String sql="update Registeration set status='"+selected+"' where id="+regisId+"";
+		System.out.println(sql);
+	   template.update(sql); 
+		
+	}
 	
 }
